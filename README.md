@@ -1,6 +1,6 @@
 # Gorn Fishing 🎣
 
-The official app of **CoPCO — the Co-operative of Pleasure Craft Owners**: Merv, Ace, Northy and Bouncing, four mates who went quarter-shares on a 1980s **Caribbean 205 Commodore** (International Marine, Scoresby) with a Yamaha V6 200 two-stroke, bought from Bouncing's Uncle Uncle.
+The official app of **CoPCO — the Co-operative of Pleasure Craft Owners**: Merv, Ace and Bouncing (25% each) and Merv's son (12.5%) — with Northy's 12.5% held open while he stands on the jetty — co-owners under a tontine of a 1980s **Caribbean 205 Commodore** (International Marine, Scoresby) with a Yamaha V6 200 two-stroke, bought from Bouncing's Uncle Uncle.
 
 **Live:** https://travis-coder712.github.io/gorn-fishing/ — open on your phone and *Add to Home Screen*.
 

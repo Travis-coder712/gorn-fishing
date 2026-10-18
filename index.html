@@ -76,7 +76,8 @@ summary::-webkit-details-marker{display:none}
 .hero h1{font-size:clamp(30px,8vw,46px);line-height:1}
 .hero p{margin:8px 0 0;color:var(--muted)}
 @media(max-width:480px){.hero{flex-direction:column;text-align:center}.hero img{width:150px;height:150px}}
-.crew{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.crew{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}
+@media(max-width:520px){.crew{grid-template-columns:repeat(3,1fr)}}
 .mate{text-align:center;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:10px 4px}
 .mate .av{width:44px;height:44px;border-radius:50%;margin:0 auto 6px;display:grid;place-items:center;font-family:var(--serif);font-size:20px;color:#fff}
 .mate b{font-size:14px}
@@ -204,7 +205,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
     <div>
       <div class="eyebrow">The official app of CoPCO</div>
       <h1>Gorn Fishing</h1>
-      <p>Four mates, one 1980s Caribbean Commodore from Bouncing's Uncle Uncle, and the whole of Port Phillip Bay. Everything we know, owe, need and want — in one place.</p>
+      <p>Merv, Ace, Bouncing and Merv's son — plus Northy, still standing on the jetty — one 1980s Caribbean Commodore from Bouncing's Uncle Uncle, and the whole of Port Phillip Bay. Everything we know, owe, need and want — in one place.</p>
     </div>
   </div>
 
@@ -345,7 +346,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
         <tr><td><b>Boat rego transfer</b></td><td>One registered owner</td><td>$21.50 transfer + ~$105/yr rego <span class="tag chk">verify</span></td><td>Within 14 days of sale</td></tr>
         <tr><td><b>Trailer rego transfer</b></td><td>Same owner</td><td>$7.20 transfer, no roadworthy for light trailer</td><td>Same visit</td></tr>
         <tr><td><b>PPSR check</b></td><td>Before money changes hands</td><td>~$3.40 <span class="tag chk">verify</span></td><td>Minutes, online</td></tr>
-        <tr><td><b>Insurance</b></td><td>All four named</td><td>~$500–1,200/yr <span class="tag est">est.</span></td><td>Same day once quoted</td></tr>
+        <tr><td><b>Insurance</b></td><td>All owners named</td><td>~$500–1,200/yr <span class="tag est">est.</span></td><td>Same day once quoted</td></tr>
         <tr><td><b>Safety kit</b></td><td>The boat</td><td>~$800–1,500 if buying it all new</td><td>One BCF trip</td></tr>
         <tr><td><b>Boat ramp fees</b></td><td>—</td><td><b>Free</b> at Victorian public ramps since 2019</td><td>—</td></tr>
       </tbody>
@@ -386,7 +387,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
       <ul class="tidy">
         <li>Ballpark <b>$500–1,200/yr</b> for a $10–25k trailer cabin cruiser <span class="tag est">est.</span> — get three quotes: Club Marine, BoatSafe, RACV Marine, NRMA Marine, Nautilus.</li>
         <li><b>Ask for:</b> agreed value, $5M+ on-water liability, cover while towing, salvage/towing, lay-up discount for winter.</li>
-        <li><b>Co-ownership:</b> declare it. Name all four of us (or list as "any licensed operator") so a claim can't be knocked back because Northy was driving.</li>
+        <li><b>Co-ownership:</b> declare it. Name every owner (or list as "any licensed operator") so a claim can't be knocked back because Merv's son was driving.</li>
         <li>Older boats may need a survey or a mechanic's report before cover — the recommission service doubles as that.</li>
       </ul>
     </details>
@@ -405,16 +406,23 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
       </table></div>
       <p class="small muted">An EPIRB isn't mandatory inside the bay but is cheap insurance. Check expiry dates on any flares and extinguishers that come with the boat. Display the ST173 minimum-safety-equipment sticker. <a href="https://safetransport.vic.gov.au/on-the-water/recreational-boating/safety-equipment/" target="_blank" rel="noopener">Safe Transport Victoria — safety equipment</a></p>
     </details>
-    <details><summary>🤝 Co-op rules (the syndicate agreement)</summary>
-      <ul class="tidy">
-        <li>Shares (equal quarters?), a monthly kitty for rego/insurance/servicing, and who pays fuel per trip.</li>
-        <li>Booking calendar — who gets it on long weekends?</li>
-        <li><b>The ding rule:</b> who pays the insurance excess if someone damages it.</li>
-        <li>Who may skipper (licensed + a couple of supervised trips).</li>
-        <li>Exit/buy-out: how a share is valued if someone wants out.</li>
-        <li>Rego goes in one person's name — decide who, and the others go on the insurance and the agreement.</li>
-        <li class="muted">Not legal advice — a one-page agreement signed by all four beats none.</li>
-      </ul>
+    <details open><summary>⚰️ The CoPCO Tontine (our co-op agreement)</summary>
+      <p><b>The deal: last one standing owns the boat.</b> No selling out, no buy-outs. When an owner dies, their share passes to the surviving owners. The final survivor gets the boat (and the fuel bill).</p>
+      <p class="small muted">A <i>tontine</i> was originally a 17th-century investment scheme: everyone paid in, and the payouts were shared among the survivors until the last one took the lot. They're banned as financial products today, but the "last survivor takes all" idea is legal for jointly owned property. In Australia it's called <b>joint tenancy with right of survivorship</b>: when one joint owner dies, their interest passes automatically to the others and doesn't go through their will. (Yes, it's also the plot of the Simpsons' Flying Hellfish episode.)</p>
+      <h4 style="margin:12px 0 4px">Draft clauses</h4>
+      <ol class="tidy small">
+        <li><b>Ownership.</b> The vessel, trailer and gear are owned by the members as <b>joint tenants</b>. Interests: Merv 25%, Ace 25%, Bouncing 25%, Merv's son 12.5%, Northy 12.5% (Northy's interest takes effect when he signs — until then the others carry it).</li>
+        <li><b>Survivorship.</b> When a member dies, their interest passes to the surviving members in proportion to their shares. The last surviving member becomes sole owner.</li>
+        <li><b>No exit.</b> No member may sell, mortgage or give away their interest. Membership ends only by death (or by unanimous vote of the others).</li>
+        <li><b>Pay your way.</b> Costs are split by share through the CoPCO kitty. A member who's more than 6 months behind loses their vote on spending until they catch up. (Optional harder version: unpaid for 12 months = interest forfeits to the others.)</li>
+        <li><b>Wills.</b> Each member tells their family that the boat is <i>not</i> in their estate — it goes to the survivors.</li>
+        <li><b>Rego holder.</b> The boat is registered in one member's name as trustee for all members. If the rego holder dies, it's transferred to a surviving member.</li>
+        <li><b>The ding rule.</b> If someone damages the boat, they pay the insurance excess.</li>
+        <li><b>Skippers.</b> Members need a marine licence plus two supervised trips before taking her out without another member aboard.</li>
+        <li><b>Disputes.</b> Settled by a majority vote of the shares. A tie is settled over a beer at the Patterson River ramp.</li>
+      </ol>
+      <p class="small muted">Not legal advice. Joint tenancy can be "severed" (for example by a written notice from one owner, or by a bankruptcy), which would turn that share back into an ordinary saleable share. So have a solicitor turn this into a one-page signed agreement, and get every member to note it in their will. Cheap, worth it, and great for the merch.</p>
+      <div class="small" id="tontineSigs" style="margin-top:8px"></div>
     </details>
   </div>
 </section>
@@ -655,7 +663,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
 
 <!-- ========== MONEY ========== -->
 <section class="view" id="v-money">
-  <div class="sec"><div class="eyebrow">The kitty</div><h2>Money tracker</h2><div class="sub">Every dollar in, split four ways, and who owes who.</div><div class="small syncstat" style="margin-top:6px"></div></div>
+  <div class="sec"><div class="eyebrow">The kitty</div><h2>Money tracker</h2><div class="sub">Every dollar in, split by ownership share (or equally), and who owes who.</div><div class="small syncstat" style="margin-top:6px"></div></div>
   <div class="tiles" id="moneyTiles" ></div>
   <div class="card"><h3>Settle up</h3><div id="settle" class="small"></div></div>
   <div class="card">
@@ -669,8 +677,11 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
       <div><label>Category</label><select id="exCat"></select></div>
       <div><label>Date</label><input id="exDate" type="date"></div>
     </div>
-    <label>Split between</label>
+    <label>How to split</label>
+    <div class="chips" id="exMode"></div>
+    <label>Between</label>
     <div class="chips" id="exSplit"></div>
+    <div class="small muted" id="exSplitInfo" style="margin-top:6px"></div>
     <div class="row" style="margin-top:12px"><button class="btn" onclick="addExpense()">Add expense</button></div>
   </div>
   <div class="card"><h3>All expenses</h3><div id="exList"></div></div>
@@ -832,12 +843,16 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
 
 <script>
 /* ================= DATA ================= */
+// share = ownership fraction. signed:false = not on board yet (left out of default expense splits).
 const CREW = [
-  {id:'merv', name:'Merv', col:'#e0533d'},
-  {id:'ace', name:'Ace', col:'#2a8c9a'},
-  {id:'northy', name:'Northy', col:'#e7b24a'},
-  {id:'bouncing', name:'Bouncing', col:'#7b6fd6', note:'home port: Seaford'},
+  {id:'merv', name:'Merv', col:'#e0533d', share:.25, signed:true},
+  {id:'ace', name:'Ace', col:'#2a8c9a', share:.25, signed:true},
+  {id:'bouncing', name:'Bouncing', col:'#7b6fd6', share:.25, signed:true, note:'home port: Seaford'},
+  {id:'mervson', name:"Merv's son", init:'Jr', col:'#4f9d69', share:.125, signed:true, note:'half of the 4th share'},
+  {id:'northy', name:'Northy', col:'#e7b24a', share:.125, signed:false, note:'HOLDOUT — still on the jetty'},
 ];
+const SHARE=Object.fromEntries(CREW.map(c=>[c.id,c.share]));
+const pct=x=>(x*100).toFixed(x*100%1?1:0)+'%';
 // Drop boat photos into /photos and list them here.
 const BOAT_PHOTOS = [
   {src:'photos/hull-side.jpg',cap:'The Commodore on her Dunbier tandem'},
@@ -986,7 +1001,8 @@ function go(v){
 }
 
 /* ================= HOME / BOAT ================= */
-$('crew').innerHTML=CREW.map(c=>`<div class="mate"><div class="av" style="background:${c.col}">${c.name[0]}</div><b>${c.name}</b><small>${c.note||'¼ share'}</small></div>`).join('');
+$('crew').innerHTML=CREW.map(c=>`<div class="mate" style="${c.signed?'':'opacity:.75;border-style:dashed;border-color:var(--coral)'}"><div class="av" style="background:${c.col}">${c.init||c.name[0]}</div><b>${c.name}</b><small style="color:${c.signed?'var(--gold)':'var(--coral-2)'};font-weight:700">${pct(c.share)}${c.signed?'':' (unsigned)'}</small><small>${c.note||''}</small></div>`).join('');
+$('tontineSigs').innerHTML='<b>Signed up:</b> '+CREW.map(c=>`${c.signed?'✅':'⏳'} ${c.name} (${pct(c.share)})`).join(' · ');
 $('stages').innerHTML=STAGES.map((s,i)=>`<div class="${i<STAGE_NOW?'done':i===STAGE_NOW?'now':''}" title="${s}"></div>`).join('');
 $('stagePill').textContent='Stage: '+STAGES[STAGE_NOW];
 $('boatFacts').innerHTML=BOAT_FACTS.map(([k,v])=>`<tr><th style="width:38%">${k}</th><td>${esc(v)}</td></tr>`).join('');
@@ -1028,17 +1044,20 @@ $('exWho').innerHTML=CREW.map(c=>`<option value="${c.id}">${c.name}</option>`).j
 $('exCat').innerHTML=CATS.map(c=>`<option>${c}</option>`).join('');
 $('exDate').valueAsDate=new Date();
 if(S.me)$('exWho').value=S.me;
-let split=new Set(CREW.map(c=>c.id));
-function renderSplit(){$('exSplit').innerHTML=CREW.map(c=>`<button class="chip ${split.has(c.id)?'on':''}" onclick="split.has('${c.id}')?split.delete('${c.id}'):split.add('${c.id}');renderSplit()">${c.name}</button>`).join('')}
+let split=new Set(CREW.filter(c=>c.signed).map(c=>c.id)), splitMode='share';
+function renderSplit(){$('exMode').innerHTML=[['share','By ownership share'],['equal','Equal split']].map(([k,l])=>`<button class="chip ${splitMode===k?'on':''}" onclick="splitMode='${k}';renderSplit()">${l}</button>`).join('');
+  const ws=[...split].map(p=>splitMode==='share'?SHARE[p]:1),tot=ws.reduce((a,b)=>a+b,0);
+  $('exSplitInfo').innerHTML=split.size?[...split].map((p,i)=>`${nm(p)} ${pct(ws[i]/tot)}`).join(' · '):'';
+  $('exSplit').innerHTML=CREW.map(c=>`<button class="chip ${split.has(c.id)?'on':''}" onclick="split.has('${c.id}')?split.delete('${c.id}'):split.add('${c.id}');renderSplit()">${c.name}</button>`).join('')}
 function addExpense(){
   const amt=parseFloat($('exAmt').value), what=$('exWhat').value.trim();
   if(!what||!(amt>0)||!split.size){alert('Need a description, an amount and at least one person to split with.');return}
-  const ex={id:uid(),what,amt,who:$('exWho').value,cat:$('exCat').value,date:$('exDate').value,split:[...split],by:S.me||''};S.expenses.unshift(ex);shareOp('expenses','upsert',{item:ex});
+  const ex={id:uid(),what,amt,who:$('exWho').value,cat:$('exCat').value,date:$('exDate').value,split:[...split],mode:splitMode,by:S.me||''};S.expenses.unshift(ex);shareOp('expenses','upsert',{item:ex});
   save();$('exWhat').value='';$('exAmt').value='';renderMoney();
 }
 function delExpense(id){if(confirm('Delete this expense for everyone?')){S.expenses=S.expenses.filter(e=>e.id!==id);save();renderMoney();shareOp('expenses','delete',{id})}}
 function balances(){const b={};CREW.forEach(c=>b[c.id]={paid:0,share:0});
-  S.expenses.forEach(e=>{b[e.who].paid+=e.amt;e.split.forEach(p=>b[p].share+=e.amt/e.split.length)});return b}
+  S.expenses.forEach(e=>{if(b[e.who])b[e.who].paid+=e.amt;const w=p=>e.mode==='share'?(SHARE[p]||0):1,tw=e.split.reduce((a,p)=>a+w(p),0)||1;e.split.forEach(p=>{if(b[p])b[p].share+=e.amt*w(p)/tw})});return b}
 function settlements(b){const d=CREW.map(c=>({id:c.id,v:Math.round((b[c.id].paid-b[c.id].share)*100)/100}));
   const cr=d.filter(x=>x.v>0.009).sort((a,b)=>b.v-a.v),db=d.filter(x=>x.v<-0.009).sort((a,b)=>a.v-b.v),out=[];
   let i=0,j=0;while(i<db.length&&j<cr.length){const x=Math.min(-db[i].v,cr[j].v);out.push([db[i].id,cr[j].id,x]);db[i].v+=x;cr[j].v-=x;if(db[i].v>-0.009)i++;if(cr[j].v<0.009)j++}
@@ -1046,10 +1065,10 @@ function settlements(b){const d=CREW.map(c=>({id:c.id,v:Math.round((b[c.id].paid
 const nm=id=>CREW.find(c=>c.id===id)?.name||id;
 function renderMoney(){
   const tot=S.expenses.reduce((a,e)=>a+e.amt,0),b=balances();
-  $('moneyTiles').innerHTML=`<div class="tile" style="grid-column:1/-1"><div class="n">${money(tot)}</div><div class="l">Total spent</div></div>`+CREW.slice(0,3).map(c=>`<div class="tile"><div class="n" style="font-size:18px">${money(b[c.id].paid)}</div><div class="l">${c.name} paid</div></div>`).join('')+`<div class="tile"><div class="n" style="font-size:18px">${money(b.bouncing.paid)}</div><div class="l">Bouncing paid</div></div>`;
+  $('moneyTiles').innerHTML=`<div class="tile" style="grid-column:1/-1"><div class="n">${money(tot)}</div><div class="l">Total spent</div></div>`+CREW.map(c=>`<div class="tile"><div class="n" style="font-size:18px">${money(b[c.id].paid)}</div><div class="l">${c.name} paid</div></div>`).join('');
   const st=settlements(b);
   $('settle').innerHTML=S.expenses.length?(st.length?st.map(([f,t,x])=>`<div class="item"><div class="main"><b>${nm(f)}</b> owes <b>${nm(t)}</b></div><div class="amt">${money(x)}</div></div>`).join(''):'<span class="muted">All square. 🍻</span>'):'<span class="muted">Nothing yet — add the first expense below.</span>';
-  $('exList').innerHTML=S.expenses.length?S.expenses.map(e=>`<div class="item"><div class="main"><b>${esc(e.what)}</b><div class="small muted">${esc(e.cat)} · ${nm(e.who)} paid · split ${e.split.length===CREW.length?'4 ways':e.split.map(nm).join(', ')} · ${e.date||''}</div></div><div class="amt">${money(e.amt)}</div><button class="x" onclick="delExpense('${e.id}')">×</button></div>`).join(''):'<p class="muted small">No expenses yet.</p>';
+  $('exList').innerHTML=S.expenses.length?S.expenses.map(e=>`<div class="item"><div class="main"><b>${esc(e.what)}</b><div class="small muted">${esc(e.cat)} · ${nm(e.who)} paid · ${e.mode==='share'?'by share':'equally'} · ${e.split.map(nm).join(', ')} · ${e.date||''}</div></div><div class="amt">${money(e.amt)}</div><button class="x" onclick="delExpense('${e.id}')">×</button></div>`).join(''):'<p class="muted small">No expenses yet.</p>';
   $('homeMoney').innerHTML=S.expenses.length?`<div style="font-family:var(--serif);font-size:26px;color:var(--gold)">${money(tot)}</div><div>${st.length?st.slice(0,3).map(([f,t,x])=>`${nm(f)} → ${nm(t)} ${money(x)}`).join('<br>'):'All square 🍻'}</div>`:'No expenses yet.';
 }
 function shareSummary(){const b=balances(),tot=S.expenses.reduce((a,e)=>a+e.amt,0);

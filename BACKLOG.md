@@ -64,7 +64,17 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 | 32 | Rename: Travis → Merv, Jason → Ace (crew nicknames everywhere) | ✅ (no Jason mentions existed) |
 | 33 | Explain why a 4-stroke is an "upgrade" | ✅ "Keep the two-stroke, or repower?" card on the Boat tab |
 
+## 3c. Fourth round (Merv, 18-10-2026)
+| # | Ask | Status |
+|---|---|---|
+| 34 | Drop the exit/buy-out clause → **tontine** (last one alive owns the boat) | ✅ Draft "CoPCO Tontine" (joint tenancy with right of survivorship) in Get Legal — needs a solicitor's one-pager |
+| 35 | Northy not over the line — don't call him a 25% owner | ✅ Shown as HOLDOUT, unsigned, 12.5% held open |
+| 36 | Add Merv's son as a part share; Northy + Merv's son halves of the 4th share | ✅ Merv/Ace/Bouncing 25% each, Merv's son 12.5%, Northy 12.5% (unsigned). Kitty splits by share; Northy left out of default splits until he signs |
+
 ## 4. Open questions for the crew
+- Merv's son — name/nickname for the app?
+- When Northy signs: flip `signed:true` in `CREW`. If he never does, does Merv's son take the full 25%?
+- Solicitor for the tontine one-pager? (joint tenancy can be severed by notice/bankruptcy — agreement + wills matter)
 - Is "Merv's brother" (taking the boat to the mechanic) Ace?
 - Purchase price agreed with Uncle Uncle?
 - Whose name goes on the rego?

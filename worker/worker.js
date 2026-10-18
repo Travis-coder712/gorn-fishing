@@ -2,7 +2,7 @@
 //   Votes:  GET /votes · POST /vote {member, logo, items}  — one record per member.
 //   Shared: GET /state · POST /op {coll, op, item|id|items} — kitty, to-dos and the upgrade wishlist,
 //           shared by every phone. Ops are applied server-side one at a time so two phones can't clobber each other.
-const MEMBERS = ['merv', 'ace', 'northy', 'bouncing'];
+const MEMBERS = ['merv', 'ace', 'bouncing', 'mervson', 'northy'];
 const COLLS = ['expenses', 'todos', 'wish'];
 const MAX_ITEMS = 500;
 const cors = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' };
@@ -18,7 +18,7 @@ function sanitise(coll, x) {
     if (!(amt > 0 && amt < 1e6) || !MEMBERS.includes(x.who)) return null;
     const split = (Array.isArray(x.split) ? x.split : []).filter(m => MEMBERS.includes(m));
     if (!split.length) return null;
-    return { id, what: str(x.what, 120), amt, who: x.who, cat: str(x.cat, 40), date: str(x.date, 10), split, by: MEMBERS.includes(x.by) ? x.by : '' };
+    return { id, what: str(x.what, 120), amt, who: x.who, cat: str(x.cat, 40), date: str(x.date, 10), split, mode: x.mode === 'share' ? 'share' : 'equal', by: MEMBERS.includes(x.by) ? x.by : '' };
   }
   if (coll === 'todos') return { id, t: str(x.t), who: str(x.who, 40), list: str(x.list, 40), done: !!x.done };
   if (coll === 'wish') return { id, t: str(x.t, 120), v: Math.max(0, Math.min(999, Math.round(Number(x.v) || 0))) };
