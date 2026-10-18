@@ -107,6 +107,8 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 
 | 55 | Flash → not committed (same as Northy) | ✅ v1.9.1 — kitty default split now Merv/Ace/Bouncing ⅓ each |
 
+| 56 | Navigation: photo viewer (swipe/arrows, counter, captions, ✕ / swipe-down / back closes), ‹ Back button, real history (phone back works), bottom **Menu** = jump-to-anything | ✅ v1.10.0 |
+
 ## 5. Should look deeper (self-review, 18-10-2026)
 | # | Item | Why it matters | Status |
 |---|---|---|---|
