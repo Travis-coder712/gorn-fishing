@@ -18,6 +18,8 @@ The official app of **CoPCO — the Co-operative of Pleasure Craft Owners**: Mer
 | **Money** | Expenses split four ways with settle-up |
 | **To-do** | Now / Before maiden voyage / Shopping / Someday |
 | **Upgrades** | Cover, cabin refit, fridge, fishing gear, budget tiers, voting wishlist |
+| **Calendar** | Plan trips, RSVP, Gorn Index for each planned day — shared |
+| **Upkeep** | Rego/insurance/service/safety-gear renewals with overdue flags — shared |
 | **Trip Log** | Trips, catches (with min-size warnings), photos, leaderboard — shared |
 | **Votes & Merch** | 4 logos × 8 products (cap, tee, polo, spray jacket, stubby holder, golf towel, golf ball, burgee) — live shared voting; boat-name poll; merch order (sizes, cost per head) |
 

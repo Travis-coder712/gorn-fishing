@@ -3,7 +3,7 @@
 //   Shared: GET /state · POST /op {coll, op, item|id|items} — kitty, to-dos and the upgrade wishlist,
 //           shared by every phone. Ops are applied server-side one at a time so two phones can't clobber each other.
 const MEMBERS = ['merv', 'ace', 'bouncing', 'mervson', 'northy'];
-const COLLS = ['expenses', 'todos', 'wish', 'names', 'sizes', 'trips'];
+const COLLS = ['expenses', 'todos', 'wish', 'names', 'sizes', 'trips', 'plans', 'upkeep'];
 const MAX_PHOTO = 1_500_000; // bytes — the app shrinks photos to ~1600px JPEG first
 const MAX_ITEMS = 500;
 const cors = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' };
@@ -39,6 +39,12 @@ function sanitise(coll, x) {
     return { id, date: str(x.date, 10), ramp: str(x.ramp, 40), spot: str(x.spot, 80), who, hours: Math.max(0, Math.min(24, Number(x.hours) || 0)),
       score: Math.max(0, Math.min(100, Math.round(Number(x.score) || 0))), notes: str(x.notes, 1000), catches, photos, by: MEMBERS.includes(x.by) ? x.by : '' };
   }
+  if (coll === 'plans') {
+    const rsvp = {};
+    for (const [m, v] of Object.entries(x.rsvp || {})) if (MEMBERS.includes(m) && ['in', 'maybe', 'out'].includes(v)) rsvp[m] = v;
+    return { id, date: str(x.date, 10), when: str(x.when, 20), ramp: str(x.ramp, 40), title: str(x.title, 120), by: MEMBERS.includes(x.by) ? x.by : '', rsvp };
+  }
+  if (coll === 'upkeep') return { id, t: str(x.t, 120), cat: str(x.cat, 20), due: str(x.due, 10), every: Math.max(0, Math.min(120, Math.round(Number(x.every) || 0))), last: str(x.last, 10), notes: str(x.notes, 300), who: str(x.who, 40) };
   if (coll === 'wish') return { id, t: str(x.t, 120), v: Math.max(0, Math.min(999, Math.round(Number(x.v) || 0))) };
   return null;
 }
@@ -108,6 +114,10 @@ export default {
         // Approval voting: a member can back as many names as they like, once each.
         const n = list.find(y => y.id === clean(b.id));
         if (n && MEMBERS.includes(b.member)) n.voters = n.voters.includes(b.member) ? n.voters.filter(m => m !== b.member) : [...n.voters, b.member];
+        st[b.coll] = list;
+      } else if (b.op === 'rsvp' && b.coll === 'plans') {
+        const pl = list.find(y => y.id === clean(b.id));
+        if (pl && MEMBERS.includes(b.member) && ['in', 'maybe', 'out'].includes(b.val)) pl.rsvp = { ...pl.rsvp, [b.member]: b.val };
         st[b.coll] = list;
       } else if (b.op === 'vote' && b.coll === 'wish') {
         const w = list.find(y => y.id === clean(b.id));

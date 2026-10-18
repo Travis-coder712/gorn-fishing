@@ -78,6 +78,14 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 | 38 | Name the tontine "The Commodore's Folly" | ✅ |
 | 39 | App version so we can tell if we're on the latest | ✅ v1.6.0 — footer + More sheet + update bar via `version.json` |
 
+## 3e. Sixth round (self-directed, 18-10-2026)
+| # | Item | Status |
+|---|---|---|
+| 40 | **Boat calendar** — plan trips, RSVP (in/maybe/out), Gorn Index per planned day, "Log this trip" → trip log | ✅ v1.7.0 (`plans`) |
+| 41 | **Upkeep & renewals** — rego, insurance, service, impeller, bearings, flares, extinguisher, lifejackets, EPIRB; overdue/soon flags, "Done" rolls the date forward | ✅ v1.7.0 (`upkeep`) |
+| 42 | Lapsed rego research → boat rego **cancelled** (>3 months), register fresh; trailer UVP | ✅ in Get Legal, Upkeep, To-do (`research/rego-and-photos.md`) |
+| 43 | Photos of sister Commodores (1980 listing, JV Marine, Pride President threads) | ✅ Boat tab |
+
 ## 4. Open questions for the crew
 - Merv's son — name/nickname for the app?
 - When Northy signs: flip `signed:true` in `CREW`. If he never does, does Merv's son take the full 25%?
