@@ -109,6 +109,8 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 
 | 56 | Navigation: photo viewer (swipe/arrows, counter, captions, ✕ / swipe-down / back closes), ‹ Back button, real history (phone back works), bottom **Menu** = jump-to-anything | ✅ v1.10.0 |
 
+| 57 | Cabin/deck dimensions + interior pictures | ✅ v1.11.0 — estimated plan view + dims table + tape-measure checklist (Boat); 3 cabin layouts + 9 interior/how-to videos (Upgrades). ⬜ swap estimates for real measurements |
+
 ## 5. Should look deeper (self-review, 18-10-2026)
 | # | Item | Why it matters | Status |
 |---|---|---|---|

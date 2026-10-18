@@ -223,6 +223,10 @@ body.subview .top img{display:none}
 .runrow summary{align-items:center}
 .runrow .kv{display:grid;grid-template-columns:90px 1fr;gap:4px 10px;font-size:13.5px;margin-top:6px}
 .runrow .kv b{color:var(--muted);font-weight:600}
+.vids{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px}
+.vid{display:block;text-decoration:none;color:var(--text);background:var(--bg2);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.vid img{width:100%;aspect-ratio:16/9;object-fit:cover;display:block}
+.vid b{display:block;font-size:13px;line-height:1.3;padding:6px 8px 0}.vid span{display:block;font-size:11.5px;color:var(--muted);padding:2px 8px 8px}
 </style>
 </head>
 <body>
@@ -296,6 +300,67 @@ body.subview .top img{display:none}
     <h3>What we know so far</h3>
     <table><tbody id="boatFacts"></tbody></table>
     
+  </div>
+
+  <div class="card">
+    <h3>📏 How big is she?</h3>
+    <p class="small muted">No published specs exist for the Commodore's cabin — these are <b>estimates</b> from the photos and the usual proportions of a 20 ft Aussie hardtop cabin boat, scaled to her registered 6.1 m. Grab a tape measure and we'll swap in real numbers.</p>
+    <svg viewBox="0 0 700 330" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:-apple-system,Segoe UI,Roboto,sans-serif">
+  <rect width="700" height="330" rx="14" fill="#f1e4c8"/>
+  <path d="M40,56.0 L410.0,50.0 Q590.0,60.0 650.0,170 Q590.0,280.0 410.0,290.0 L40,284.0 Z" fill="#fffaf0" stroke="#6b3f22" stroke-width="3"/>
+  <!-- zones -->
+  <rect x="40" y="56" width="45" height="228" fill="#e8d6b2"/>
+  <rect x="85" y="66" width="180" height="208" fill="#cfe7ea" stroke="#2a8c9a" stroke-dasharray="5 4"/>
+  <rect x="265" y="66" width="130" height="208" fill="#fde2c8" stroke="#d8742f" stroke-dasharray="5 4"/>
+  <path d="M395,70 L470,72 Q560,100 585,170 Q560,240 470,268 L395,270 Z" fill="#efd7a8" stroke="#6b3f22" stroke-width="2"/>
+  <!-- V-berth cushions -->
+  <path d="M402,78 L470,80 Q545,108 572,164 L402,140 Z" fill="#6b3f22" opacity=".85"/>
+  <path d="M402,262 L470,260 Q545,232 572,176 L402,200 Z" fill="#6b3f22" opacity=".85"/>
+  <!-- seats -->
+  <rect x="330" y="90" width="42" height="46" rx="8" fill="#d8742f"/><rect x="330" y="204" width="42" height="46" rx="8" fill="#d8742f"/>
+  <circle cx="385" cy="227" r="14" fill="none" stroke="#1b130d" stroke-width="3"/>
+  <!-- outboard -->
+  <rect x="10" y="152" width="30" height="36" rx="6" fill="#1b130d"/>
+  <!-- labels -->
+  <g font-size="13" fill="#1b130d" text-anchor="middle" font-weight="600">
+    <text x="175" y="166">Open cockpit</text><text x="175" y="184" font-weight="400">~1.8 × 2.0 m</text>
+    <text x="300" y="166">Helm</text><text x="300" y="184" font-weight="400">~1.3 m</text><text x="300" y="200" font-size="11" font-weight="400">(under hardtop)</text>
+    <text x="490" y="166" fill="#fff">Cabin</text><text x="490" y="184" fill="#fff" font-weight="400">~1.9 m</text>
+    <text x="62" y="300" font-size="11" font-weight="400">splash-</text><text x="62" y="313" font-size="11" font-weight="400">well</text>
+    <text x="630" y="130" font-size="11" font-weight="400">foredeck &amp;</text><text x="630" y="143" font-size="11" font-weight="400">anchor well</text>
+  </g>
+  <!-- dims -->
+  <g stroke="#6b3f22" stroke-width="1.5" fill="none"><path d="M40,310 H650 M40,304 v12 M650,304 v12"/><path d="M680,50 V290 M674,50 h12 M674,290 h12"/></g>
+  <text x="345" y="328" text-anchor="middle" font-size="13" fill="#6b3f22" font-weight="700">6.1 m overall (rego)</text>
+  <text x="695" y="174" font-size="13" fill="#6b3f22" font-weight="700" transform="rotate(90 695 170)" text-anchor="middle">~2.4 m beam</text>
+  <text x="20" y="24" font-size="15" font-weight="800" fill="#6b3f22">Caribbean Commodore — plan view (estimated)</text>
+</svg>
+    <div class="tblwrap" style="margin-top:10px"><table>
+      <thead><tr><th>Space</th><th>Estimate</th><th>What it means</th></tr></thead>
+      <tbody>
+        <tr><td><b>Overall</b></td><td>6.1 m × ~2.4 m beam</td><td>Registered length; beam typical for the class</td></tr>
+        <tr><td><b>Open cockpit</b> (behind the seats)</td><td>~1.8 m long × ~2.0 m wide inside the gunwales</td><td>Room for 3–4 to fish side by side; ~3.5 m² of floor</td></tr>
+        <tr><td><b>Helm area</b> (under the hardtop)</td><td>~1.3 m long; near standing headroom under the hardtop</td><td>Skipper + passenger seat, out of the sun and spray</td></tr>
+        <tr><td><b>Cabin</b> (lock-up, through the door)</td><td>~1.9 m long · ~1.8–1.9 m wide at the door, tapering to the bow</td><td>Crouch, not stand: ~1.2–1.3 m floor to roof; sit-up headroom on the bunks</td></tr>
+        <tr><td><b>V-berth bunks</b></td><td>2 × ~1.85–1.9 m long, ~0.6 m wide at the head tapering to ~0.25 m</td><td>With an infill cushion: a ~1.9 m triangular double</td></tr>
+        <tr><td><b>Foredeck & anchor well</b></td><td>~1.0–1.2 m from the windscreen to the bow</td><td>Anchor winch, bow rail, sunbaking in port</td></tr>
+        <tr><td><b>Total usable deck</b></td><td>~6 m² (cockpit + helm)</td><td>Plus ~3 m² of cabin floor/bunks</td></tr>
+      </tbody>
+    </table></div>
+    <details style="margin-top:6px"><summary class="small">📐 Tape-measure checklist (send us the numbers)</summary>
+      <ol class="tidy small">
+        <li>Beam — widest point, outside to outside.</li>
+        <li>Cockpit floor — transom/splashwell to the back of the seats; and gunwale to gunwale.</li>
+        <li>Gunwale height above the cockpit floor (knee/thigh support when fishing).</li>
+        <li>Hardtop — floor to underside (do we bump heads?).</li>
+        <li>Cabin door — width and height.</li>
+        <li>Cabin — door to the bow tip of the V-berth, along the centreline.</li>
+        <li>Each bunk — length along the hull; width at the head end and the foot end; height above the cabin floor.</li>
+        <li>Sitting headroom — bunk top to cabin roof.</li>
+        <li>The gap between the bunks at the door end (infill cushion size).</li>
+        <li>Under-bunk lockers — usable depth (fridge? battery? Porta Potti?).</li>
+      </ol>
+    </details>
   </div>
 
   <div class="card">
@@ -901,6 +966,61 @@ body.subview .top img{display:none}
         </tbody>
       </table></div>
     </details>
+  </div>
+
+  <div class="card">
+    <h3>🛏️ Three ways to lay out our cabin</h3>
+    <p class="small muted">Drawn for the Commodore's ~1.9 m V-berth (estimated — confirm with the tape-measure checklist on the Boat tab).</p>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px"><div><svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:-apple-system,Segoe UI,Roboto,sans-serif">
+  <rect width="260" height="220" rx="12" fill="#f1e4c8"/>
+  <text x="12" y="22" font-size="14" font-weight="800" fill="#6b3f22">A · Weekender double</text>
+  <path d="M20,40 L120,42 Q210,70 245,120 Q210,170 120,198 L20,200 Z" fill="#fffaf0" stroke="#6b3f22" stroke-width="2.5"/>
+  <path d="M26,48 L118,50 Q195,74 236,118 L26,96 Z" fill="#6b3f22"/><path d="M26,192 L118,190 Q195,166 236,122 L26,144 Z" fill="#6b3f22"/>
+  <path d="M26,98 L236,120 L26,142 Z" fill="#d8742f"/><text x="90" y="125" font-size="11" fill="#fff" font-weight="700">infill cushion</text>
+  <rect x="40" y="112" width="34" height="16" rx="4" fill="#e8b04a"/><text x="57" y="108" font-size="9" fill="#6b3f22" text-anchor="middle">loo under</text>
+  <text x="22" y="214" font-size="10" fill="#6b3f22">bulkhead / door</text><text x="250" y="214" font-size="10" fill="#6b3f22" text-anchor="end">bow →</text>
+</svg><p class="small" style="margin:4px 2px 0"><b>Two bunks + an infill cushion = a ~1.9 m triangular double.</b> Porta Potti lives under the infill; stowage under both bunks. Cheapest: ~$300–650 DIY in foam + vinyl.</p></div><div><svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:-apple-system,Segoe UI,Roboto,sans-serif">
+  <rect width="260" height="220" rx="12" fill="#f1e4c8"/>
+  <text x="12" y="22" font-size="14" font-weight="800" fill="#6b3f22">B · Day-tripper dinette</text>
+  <path d="M20,40 L120,42 Q210,70 245,120 Q210,170 120,198 L20,200 Z" fill="#fffaf0" stroke="#6b3f22" stroke-width="2.5"/>
+  <path d="M26,48 L118,50 Q195,74 236,118 L26,96 Z" fill="#6b3f22"/><path d="M26,192 L118,190 Q195,166 236,122 L26,144 Z" fill="#6b3f22"/>
+  <rect x="60" y="100" width="90" height="40" rx="8" fill="#e8b04a" stroke="#6b3f22"/><text x="105" y="124" font-size="11" fill="#6b3f22" text-anchor="middle" font-weight="700">drop-in table</text>
+  <text x="70" y="78" font-size="10" fill="#fff">seat</text><text x="70" y="172" font-size="10" fill="#fff">seat</text>
+  <text x="22" y="214" font-size="10" fill="#6b3f22">bulkhead / door</text><text x="250" y="214" font-size="10" fill="#6b3f22" text-anchor="end">bow →</text>
+</svg><p class="small" style="margin:4px 2px 0"><b>Bunks become bench seats around a pedestal table</b> for four out of the weather; table drops to bunk height + infill = double. Table + pedestal ~$150–300.</p></div><div><svg viewBox="0 0 260 220" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;font-family:-apple-system,Segoe UI,Roboto,sans-serif">
+  <rect width="260" height="220" rx="12" fill="#f1e4c8"/>
+  <text x="12" y="22" font-size="14" font-weight="800" fill="#6b3f22">C · Fisho's cabin</text>
+  <path d="M20,40 L120,42 Q210,70 245,120 Q210,170 120,198 L20,200 Z" fill="#fffaf0" stroke="#6b3f22" stroke-width="2.5"/>
+  <path d="M26,192 L118,190 Q195,166 236,122 L26,144 Z" fill="#6b3f22"/>
+  <rect x="28" y="50" width="56" height="42" rx="6" fill="#2a8c9a"/><text x="56" y="75" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">fridge</text>
+  <rect x="88" y="52" width="50" height="38" rx="6" fill="#d8742f"/><text x="113" y="75" font-size="10" fill="#fff" text-anchor="middle" font-weight="700">galley box</text>
+  <path d="M146,56 L210,86" stroke="#1b130d" stroke-width="4"/><path d="M150,66 L214,94" stroke="#1b130d" stroke-width="4"/><text x="186" y="66" font-size="9" fill="#6b3f22">rod rack</text>
+  <rect x="190" y="112" width="30" height="16" rx="4" fill="#e8b04a"/><text x="205" y="108" font-size="9" fill="#6b3f22" text-anchor="middle">loo</text>
+  <text x="22" y="214" font-size="10" fill="#6b3f22">bulkhead / door</text><text x="250" y="214" font-size="10" fill="#6b3f22" text-anchor="end">bow →</text>
+</svg><p class="small" style="margin:4px 2px 0"><b>Keep one bunk, give the other side to a 40 L fridge, a lift-out galley box and a rod rack.</b> Best for fishing days; sleeps one (or two very good mates).</p></div></div>
+    <p class="small" style="margin-top:10px"><b>Our pick to start:</b> A (the weekender double) — it's the cheapest and keeps the toilet. Add B's drop-in table later, and put the fridge under the helm or passenger seat instead of losing a bunk.</p>
+  </div>
+
+  <div class="card" id="interiorLinks">
+    <h3>📸 Interiors of boats like ours</h3>
+    <p class="small muted">Real cuddy and half-cabin makeovers (US and Aussie), plus the how-to videos for the jobs in our cabin plan. Tap to watch on YouTube.</p>
+    <div class="eyebrow" style="margin:12px 0 6px">Makeovers — cuddy &amp; half cabins</div>
+    <div class="vids">
+      <a class="vid" href="https://www.youtube.com/watch?v=MayuspZVDtY" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/MayuspZVDtY/mqdefault.jpg" alt="" loading="lazy"><b>Fitting out a half cabin boat for camping</b><span>All Things Outdoors</span></a>
+      <a class="vid" href="https://www.youtube.com/watch?v=hjVvbmI9HM0" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/hjVvbmI9HM0/mqdefault.jpg" alt="" loading="lazy"><b>Setting up a small cuddy cabin for an overnight stay</b><span>2Bears Outdoors</span></a>
+      <a class="vid" href="https://www.youtube.com/watch?v=p8S4Wog_FkE" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/p8S4Wog_FkE/mqdefault.jpg" alt="" loading="lazy"><b>Cuddy cabin V-berth upgrade (part 1)</b><span>2Bears Outdoors</span></a>
+      <a class="vid" href="https://www.youtube.com/watch?v=E7OIrpHSe7E" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/E7OIrpHSe7E/mqdefault.jpg" alt="" loading="lazy"><b>Boat cabin &amp; teak door makeover</b><span>Perfect Fit Boating</span></a>
+      <a class="vid" href="https://www.youtube.com/watch?v=ZooRRUwqje8" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/ZooRRUwqje8/mqdefault.jpg" alt="" loading="lazy"><b>Cuddy cabin upholstery — Bayliner Capri</b><span>FriendnFamily</span></a>
+      <a class="vid" href="https://www.youtube.com/watch?v=8fEfzQIJHN0" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/8fEfzQIJHN0/mqdefault.jpg" alt="" loading="lazy"><b>Full half-cabin boat restoration, start to finish</b><span>Leth O&#x27;s Adventures</span></a>
+    </div>
+    <div class="eyebrow" style="margin:12px 0 6px">How-to — the jobs we&#x27;d actually do</div>
+    <div class="vids">
+      <a class="vid" href="https://www.youtube.com/watch?v=PVDsT8QWxko" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/PVDsT8QWxko/mqdefault.jpg" alt="" loading="lazy"><b>How to make V-berth cushions</b><span>Sailrite</span></a>
+      <a class="vid" href="https://www.youtube.com/watch?v=Hud28xn3oqM" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/Hud28xn3oqM/mqdefault.jpg" alt="" loading="lazy"><b>How to install carpet-style headliner</b><span>Sailrite</span></a>
+      <a class="vid" href="https://www.youtube.com/watch?v=nkKmv2aPE74" target="_blank" rel="noopener"><img src="https://i.ytimg.com/vi/nkKmv2aPE74/mqdefault.jpg" alt="" loading="lazy"><b>Replacing a soft cabin floor</b><span>FriendnFamily</span></a>
+    </div>
+    <p class="small" style="margin-top:10px"><b>Aussie classic worth reading:</b> <a href="https://www.tradeaboat.com.au/news-reviews/5255-1974-haines-hunter-213c" target="_blank" rel="noopener">Trade-a-Boat's 1974 Haines Hunter 213C project</a> — a similar-era 21-footer; they turned the void between the V-berth bunks into an insulated icebox. Steal that idea.</p>
+    <p class="small muted">Most refit forums (Ausfish etc.) block automated searches, so this is a starting list — post your own finds in the group chat and we'll add them.</p>
   </div>
 
   <div class="card">
@@ -1747,7 +1867,7 @@ function renderTrips(){
 
 /* ================= APP VERSION ================= */
 // Bump APP_VERSION here AND in version.json together on every release.
-const APP_VERSION='1.10.0', APP_DATE='18-10-2026';
+const APP_VERSION='1.11.0', APP_DATE='18-10-2026';
 $('verLine').innerHTML=`<b>Version ${APP_VERSION}</b> · ${APP_DATE} · <span id="verCheck">checking for updates…</span>`;
 $('verMore').textContent='v'+APP_VERSION;
 async function checkVersion(){
