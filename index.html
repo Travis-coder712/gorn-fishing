@@ -901,7 +901,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
         <thead><tr><th>Item</th><th>Ballpark each</th><th>Notes</th></tr></thead>
         <tbody id="priceRows"></tbody>
       </table></div>
-      <p class="small muted">All <span class="tag est">est.</span> — small runs cost more per item and most suppliers have minimums (often 12–24 caps, 50–100 stubby holders). Embroidery has a one-off digitising fee (~$50–90 per logo). Try a local embroidery/screen-print shop in the eastern or bayside suburbs (ask for a mixed order: caps + polos embroidered, tees printed), or an online custom-merch site. The crest and retro patch embroider cleanest; the full badge prints best.</p>
+      <p class="small muted">Small runs (5–10 of each) are fine for embroidery and DTF printing (usually a 10-piece minimum, no screens). Embroidery has a one-off digitising fee (~$50–80 per logo). Screen printing only pays at 25+. Stubby holders and golf balls have 50–100 minimums. Prices mostly ex-GST — add 10%. Close to Heathmont: <a href="https://fullypromoted.com.au/stores/mount-waverley/" target="_blank" rel="noopener">Fully Promoted Mt Waverley</a>; also <a href="https://melbournemerch.com.au/embroidery-melbourne" target="_blank" rel="noopener">Melbourne Merch</a> (DTF and embroidery from 10 pieces). Jacket: <a href="https://binksmarine.com.au/products/gill-os3-coastal-jacket" target="_blank" rel="noopener">Gill OS3 Coastal ~$350</a> — buy the jackets, then have them embroidered. The crest and retro patch embroider cleanest; the full badge prints best.</p>
     </details>
   </div>
 
@@ -1430,14 +1430,14 @@ function delName(id){S.names=S.names.filter(n=>n.id!==id);save();renderNames();s
 
 /* ================= MERCH ORDER ================= */
 const MERCH_PRICES=[
-  {k:'cap',name:'Trucker cap (embroidered)',each:28,note:'min ~12'},
-  {k:'tee',name:'T-shirt (printed)',each:25,note:'sized'},
-  {k:'polo',name:'Polo (embroidered)',each:45,note:'sized'},
-  {k:'jacket',name:'Spray jacket (embroidered)',each:120,note:'sized'},
-  {k:'stubby',name:'Stubby holder (printed)',each:6,note:'min ~50 — the boat will need spares'},
-  {k:'towel',name:'Golf towel (embroidered)',each:22,note:''},
-  {k:'balls',name:'Golf balls (printed, per ball)',each:5,note:'sold by the dozen'},
-  {k:'burgee',name:'Boat burgee (one-off, from the kitty)',each:90,note:'split by share'},
+  {k:'cap',name:'Trucker cap (Richardson 112 / Flexfit, embroidered)',each:30,note:'worth it — ~$22–35'},
+  {k:'tee',name:'T-shirt (AS Colour Staple + DTF print)',each:36,note:'cheap is fine — min ~10'},
+  {k:'polo',name:'Polo (AS Colour / Biz, embroidered)',each:50,note:'~$38–60'},
+  {k:'jacket',name:'Spray jacket (Gill OS3 Coastal + chest embroidery)',each:365,note:'proper gear; budget shell ~$100–190'},
+  {k:'stubby',name:'Stubby holder (neoprene, printed)',each:5,note:'min ~50 (~$250) — hand out spares'},
+  {k:'towel',name:'Golf towel (embroidered)',each:12,note:'min ~10–25'},
+  {k:'balls',name:'Golf balls (printed, per ball)',each:8,note:'min 50–100 balls — probably skip'},
+  {k:'burgee',name:'Boat burgee (one-off, from the kitty)',each:60,note:'flag maker'},
 ];
 const SIZES=['','XS','S','M','L','XL','2XL','3XL','4XL'];
 const mySizes=()=>S.sizes.find(x=>x.id===S.me)||{id:S.me,tee:'',polo:'',jacket:'',cap:0,stubby:0,towel:0,balls:0};
