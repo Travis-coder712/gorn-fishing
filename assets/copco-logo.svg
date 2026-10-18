@@ -1,0 +1,99 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <title>CoPCO — Co-operative of Pleasure Craft Owners</title>
+  <defs>
+    <clipPath id="inner"><circle cx="500" cy="500" r="318"/></clipPath>
+    <path id="arcTop" d="M128,500 A372,372 0 0 1 872,500"/>
+    <path id="arcBot" d="M70,500 A430,430 0 0 0 930,500"/>
+    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#f6e7c8"/>
+      <stop offset="1" stop-color="#f2c98f"/>
+    </linearGradient>
+    <g id="star"><path d="M0,-22 L6.5,-7 L22,-7 L9.5,3 L14,19 L0,9.5 L-14,19 L-9.5,3 L-22,-7 L-6.5,-7 Z"/></g>
+  </defs>
+
+  <!-- outer badge -->
+  <circle cx="500" cy="500" r="490" fill="#0f2a44"/>
+  <circle cx="500" cy="500" r="466" fill="none" stroke="#f4ead5" stroke-width="6"/>
+  <circle cx="500" cy="500" r="328" fill="none" stroke="#f4ead5" stroke-width="6"/>
+
+  <!-- ring lettering -->
+  <text font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-weight="900" font-size="44" fill="#f4ead5" letter-spacing="1">
+    <textPath href="#arcTop" startOffset="50%" text-anchor="middle" textLength="1060" lengthAdjust="spacing">CO-OPERATIVE OF PLEASURE CRAFT OWNERS</textPath>
+  </text>
+  <text font-family="'Arial Black','Helvetica Neue',Arial,sans-serif" font-weight="900" font-size="38" fill="#e7b24a" letter-spacing="3">
+    <textPath href="#arcBot" startOffset="50%" text-anchor="middle">PORT PHILLIP BAY · EST. 2026</textPath>
+  </text>
+  <use href="#star" x="96" y="500" fill="#e7b24a"/>
+  <use href="#star" x="904" y="500" fill="#e7b24a"/>
+
+  <!-- inner scene -->
+  <g clip-path="url(#inner)">
+    <rect x="150" y="150" width="700" height="700" fill="url(#sky)"/>
+    <!-- sun + rays -->
+    <g fill="#e0533d" opacity=".9">
+      <circle cx="500" cy="500" r="128"/>
+    </g>
+    <g stroke="#e0533d" stroke-width="10" stroke-linecap="round" opacity=".55">
+      <line x1="500" y1="330" x2="500" y2="292"/>
+      <line x1="380" y1="380" x2="352" y2="352"/>
+      <line x1="620" y1="380" x2="648" y2="352"/>
+      <line x1="420" y1="350" x2="404" y2="318"/>
+      <line x1="580" y1="350" x2="596" y2="318"/>
+    </g>
+    <!-- gulls -->
+    <g fill="none" stroke="#0f2a44" stroke-width="6" stroke-linecap="round">
+      <path d="M318,330 q14,-14 28,0 q14,-14 28,0"/>
+      <path d="M640,300 q10,-10 20,0 q10,-10 20,0"/>
+    </g>
+
+    <!-- the boat: trailer cabin cruiser, bow to the right -->
+    <g>
+      <!-- fishing rods off the stern -->
+      <g stroke="#0f2a44" stroke-width="5" fill="none" stroke-linecap="round">
+        <path d="M322,505 L250,385"/>
+        <path d="M250,385 Q225,470 214,585" stroke-width="2.5"/>
+        <path d="M340,505 L290,365"/>
+        <path d="M290,365 Q262,450 246,585" stroke-width="2.5"/>
+      </g>
+      <!-- cabin -->
+      <path d="M418,512 L446,452 L612,448 L668,508 Z" fill="#f4ead5" stroke="#0f2a44" stroke-width="8" stroke-linejoin="round"/>
+      <!-- windscreen + windows -->
+      <path d="M598,462 L632,500 L585,500 Z" fill="#2a8c9a" stroke="#0f2a44" stroke-width="5" stroke-linejoin="round"/>
+      <rect x="462" y="470" width="44" height="22" rx="7" fill="#2a8c9a" stroke="#0f2a44" stroke-width="5"/>
+      <rect x="520" y="470" width="44" height="22" rx="7" fill="#2a8c9a" stroke="#0f2a44" stroke-width="5"/>
+      <!-- bow rail -->
+      <path d="M640,506 L640,490 L742,486 L742,500" fill="none" stroke="#0f2a44" stroke-width="5" stroke-linejoin="round"/>
+      <!-- hull -->
+      <path d="M300,508 L772,496 Q742,560 668,572 L312,572 Z" fill="#ffffff" stroke="#0f2a44" stroke-width="8" stroke-linejoin="round"/>
+      <path d="M306,540 L748,532" stroke="#e0533d" stroke-width="12"/>
+      <!-- outboard -->
+      <path d="M268,494 L306,494 L304,530 L292,594 L280,594 L282,530 Z" fill="#0f2a44"/>
+      <rect x="262" y="486" width="48" height="26" rx="8" fill="#0f2a44"/>
+    </g>
+
+    <!-- water -->
+    <path d="M150,566 q30,-14 60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 V850 H150 Z" fill="#2a8c9a"/>
+    <path d="M150,600 q30,-12 60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 V850 H150 Z" fill="#1d6f7b"/>
+    <!-- jumping snapper -->
+    <g transform="translate(655 598) rotate(-22) scale(.72)">
+      <path d="M-46,0 Q-10,-30 34,-6 L58,-24 L52,0 L58,24 L34,6 Q-10,30 -46,0 Z" fill="#e0533d" stroke="#0f2a44" stroke-width="5" stroke-linejoin="round"/>
+      <circle cx="-30" cy="-4" r="4" fill="#0f2a44"/>
+    </g>
+    <!-- the four members -->
+    <g fill="#f4ead5">
+      <use href="#star" x="410" y="790" transform="scale(1)"/>
+      <use href="#star" x="470" y="800"/>
+      <use href="#star" x="530" y="800"/>
+      <use href="#star" x="590" y="790"/>
+    </g>
+  </g>
+
+  <!-- banner -->
+  <g>
+    <path d="M110,668 L190,668 L190,752 L110,752 L140,710 Z" fill="#a8372a"/>
+    <path d="M890,668 L810,668 L810,752 L890,752 L860,710 Z" fill="#a8372a"/>
+    <path d="M170,646 L830,646 L830,734 L170,734 Z" fill="#e0533d" stroke="#0f2a44" stroke-width="6"/>
+    <path d="M170,734 L190,752 L190,734 Z M830,734 L810,752 L810,734 Z" fill="#6e2219"/>
+    <text x="500" y="722" text-anchor="middle" font-family="Rockwell,'Rockwell Extra Bold','Arial Black',Georgia,serif" font-weight="800" font-size="92" fill="#f4ead5" letter-spacing="4">CoPCO</text>
+  </g>
+</svg>

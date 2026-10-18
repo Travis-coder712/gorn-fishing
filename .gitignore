@@ -1,0 +1,4 @@
+# Raw drop-zone: photos and chat notes get curated into the app before publishing
+inbox/
+.claude/
+.DS_Store

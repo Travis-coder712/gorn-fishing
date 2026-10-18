@@ -1,0 +1,976 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b1e33">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Gorn Fishing">
+<meta name="description" content="Gorn Fishing — the official app of CoPCO, the Co-operative of Pleasure Craft Owners. Our boat, our paperwork, our fishing.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-180.png">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>Gorn Fishing</title>
+<style>
+:root{
+  --bg:#0b1e33; --bg2:#0f2a44; --panel:#13314f; --panel-2:#183a5c; --line:#24496d;
+  --text:#f4ead5; --muted:#a9bccf; --faint:#7d93aa;
+  --coral:#e0533d; --coral-2:#f07a63; --gold:#e7b24a; --teal:#2a8c9a; --teal-2:#4fc0cc;
+  --green:#6fbf73; --amber:#e7b24a; --red:#e0533d;
+  --shadow:0 18px 40px -18px rgba(0,0,0,.7);
+  --serif:Rockwell,"Rockwell Nova","Roboto Slab",ui-serif,Georgia,serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --r:18px;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{font-family:var(--sans);color:var(--text);line-height:1.5;-webkit-font-smoothing:antialiased;
+  background:radial-gradient(1100px 650px at 85% -10%,#1d4a6e 0%,transparent 55%),linear-gradient(180deg,var(--bg2),var(--bg));
+  background-attachment:fixed;min-height:100vh;padding-bottom:calc(84px + env(safe-area-inset-bottom))}
+h1,h2,h3,h4{font-family:var(--serif);font-weight:700;margin:0;letter-spacing:.2px}
+a{color:var(--teal-2)}
+.wrap{max-width:860px;margin:0 auto;padding:0 16px}
+.view{display:none;animation:fade .35s ease}.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+
+header.top{position:sticky;top:0;z-index:40;backdrop-filter:blur(14px);background:rgba(11,30,51,.88);
+  border-bottom:1px solid var(--line);padding:calc(env(safe-area-inset-top) + 8px) 0 8px}
+.top .wrap{display:flex;align-items:center;gap:10px}
+.top img{width:38px;height:38px}
+.top b{font-family:var(--serif);font-size:19px;display:block;line-height:1}
+.top span{font-size:10.5px;color:var(--muted);letter-spacing:1.4px;text-transform:uppercase}
+.top .spacer{flex:1}
+.pill{font-size:12px;color:var(--muted);border:1px solid var(--line);padding:5px 10px;border-radius:99px;white-space:nowrap}
+.pill.hot{color:#fff;background:var(--coral);border-color:var(--coral)}
+
+.card{background:linear-gradient(180deg,var(--panel-2),var(--panel));border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px 18px;margin:12px 0}
+.card h3{font-size:18px;margin-bottom:6px}
+.card p{margin:6px 0}
+.sec{margin:26px 0 8px}
+.sec h2{font-size:24px}
+.sec .sub{color:var(--muted);font-size:14px;margin-top:2px}
+.eyebrow{color:var(--gold);text-transform:uppercase;letter-spacing:2px;font-size:11px;font-weight:700}
+.muted{color:var(--muted)}.small{font-size:13px}
+ul.tidy{margin:6px 0;padding-left:20px}ul.tidy li{margin:4px 0}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:640px){.grid2{grid-template-columns:1fr}}
+.tag{display:inline-block;font-size:10.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;padding:2px 7px;border-radius:6px;vertical-align:middle;margin-left:4px}
+.tag.v{background:rgba(111,191,115,.18);color:var(--green)}
+.tag.est{background:rgba(231,178,74,.18);color:var(--gold)}
+.tag.chk{background:rgba(224,83,61,.2);color:var(--coral-2)}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--muted);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.6px}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+details{border-top:1px solid var(--line);padding:10px 0}
+details:first-of-type{border-top:0}
+summary{cursor:pointer;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}
+summary::after{content:"+";color:var(--gold);font-weight:800}
+details[open] summary::after{content:"–"}
+summary::-webkit-details-marker{display:none}
+
+/* hero */
+.hero{display:flex;gap:18px;align-items:center;margin-top:18px}
+.hero img{width:130px;height:130px;flex:0 0 auto;filter:drop-shadow(0 10px 20px rgba(0,0,0,.5))}
+.hero h1{font-size:clamp(30px,8vw,46px);line-height:1}
+.hero p{margin:8px 0 0;color:var(--muted)}
+@media(max-width:480px){.hero{flex-direction:column;text-align:center}.hero img{width:150px;height:150px}}
+.crew{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:10px}
+.mate{text-align:center;background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:10px 4px}
+.mate .av{width:44px;height:44px;border-radius:50%;margin:0 auto 6px;display:grid;place-items:center;font-family:var(--serif);font-size:20px;color:#fff}
+.mate b{font-size:14px}
+.mate small{display:block;color:var(--faint);font-size:11px}
+
+/* progress */
+.stages{display:flex;gap:4px;margin:10px 0 4px}
+.stages div{flex:1;height:8px;border-radius:4px;background:var(--line)}
+.stages div.done{background:var(--teal-2)}.stages div.now{background:var(--coral);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{opacity:.5}}
+.stagelbl{display:flex;justify-content:space-between;font-size:11px;color:var(--faint)}
+
+/* nav */
+nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:50;background:rgba(11,30,51,.95);backdrop-filter:blur(14px);
+  border-top:1px solid var(--line);padding:6px 4px calc(6px + env(safe-area-inset-bottom));display:flex;justify-content:space-around}
+nav.bottom button{flex:1;background:none;border:0;color:var(--faint);font-size:10.5px;display:flex;flex-direction:column;align-items:center;gap:2px;padding:4px 0;cursor:pointer}
+nav.bottom button svg{width:24px;height:24px}
+nav.bottom button.on{color:var(--gold)}
+.sheet{position:fixed;inset:0;z-index:60;background:rgba(0,0,0,.55);display:none;align-items:flex-end}
+.sheet.open{display:flex}
+.sheet .inner{background:var(--bg2);border-top:1px solid var(--line);border-radius:22px 22px 0 0;width:100%;padding:18px 16px calc(22px + env(safe-area-inset-bottom));max-width:860px;margin:0 auto}
+.menu{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:10px}
+.menu button{background:var(--panel);border:1px solid var(--line);color:var(--text);border-radius:14px;padding:14px 6px;font-size:13px;cursor:pointer}
+.menu button span{display:block;font-size:24px;margin-bottom:4px}
+
+/* forms */
+input,select,textarea{font:inherit;color:var(--text);background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:9px 10px;width:100%}
+label{font-size:12px;color:var(--muted);display:block;margin:8px 0 3px}
+.btn{font:inherit;font-weight:600;border:0;border-radius:12px;padding:10px 14px;cursor:pointer;background:var(--coral);color:#fff}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--text)}
+.btn.sm{padding:6px 10px;font-size:13px}
+.row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.row>*{flex:1;min-width:120px}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{font-size:13px;border:1px solid var(--line);border-radius:99px;padding:5px 11px;background:transparent;color:var(--muted);cursor:pointer}
+.chip.on{background:var(--teal);border-color:var(--teal);color:#fff}
+
+/* stats */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tile{background:var(--bg2);border:1px solid var(--line);border-radius:14px;padding:12px 8px;text-align:center}
+.tile .n{font-family:var(--serif);font-size:22px;color:var(--gold)}
+.tile .l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px}
+@media(max-width:520px){.tiles{grid-template-columns:repeat(2,1fr)}}
+
+/* lists */
+.item{display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid var(--line)}
+.item:last-child{border-bottom:0}
+.item .main{flex:1;min-width:0}
+.item .amt{font-family:var(--serif);font-size:18px;color:var(--gold);white-space:nowrap}
+.item input[type=checkbox]{width:22px;height:22px;flex:0 0 auto;accent-color:var(--teal);margin-top:2px}
+.item.done .main{opacity:.45;text-decoration:line-through}
+.x{background:none;border:0;color:var(--faint);font-size:18px;cursor:pointer;padding:0 4px}
+
+/* conditions */
+.gauge{display:flex;align-items:center;gap:16px}
+.score{width:96px;height:96px;border-radius:50%;display:grid;place-items:center;font-family:var(--serif);font-size:34px;flex:0 0 auto;border:6px solid var(--line)}
+.verdict{font-family:var(--serif);font-size:22px}
+.hours{display:flex;gap:2px;align-items:flex-end;height:70px;margin-top:10px}
+.hours div{flex:1;border-radius:3px 3px 0 0;min-height:3px;position:relative}
+.hourlbl{display:flex;justify-content:space-between;font-size:10px;color:var(--faint);margin-top:3px}
+.dayhead{display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap}
+.factors{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
+.factors div{background:var(--bg2);border:1px solid var(--line);border-radius:10px;padding:6px 8px;font-size:12px}
+.factors b{display:block;font-size:15px;color:var(--text)}
+@media(max-width:520px){.factors{grid-template-columns:repeat(2,1fr)}}
+
+/* months */
+.months{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;-webkit-overflow-scrolling:touch}
+.months button{flex:0 0 auto}
+.month-card .fish{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}
+.fishchip{background:var(--bg2);border:1px solid var(--line);border-radius:99px;padding:4px 10px;font-size:13px}
+.fishchip.peak{border-color:var(--coral);color:var(--coral-2)}
+
+.photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:8px}
+.photos img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;border:1px solid var(--line);cursor:zoom-in}
+.placeholder{border:2px dashed var(--line);border-radius:14px;padding:22px;text-align:center;color:var(--muted)}
+.timeline{border-left:2px solid var(--line);margin-left:6px;padding-left:16px}
+.timeline .ev{position:relative;margin:0 0 16px}
+.timeline .ev::before{content:"";position:absolute;left:-23px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--coral);border:2px solid var(--bg)}
+.timeline .ev.future::before{background:var(--line)}
+.timeline .when{font-size:12px;color:var(--gold);font-weight:700;letter-spacing:.5px}
+footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
+.lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:70;display:none;align-items:center;justify-content:center;padding:16px}
+.lightbox.open{display:flex}.lightbox img{max-width:100%;max-height:90vh;border-radius:10px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <img src="assets/copco-logo.svg" alt="CoPCO badge">
+  <div><b>Gorn Fishing</b><span>CoPCO · PPB</span></div>
+  <div class="spacer"></div>
+  <div class="pill hot" id="stagePill">Stage: Testing</div>
+</div></header>
+
+<main class="wrap">
+
+<!-- ========== HOME ========== -->
+<section class="view active" id="v-home">
+  <div class="hero">
+    <img src="assets/copco-logo.svg" alt="CoPCO — Co-operative of Pleasure Craft Owners">
+    <div>
+      <div class="eyebrow">The official app of CoPCO</div>
+      <h1>Gorn Fishing</h1>
+      <p>Four mates, one second-hand cabin cruiser from Bouncing's Uncle Uncle, and the whole of Port Phillip Bay. Everything we know, owe, need and want — in one place.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="eyebrow">The Co-operative</div>
+    <div class="crew" id="crew"></div>
+  </div>
+
+  <div class="card">
+    <div class="dayhead"><h3>Where we're at</h3><span class="small muted">Stage 2 of 6</span></div>
+    <div class="stages" id="stages"></div>
+    <div class="stagelbl"><span>Found</span><span>Testing</span><span>Service</span><span>Paperwork</span><span>Maiden</span><span>Gorn</span></div>
+    <p class="small" style="margin-top:12px"><b>Saturday 18th October 2026:</b> first motor test — couldn't quite get it running (fuses and the like). Next: Travis's brother is getting it checked out; a marine mechanic should look at the motor, give the whole boat a once-over and replace the old fuel.</p>
+  </div>
+
+  <div class="card" id="homeConditions">
+    <div class="dayhead"><h3>Gorn Index — today</h3><a href="#" onclick="go('conditions');return false" class="small">Full forecast →</a></div>
+    <p class="muted small">Loading live conditions for the eastern bay…</p>
+  </div>
+
+  <div class="grid2">
+    <div class="card"><h3>💰 Kitty</h3><div id="homeMoney" class="small muted">No expenses yet.</div></div>
+    <div class="card"><h3>✅ Up next</h3><div id="homeTodo" class="small"></div></div>
+  </div>
+
+  <div class="sec"><h2>Jump to</h2></div>
+  <div class="menu" id="homeMenu"></div>
+</section>
+
+<!-- ========== THE BOAT ========== -->
+<section class="view" id="v-boat">
+  <div class="sec"><div class="eyebrow">The vessel</div><h2>The Boat</h2><div class="sub">Everything we know, its history, and what it's worth.</div></div>
+
+  <div class="card">
+    <h3>Photos</h3>
+    <div id="photoGrid" class="photos"></div>
+  </div>
+
+  <div class="card">
+    <h3>What we know so far</h3>
+    <table><tbody id="boatFacts"></tbody></table>
+    <p class="small muted" style="margin-top:10px">Make, model, year, length, hull ID (HIN) and motor details will be filled in once the photos are in. The HIN is usually stamped on the starboard (right) side of the transom; the motor's model/serial is on a plate on the engine bracket. Snap both!</p>
+  </div>
+
+  <div class="card">
+    <h3>History</h3>
+    <div class="timeline" id="boatTimeline"></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card"><h3>Estimated value</h3><p class="muted">To be researched once we know the make, model, year and motor. We'll compare against current listings (boatsales, Gumtree, Facebook Marketplace) for similar boats, then adjust for the motor's condition — a non-running motor can knock thousands off.</p></div>
+    <div class="card"><h3>New, it looked like…</h3><p class="muted">Once we've identified the model we'll dig up original brochures and photos of it fresh off the showroom floor.</p></div>
+  </div>
+  <div class="grid2">
+    <div class="card"><h3>👍 Good for</h3><ul class="tidy muted"><li>Sheltered bay fishing in Port Phillip</li><li>Overnighting / a cuddy to get out of the weather</li><li>Toilet on board — a big deal on a long snapper session</li><li>Four blokes and a fridge</li></ul><p class="small muted">(Generic for trailer cabin cruisers — refine once identified.)</p></div>
+    <div class="card"><h3>👎 Not so good for</h3><ul class="tidy muted"><li>Crossing the Rip / Bass Strait</li><li>Steep southerly chop on the eastern shore</li><li>Being towed by a small SUV</li><li>Fast fishing runs (cabins are heavy)</li></ul></div>
+  </div>
+</section>
+
+<!-- ========== LEGAL ========== -->
+<section class="view" id="v-legal">
+  <div class="sec"><div class="eyebrow">Paperwork</div><h2>Getting legal</h2><div class="sub">Licences, rego, insurance and safety gear — what we need, cost, fastest route, and how long. Victoria, as at October 2026.</div></div>
+
+  <div class="card">
+    <h3>The short version</h3>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Item</th><th>Who</th><th>Cost</th><th>Time</th></tr></thead>
+      <tbody>
+        <tr><td><b>Marine licence</b></td><td>Whoever's driving (only the skipper needs one — but get 2+ of us licensed)</td><td>~$250–390 each (course + $33.70 test + $210 for 5 yrs)</td><td>1–2 days</td></tr>
+        <tr><td><b>Fishing licence</b></td><td>Every angler, 18–69</td><td>$10 (3-day) · $24.70 (28-day) · $40.80 (1 yr) · $111.20 (3 yr)</td><td>Instant (app)</td></tr>
+        <tr><td><b>Boat rego transfer</b></td><td>One registered owner</td><td>$21.50 transfer + ~$105/yr rego <span class="tag chk">verify</span></td><td>Within 14 days of sale</td></tr>
+        <tr><td><b>Trailer rego transfer</b></td><td>Same owner</td><td>$7.20 transfer, no roadworthy for light trailer</td><td>Same visit</td></tr>
+        <tr><td><b>PPSR check</b></td><td>Before money changes hands</td><td>~$3.40 <span class="tag chk">verify</span></td><td>Minutes, online</td></tr>
+        <tr><td><b>Insurance</b></td><td>All four named</td><td>~$500–1,200/yr <span class="tag est">est.</span></td><td>Same day once quoted</td></tr>
+        <tr><td><b>Safety kit</b></td><td>The boat</td><td>~$800–1,500 if buying it all new</td><td>One BCF trip</td></tr>
+        <tr><td><b>Boat ramp fees</b></td><td>—</td><td><b>Free</b> at Victorian public ramps since 2019</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <details open><summary>🎓 Marine licence</summary>
+      <ul class="tidy">
+        <li><b>Who:</b> the person in charge of a powered boat (over 5hp). Passengers don't need one — legally one licensed skipper is enough, but the boat sits idle if only one of us can drive it.</li>
+        <li><b>How:</b> do an approved course (online is quickest — some are free, some ~$100–150), sit the knowledge test ($33.70), then take your certificate to VicRoads/Transport Victoria.</li>
+        <li><b>Fee:</b> $42 for 1 year or $210 for 5 years. New licences come in 1 or 5 year terms.</li>
+        <li><b>Easiest path:</b> all do the online course the same week, sit the test, one trip to a VicRoads centre.</li>
+        <li><a href="https://www.vicroads.vic.gov.au/licences/boat-motorbike-other-licences/marine-boat-licence" target="_blank" rel="noopener">VicRoads — marine licence</a></li>
+      </ul>
+    </details>
+    <details><summary>🎣 Recreational fishing licence</summary>
+      <ul class="tidy">
+        <li>Everyone who fishes needs their own (it's per angler, not per boat). 2026–27 online prices: <b>3-day $10 · 28-day $24.70 · 1-year $40.80 · 3-year $111.20</b>.</li>
+        <li>Buy instantly at <a href="https://service.vic.gov.au/fishing" target="_blank" rel="noopener">service.vic.gov.au/fishing</a> or the VicFishing app — it lives on your phone. Exemptions apply for some (age, concessions) <span class="tag chk">verify</span>.</li>
+        <li>Tip: the 3-year licence is cheapest per year — and part of the fee funds fish stocking and better ramps.</li>
+      </ul>
+    </details>
+    <details><summary>🛥️ Boat registration</summary>
+      <ul class="tidy">
+        <li>Every powered boat on Victorian waters must be registered, renewed annually (~$104.50 for powered vessels over 4m <span class="tag chk">verify</span>).</li>
+        <li><b>Transfer:</b> Uncle Uncle (seller) and our nominated owner both sign the Vessel Registration Transfer form; lodge with VicRoads within 14 days with the $21.50 fee.</li>
+        <li><b>Paperwork:</b> a signed bill of sale (price + date — even if it's mates' rates), current rego number, HIN if available.</li>
+        <li><b>PPSR search</b> on the HIN or motor serial at <a href="https://www.ppsr.gov.au" target="_blank" rel="noopener">ppsr.gov.au</a> — checks no finance is owing. Even with family, it's a few dollars well spent.</li>
+        <li>No stamp duty on boats found in Victoria <span class="tag chk">verify</span>.</li>
+      </ul>
+    </details>
+    <details><summary>🚚 Trailer registration</summary>
+      <ul class="tidy"><li>Light trailers (under 4.5t) transfer for $7.20 in a private sale; no roadworthy needed. Annual trailer rego is separate from the boat rego.</li>
+      <li>While you're there: check the trailer's compliance plate (ATM) — we need it for the towing maths.</li></ul>
+    </details>
+    <details><summary>🛡️ Insurance</summary>
+      <ul class="tidy">
+        <li>Ballpark <b>$500–1,200/yr</b> for a $10–25k trailer cabin cruiser <span class="tag est">est.</span> — get three quotes: Club Marine, BoatSafe, RACV Marine, NRMA Marine, Nautilus.</li>
+        <li><b>Ask for:</b> agreed value, $5M+ on-water liability, cover while towing, salvage/towing, lay-up discount for winter.</li>
+        <li><b>Co-ownership:</b> declare it. Name all four of us (or list as "any licensed operator") so a claim can't be knocked back because Northy was driving.</li>
+        <li>Older boats may need a survey or a mechanic's report before cover — the recommission service doubles as that.</li>
+      </ul>
+    </details>
+    <details><summary>🦺 Safety gear (Port Phillip Bay = enclosed waters)</summary>
+      <div class="tblwrap"><table>
+        <thead><tr><th>Required</th><th>Approx cost</th></tr></thead>
+        <tbody>
+          <tr><td>Lifejacket for every person — Level 100, 50 or 50S, right size</td><td>$400–800 for 4</td></tr>
+          <tr><td>Fire extinguisher (fuel on board — cabin boat may need more than one <span class="tag chk">verify</span>)</td><td>$60–120</td></tr>
+          <tr><td>Waterproof, buoyant torch</td><td>$20</td></tr>
+          <tr><td>Anchor with chain and line</td><td>$150–300</td></tr>
+          <tr><td>Bucket with lanyard + bailer or bilge pump</td><td>$100–200</td></tr>
+          <tr><td>Distress signals: 2 red hand flares — or a registered EPIRB/PLB or 25W VHF</td><td>$60–100 flares / ~$250 VHF</td></tr>
+          <tr><td><b>Total if buying new</b></td><td><b>~$800–1,500</b></td></tr>
+        </tbody>
+      </table></div>
+      <p class="small muted">An EPIRB isn't mandatory inside the bay but is cheap insurance. Check expiry dates on any flares and extinguishers that come with the boat. Display the ST173 minimum-safety-equipment sticker. <a href="https://safetransport.vic.gov.au/on-the-water/recreational-boating/safety-equipment/" target="_blank" rel="noopener">Safe Transport Victoria — safety equipment</a></p>
+    </details>
+    <details><summary>🤝 Co-op rules (the syndicate agreement)</summary>
+      <ul class="tidy">
+        <li>Shares (equal quarters?), a monthly kitty for rego/insurance/servicing, and who pays fuel per trip.</li>
+        <li>Booking calendar — who gets it on long weekends?</li>
+        <li><b>The ding rule:</b> who pays the insurance excess if someone damages it.</li>
+        <li>Who may skipper (licensed + a couple of supervised trips).</li>
+        <li>Exit/buy-out: how a share is valued if someone wants out.</li>
+        <li>Rego goes in one person's name — decide who, and the others go on the insurance and the agreement.</li>
+        <li class="muted">Not legal advice — a one-page agreement signed by all four beats none.</li>
+      </ul>
+    </details>
+  </div>
+</section>
+
+<!-- ========== ON THE WATER ========== -->
+<section class="view" id="v-water">
+  <div class="sec"><div class="eyebrow">Realities</div><h2>Towing, ramps & the maiden voyage</h2></div>
+
+  <div class="card">
+    <h3>🚙 Towing — what do we need?</h3>
+    <p>A 5–7m trailer cabin cruiser plus motor, trailer, fuel and gear typically weighs <b>1.3–3.0 tonnes</b> <span class="tag est">est.</span>. The real number is on the trailer's compliance plate (ATM) — or take it over a weighbridge.</p>
+    <ul class="tidy">
+      <li>~5–5.5m: roughly 1.3–1.8t · ~6–6.5m: 1.8–2.5t · 7m sterndrive: up to 3t.</li>
+      <li><b>Brakes:</b> over 750kg needs brakes (override/hydraulic OK to 2t); over 2t needs a breakaway system.</li>
+      <li><b>Ball download:</b> aim for ~10% of ATM. Too little = sway.</li>
+      <li><b>Licence:</b> a normal car licence is fine within the vehicle's rated capacity.</li>
+      <li><b>Vehicles that'll do it comfortably:</b> Ranger, D-Max, BT-50, LandCruiser (3,500kg); Prado/Hilux (~3,000kg). Mid-size SUVs (~1,600–2,000kg) are marginal.</li>
+    </ul>
+    <div class="card" style="background:var(--bg2);margin-top:12px">
+      <b>Can my car tow it?</b>
+      <div class="row">
+        <div><label>Boat + trailer ATM (kg)</label><input id="towAtm" type="number" placeholder="e.g. 2000"></div>
+        <div><label>Car's braked tow rating (kg)</label><input id="towCap" type="number" placeholder="e.g. 3500"></div>
+      </div>
+      <p id="towOut" class="small" style="margin:10px 0 0"></p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3>⚓ Boat ramps near Seaford</h3>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Ramp</th><th>From Seaford</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td><b>Patterson River, Carrum</b><br><span class="small muted">Big multi-lane ramp, pontoons, large trailer park</span></td><td>~7km</td><td><b>Our home ramp.</b> Sheltered river launch, free. 5-knot limit in the river; watch the mouth in onshore wind on a run-out tide.</td></tr>
+        <tr><td><b>Frankston — Kananook Creek</b><br><span class="small muted">Multiple ramps, big car park</span></td><td>~8km</td><td>Good backup. Creek launch, short run to the bay. Free.</td></tr>
+        <tr><td><b>Frankston — Olivers Hill</b></td><td>~11km</td><td>Open to southerlies; fine on calm mornings. Close to the snapper grounds.</td></tr>
+        <tr><td><b>Mordialloc</b></td><td>~19km</td><td>Recently upgraded (dredging, pontoons, queuing lane). Check depth at the creek mouth on low tide.</td></tr>
+        <tr><td><b>Mornington — Schnapper Point</b></td><td>~30km</td><td>Under upgrade since April 2026 (wider ramp, new jetty) — <span class="tag chk">check it's reopened</span>. Puts you right on the Mornington/Mt Martha snapper grounds.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">All Victorian public ramps have been launch- and parking-fee free since 2019. <a href="https://betterboating.vic.gov.au" target="_blank" rel="noopener">Better Boating Victoria</a></p>
+  </div>
+
+  <div class="card">
+    <h3>🧠 Hints & tricks</h3>
+    <details open><summary>Before you tow</summary><ul class="tidy">
+      <li>Lights + indicators work · safety chains crossed and shackled · coupling latched and pinned · jockey wheel up.</li>
+      <li><b>Wheel bearings</b> — the #1 killer of old trailers. Check for play; repack yearly. Old tyres perish at 6–8 years regardless of tread (check the date code).</li>
+      <li>Tie-downs and transom straps on; winch strap not frayed; motor supported.</li>
+    </ul></details>
+    <details><summary>Reversing</summary><ul class="tidy">
+      <li>Hand on the <b>bottom</b> of the wheel — move it the way you want the trailer to go. Small inputs, go slow, use a spotter.</li>
+      <li>Practise in an empty car park before ramp day. If it jack-knifes, pull forward and start again — nobody's judging (they are).</li>
+    </ul></details>
+    <details><summary>Ramp etiquette & launching</summary><ol class="tidy">
+      <li>Rig in the <b>prep area</b>, not on the ramp: straps off, gear in, lines on, <b>BUNG IN</b>.</li>
+      <li>Let the hubs cool 10 minutes — hot bearings into cold water suck in water.</li>
+      <li>Reverse down, someone holds the bow line, unclip the winch last.</li>
+      <li>Float it off, walk it to the pontoon, clear the ramp, then park.</li>
+    </ol></details>
+    <details><summary>Retrieving & after</summary><ul class="tidy">
+      <li>Drive/winch on to the stop, safety chain on, pull out and tidy up in the car park.</li>
+      <li>Pull the bung to drain. <b>Flush the motor</b> with fresh water (muffs on the hose) for 5–10 minutes after every salt trip, and hose the trailer.</li>
+    </ul></details>
+  </div>
+
+  <div class="card">
+    <h3>🧺 Maiden voyage — the kit list</h3>
+    <p class="small muted">Tap to tick off. Saved on this phone.</p>
+    <div id="maidenList"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔍 Maiden voyage — check before we leave the ramp</h3>
+    <ul class="tidy">
+      <li>Motor runs on muffs at home first. Tell-tale (pee stream) is pumping water.</li>
+      <li>Bilge dry; bilge pump runs; no fuel smell in the cabin or bilge.</li>
+      <li>Steering moves lock to lock; throttle and gear shift are smooth.</li>
+      <li>Nav lights work (if we might be out near dark).</li>
+      <li>Check the Gorn Index + the BOM Port Phillip forecast. Under 15 knots for the first trip.</li>
+      <li>Tell someone ashore where we're going and when we'll be back.</li>
+      <li>First trip: stay close to Patterson River — a shakedown, not a snapper expedition.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- ========== READY ========== -->
+<section class="view" id="v-ready">
+  <div class="sec"><div class="eyebrow">Recommission</div><h2>Getting it ready</h2><div class="sub">From "won't start" to "on the water".</div></div>
+
+  <div class="card">
+    <h3>The log</h3>
+    <div class="timeline" id="readyLog"></div>
+  </div>
+
+  <div class="card">
+    <h3>🔧 What the marine mechanic should do</h3>
+    <p class="small muted">A boat that's been sitting for years needs a full recommission, not just a service. Hand this list over.</p>
+    <ul class="tidy">
+      <li><b>Fuel:</b> drain the stale fuel, inspect the tank for water/sludge, replace fuel lines, primer bulb, filters and water separator. Clean or rebuild the carbs/injectors (varnish from old fuel is the usual culprit).</li>
+      <li><b>Cooling:</b> new water-pump impeller, check thermostat, flush passages.</li>
+      <li><b>Gearbox/leg:</b> change lower-unit oil — milky oil means water's getting in (seals).</li>
+      <li><b>Ignition:</b> new plugs, check leads, <b>compression test</b> on each cylinder.</li>
+      <li><b>Electrics:</b> battery load test, cables, terminals, fuses, kill switch, starter and solenoid.</li>
+      <li>Four-stroke: oil and filter. Sterndrive: bellows, gimbal bearing, outdrive oil.</li>
+      <li>Anodes, prop, steering, throttle and shift cables.</li>
+      <li><b>Trailer:</b> bearings, tyres, brakes, lights.</li>
+    </ul>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Job</th><th>Ballpark</th></tr></thead>
+      <tbody>
+        <tr><td>Basic service, small outboard</td><td>$300–600</td></tr>
+        <tr><td>Full recommission (fuel system, impeller, oils, plugs)</td><td>$800–2,000</td></tr>
+        <tr><td>Carby rebuild</td><td>+$200–600</td></tr>
+        <tr><td>Sterndrive full service</td><td>$1,000–2,500</td></tr>
+        <tr><td>Compression test</td><td>$100–250</td></tr>
+        <tr><td>Hull survey (optional, good for insurance)</td><td>$500–1,500</td></tr>
+        <tr><td colspan="2" class="small muted">Melbourne labour ~$120–160/hr; allow 1–2 weeks. All <span class="tag est">est.</span> — get a quote and a diagnosis fee upfront. Worst case (motor's cooked): repower 90–150hp is $10–25k+.</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>🏪 Marine mechanics near Seaford</h3>
+    <ul class="tidy">
+      <li><b>Edencraft Marine</b> — Hi-tech Place, Seaford. Mercury service centre; outboards, trailers, minor fibreglass. Closest to Bouncing's. <span class="tag chk">verify</span></li>
+      <li><b>Advanced Marine Services</b> — Industry Blvd, Carrum Downs. Servicing, rebuilds, electrical. <span class="tag chk">verify</span></li>
+      <li>Also worth a call: Patterson Lakes, Mornington and Hastings marine workshops.</li>
+    </ul>
+    <p class="small muted">Ask: do you service this brand (Evinrude/Johnson are discontinued — parts matter)? What's the diagnosis fee? How long's the queue?</p>
+  </div>
+
+  <div class="card">
+    <h3>🩺 It won't start — checklist</h3>
+    <p class="small muted">Simplest first. Tap through on the day.</p>
+    <div id="startList"></div>
+  </div>
+</section>
+
+<!-- ========== SEASONS ========== -->
+<section class="view" id="v-seasons">
+  <div class="sec"><div class="eyebrow">Port Phillip Bay</div><h2>Season guide</h2><div class="sub">What to chase, when, and where — eastern and southern bay.</div></div>
+  <div class="months chips" id="monthChips"></div>
+  <div id="monthCard"></div>
+
+  <div class="card">
+    <h3>Where</h3>
+    <ul class="tidy">
+      <li><b>Carrum / Patterson River:</b> sand and weed in 4–10m — whiting, flathead, calamari. River mouth for salmon and gummies.</li>
+      <li><b>Frankston to Black Rock:</b> eastern-shore snapper country.</li>
+      <li><b>Mornington & Mount Martha:</b> snapper in 16–24m (14–16m at dawn); gummies near the shipping channel edge.</li>
+      <li><b>Safety Beach / Dromana:</b> sand and weed patches for whiting and calamari.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Rigs that work</h3>
+    <ul class="tidy">
+      <li><b>Snapper:</b> running sinker to a swivel, 60–80cm trace, 5/0–7/0 circle hooks. Pilchard, squid, whiting heads. Berley. Soft plastics (4" pinkies, 5–7" big reds).</li>
+      <li><b>KG whiting:</b> paternoster, pipi/mussel/squid strip, on a strong tide run over sand-and-weed edges.</li>
+      <li><b>Calamari:</b> 2.5–3.5 egi jigs over weed beds, early and late, clean water.</li>
+      <li><b>Flathead:</b> drift sand flats in 3–8m with plastics or bait.</li>
+      <li><b>Gummy shark:</b> bottom rig, squid/pilchard/salmon fillet, dusk and night in 10–25m.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <h3>Bag & size limits</h3>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Species</th><th>Bag</th><th>Min size</th></tr></thead>
+      <tbody>
+        <tr><td>Snapper</td><td>10 (max 3 over 40cm)</td><td>28cm</td></tr>
+        <tr><td>King George whiting</td><td>20 — no filleting at sea</td><td>27cm</td></tr>
+        <tr><td>Gummy + school shark</td><td>2 combined</td><td><span class="tag chk">check</span></td></tr>
+        <tr><td>Calamari / squid</td><td><span class="tag chk">check</span></td><td>—</td></tr>
+        <tr><td>Flathead (dusky / others)</td><td>5 / 10 <span class="tag chk">check</span></td><td>30 / 27cm</td></tr>
+        <tr><td>Australian salmon</td><td>5 <span class="tag chk">check</span></td><td>21cm</td></tr>
+        <tr><td>Yellowtail kingfish</td><td>2 (cut from 5 in 2026)</td><td>—</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small muted">Limits change — always check the <a href="https://vfa.vic.gov.au/recreational-fishing/recreational-fishing-guide" target="_blank" rel="noopener">VFA fishing guide</a> or the VicFishing app before you go.</p>
+  </div>
+</section>
+
+<!-- ========== CONDITIONS ========== -->
+<section class="view" id="v-conditions">
+  <div class="sec"><div class="eyebrow">Live · auto-updating</div><h2>Gorn Index</h2><div class="sub">Is it a good day to go? Wind, gusts, waves, pressure, tide, light, moon and season — scored 0–100 for a small boat on the eastern bay.</div></div>
+  <div class="chips" id="spotChips" style="margin-bottom:8px"></div>
+  <div id="condOut"><div class="card muted">Loading forecast…</div></div>
+  <div class="card small">
+    <h3>How it's scored</h3>
+    <p class="muted">Wind (30) · gusts (10) · wind direction for the eastern shore (10) · wave height (10) · tide change timing (12) · pressure trend (8) · dawn/dusk (5) · moon (5) · season (10). <b>Hard stop:</b> wind over 20kn or gusts over 25kn = stay home, regardless.</p>
+    <p class="muted">It's mostly a <i>safety and comfort</i> score — the fish-activity bits (moon, pressure) are folklore with a bit of science. Data: <a href="https://open-meteo.com" target="_blank" rel="noopener">Open-Meteo</a> weather + marine models (tide timing from modelled sea level — indicative only). Always check the official forecast too:</p>
+    <p><a href="http://www.bom.gov.au/vic/forecasts/portphillip.shtml" target="_blank" rel="noopener">BOM Port Phillip forecast & warnings</a> · <a href="http://www.bom.gov.au/australia/tides/#!/vic-williamstown" target="_blank" rel="noopener">BOM tide tables</a> · <a href="https://vfa.vic.gov.au/recreational-fishing/fishing-locations/go-fishing-port-phillip-bay" target="_blank" rel="noopener">VFA Port Phillip fishing</a></p>
+  </div>
+</section>
+
+<!-- ========== MONEY ========== -->
+<section class="view" id="v-money">
+  <div class="sec"><div class="eyebrow">The kitty</div><h2>Money tracker</h2><div class="sub">Every dollar in, split four ways, and who owes who.</div></div>
+  <div class="tiles" id="moneyTiles" ></div>
+  <div class="card"><h3>Settle up</h3><div id="settle" class="small"></div></div>
+  <div class="card">
+    <h3>Add an expense</h3>
+    <div class="row">
+      <div><label>What</label><input id="exWhat" placeholder="e.g. fuses, fuel, rego"></div>
+      <div><label>Amount ($)</label><input id="exAmt" type="number" step="0.01" inputmode="decimal"></div>
+    </div>
+    <div class="row">
+      <div><label>Paid by</label><select id="exWho"></select></div>
+      <div><label>Category</label><select id="exCat"></select></div>
+      <div><label>Date</label><input id="exDate" type="date"></div>
+    </div>
+    <label>Split between</label>
+    <div class="chips" id="exSplit"></div>
+    <div class="row" style="margin-top:12px"><button class="btn" onclick="addExpense()">Add expense</button></div>
+  </div>
+  <div class="card"><h3>All expenses</h3><div id="exList"></div></div>
+  <div class="card small">
+    <h3>Sharing between phones</h3>
+    <p class="muted">For now, everything saves on <i>this</i> phone. Nominate one keeper (Travis?) — others send their expenses via the Share button and the keeper imports them. A live shared version (everyone sees updates instantly) is an easy upgrade later.</p>
+    <div class="row"><button class="btn ghost sm" onclick="shareSummary()">Share summary</button><button class="btn ghost sm" onclick="exportData()">Export backup</button><button class="btn ghost sm" onclick="document.getElementById('imp').click()">Import</button></div>
+    <input type="file" id="imp" accept="application/json" style="display:none" onchange="importData(this)">
+  </div>
+</section>
+
+<!-- ========== TODO ========== -->
+<section class="view" id="v-todo">
+  <div class="sec"><div class="eyebrow">Jobs & shopping</div><h2>To-do list</h2><div class="sub">Things to do, things to buy, who's on it.</div></div>
+  <div class="card">
+    <div class="row">
+      <div style="flex:3"><label>Task / thing to buy</label><input id="tdText" placeholder="e.g. buy 4 lifejackets"></div>
+      <div><label>Who</label><select id="tdWho"></select></div>
+    </div>
+    <div class="row" style="margin-top:10px"><div><label>List</label><select id="tdList"><option>Now</option><option>Before maiden voyage</option><option>Shopping</option><option>Someday</option></select></div><div style="flex:0"><label>&nbsp;</label><button class="btn" onclick="addTodo()">Add</button></div></div>
+  </div>
+  <div class="chips" id="tdFilter" style="margin:12px 0"></div>
+  <div id="tdOut"></div>
+</section>
+
+<!-- ========== UPGRADES ========== -->
+<section class="view" id="v-upgrades">
+  <div class="sec"><div class="eyebrow">Pleasure craft goals</div><h2>Upgrades & the cabin</h2><div class="sub">Turning a tired old cabin into a proper pleasure craft — on the cheap.</div></div>
+
+  <div class="card">
+    <h3>💸 Three budgets</h3>
+    <div class="grid2" style="grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+      <div class="card" style="background:var(--bg2);margin:0"><div class="eyebrow">Cheap & cheerful · &lt;$1.5k</div><ul class="tidy small"><li>Off-the-shelf cover ($250)</li><li>DIY cushion covers + foam ($300)</li><li>LED lights ($50)</li><li>Porta-potti ($200)</li><li>Big esky ($100)</li><li>Basic fish finder ($350)</li><li>Rod holders ($100)</li></ul></div>
+      <div class="card" style="background:var(--bg2);margin:0"><div class="eyebrow">Nice · $1.5–5k</div><ul class="tidy small"><li>Custom cover or bimini ($1–2k)</li><li>New cushions + headliner ($800–1.5k)</li><li>Fish finder/GPS ($600–900)</li><li>12V fridge + 2nd battery ($1.5–2.5k)</li><li>VHF radio ($300)</li></ul></div>
+      <div class="card" style="background:var(--bg2);margin:0"><div class="eyebrow">Proper · $5–15k</div><ul class="tidy small"><li>Cover + bimini + clears ($2.5–3.5k)</li><li>Full trimmer interior ($2.5–4k)</li><li>Lithium + solar ($1.5–2.5k)</li><li>Chartplotter ($1.2–2.5k)</li><li>Anchor winch ($1.5–2.5k)</li><li>Holding tank ($600–1k)</li><li>Deck flooring ($800–1.5k)</li></ul></div>
+    </div>
+    <p class="small muted">All ballparks <span class="tag est">est.</span> — get quotes.</p>
+  </div>
+
+  <div class="card">
+    <details open><summary>🏕️ Boat cover</summary>
+      <ul class="tidy">
+        <li><b>Off-the-shelf</b> polyester (BCF, Whitworths): $150–450. Loose fit, needs a support pole, 1–3 years in Melbourne sun.</li>
+        <li><b>Semi-custom</b> (sized to make/model): $400–900.</li>
+        <li><b>Custom-fitted</b> marine acrylic (Sunbrella-type): $1,000–2,500, lasts 7–10+ years.</li>
+        <li><b>Bimini</b> (shade over the cockpit): $600–1,800 fitted or $250–600 DIY kit. Zip-in clears +$300–900.</li>
+        <li><b>Who:</b> Trim Industries (Mornington Peninsula), Westernport Trimming (Hastings), Quality Craft Covers and A Grade Upholstery (Melbourne). Many will quote from photos + measurements. <span class="tag chk">verify</span></li>
+      </ul>
+    </details>
+    <details><summary>🛋️ Doing up the cabin</summary>
+      <div class="tblwrap"><table>
+        <thead><tr><th>Job</th><th>DIY</th><th>Pro</th></tr></thead>
+        <tbody>
+          <tr><td>V-berth foam (high-density, waterproof liner)</td><td>$150–400</td><td rowspan="2">$500–1,500 full set</td></tr>
+          <tr><td>Cushion covers (marine vinyl or Sunbrella)</td><td>$100–250</td></tr>
+          <tr><td>Headliner / hull lining (vinyl, marine carpet)</td><td>$100–300</td><td>$600–1,500</td></tr>
+          <tr><td>Floor (marine carpet / Treadmaster / EVA foam)</td><td>$50–700</td><td>$500–1,500</td></tr>
+          <tr><td>LED lights, curtains, nets, hooks</td><td>$100–300</td><td>—</td></tr>
+          <tr><td>Paint the old lining instead of re-lining</td><td>$100–300</td><td>—</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small"><b>Tricks from people who've done it:</b> strip and paint the old fibreglass rather than re-line; replace just the saggy foam, keep the covers; contact-glue thin ribbed marine carpet over ply panels (it hides glue and bumps); recolour tired vinyl with vinyl dye; ask a local canvas shop to cut foam to your paper templates.</p>
+    </details>
+    <details><summary>📐 Layout ideas for a small cabin</summary>
+      <ul class="tidy">
+        <li><b>Convertible V-berth/dinette:</b> drop-down table + filler cushion = seats four by day, sleeps two at night.</li>
+        <li><b>Galley box:</b> a removable ply box holding the stove, a small basin and the kettle — lift it out when fishing.</li>
+        <li><b>Toilet:</b> no sewage discharge is allowed anywhere in Victorian waters, so either a Porta Potti ($150–250, empty at home/shore) or a fixed toilet with a holding tank ($600–1,000 installed) and use marina pump-outs.</li>
+        <li><b>Stowage:</b> under-bunk lockers, hull-side nets, a rod rack on the cabin roof lining.</li>
+        <li><b>12V panel</b> with USB sockets ($20–50) — phones, fish finder, speaker.</li>
+        <li><b>Look:</b> white/grey lining, navy cushions with coral piping (CoPCO colours), warm-white LEDs, teak-look cup holders.</li>
+      </ul>
+    </details>
+    <details><summary>🧊 The fridge (yes, we need one)</summary>
+      <div class="tblwrap"><table>
+        <thead><tr><th>Option</th><th>Price</th></tr></thead>
+        <tbody>
+          <tr><td>Big esky + block ice</td><td>$50–300</td></tr>
+          <tr><td>Budget 12V fridge 40–60L (Kings etc.)</td><td>$350–700</td></tr>
+          <tr><td>Engel 14L (bait + 8 cans)</td><td>~$700</td></tr>
+          <tr><td>Bushman 35–52L expandable</td><td>~$1,475</td></tr>
+          <tr><td>Dometic CFX3 95L dual-zone</td><td>~$1,500</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small"><b>Power:</b> a compressor fridge averages 1–3A. Add a second battery (100Ah AGM $300–450, lithium $700–1,200) with a DC-DC charger (~$400) so the fridge never flattens the starting battery. A small solar panel ($150–300) tops it up. Simplest start: a fridge on a portable lithium power pack ($400–900).</p>
+    </details>
+    <details><summary>🎣 Fishing upgrades</summary>
+      <div class="tblwrap"><table>
+        <thead><tr><th>Item</th><th>Price</th></tr></thead>
+        <tbody>
+          <tr><td>Fish finder: Garmin Striker Vivid 4cv / Lowrance Hook Reveal 5</td><td>~$300–400</td></tr>
+          <tr><td>Bigger fish finder/GPS (Humminbird Helix etc.)</td><td>$500–1,200</td></tr>
+          <tr><td>VHF radio (handheld or fixed)</td><td>$150–450</td></tr>
+          <tr><td>Rod holders / rocket launcher</td><td>$10–30 each / $100–300</td></tr>
+          <tr><td>Bait board</td><td>$60–200</td></tr>
+          <tr><td>Live bait tank</td><td>$300–800</td></tr>
+          <tr><td>Anchor winch</td><td>$400–2,500</td></tr>
+          <tr><td>Berley pot · LED deck lights</td><td>$20–60 · $30–150</td></tr>
+        </tbody>
+      </table></div>
+    </details>
+  </div>
+
+  <div class="card">
+    <h3>🗳️ Upgrade wishlist</h3>
+    <p class="small muted">Vote with a ⭐ — top-voted gets bought first.</p>
+    <div id="wishOut"></div>
+    <div class="row" style="margin-top:10px"><input id="wishText" placeholder="Add an idea…"><button class="btn sm" style="flex:0" onclick="addWish()">Add</button></div>
+  </div>
+</section>
+
+<footer>Gorn Fishing · CoPCO · Co-operative of Pleasure Craft Owners · Est. 2026<br>Facts tagged <span class="tag v">✓</span> <span class="tag est">est.</span> <span class="tag chk">verify</span> — check official sources before you rely on them.</footer>
+</main>
+
+<nav class="bottom" id="nav"></nav>
+<div class="sheet" id="more" onclick="if(event.target===this)this.classList.remove('open')"><div class="inner"><h3>More</h3><div class="menu" id="moreMenu"></div></div></div>
+<div class="lightbox" id="lb" onclick="this.classList.remove('open')"><img alt=""></div>
+
+<script>
+/* ================= DATA ================= */
+const CREW = [
+  {id:'merv', name:'Merv', col:'#e0533d'},
+  {id:'ace', name:'Ace', col:'#2a8c9a'},
+  {id:'northy', name:'Northy', col:'#e7b24a'},
+  {id:'bouncing', name:'Bouncing', col:'#7b6fd6', note:'home port: Seaford'},
+];
+// Drop boat photos into /photos and list them here.
+const BOAT_PHOTOS = [];
+const BOAT_FACTS = [
+  ['Make / model','TBC — from photos'],
+  ['Year','TBC'],
+  ['Length','TBC (looks like a 5–7m trailer cabin cruiser)'],
+  ['Motor','TBC — make, hp, 2-stroke/4-stroke, outboard or sterndrive'],
+  ['Cabin','Seating, a toilet and a little stove/skillet'],
+  ['Came from','Bouncing\'s "Uncle Uncle"'],
+  ['Condition','Stationary for some time; motor not yet running'],
+  ['Price paid','TBC'],
+  ['Name','TBC — needs a name!'],
+];
+const BOAT_TIMELINE = [
+  {when:'Before 2026', what:'Owned by Bouncing\'s Uncle Uncle. Sat unused for some time.'},
+  {when:'2026', what:'CoPCO forms. Merv, Ace, Northy and Bouncing agree to buy the boat.'},
+  {when:'Sat 18 Oct 2026', what:'First test. Tried to run the motor — fuses and the like — couldn\'t quite get it going.'},
+  {when:'Next', what:'Travis\'s brother to get it checked: marine mechanic, motor, overall review, fresh fuel.', future:true},
+  {when:'Then', what:'Paperwork, safety gear, licences.', future:true},
+  {when:'Then', what:'Maiden voyage from Patterson River.', future:true},
+];
+const READY_LOG = [
+  {when:'Sat 18 Oct 2026', what:'Motor test day. Worked through fuses and electrics — not running yet. (Full write-up from the day coming once the notes are in.)'},
+  {when:'Next', what:'Book a marine mechanic: motor diagnosis, recommission service, fuel drained and replaced, overall boat review.', future:true},
+];
+const STAGES = ['Found','Testing','Service','Paperwork','Maiden','Gorn'];
+const STAGE_NOW = 1;
+
+const MAIDEN = ['Lifejackets ×4 (right sizes)','Flares (in date) or VHF/PLB','Fire extinguisher (in date)','Waterproof torch','Anchor, chain + 30m+ rope','Bucket + bailer','Bung (and a spare bung!)','Fresh fuel + spare fuel can','Charged battery + jumper pack','Phones in a dry bag + charger','Basic toolkit, spare fuses, cable ties, duct tape','Spare spark plugs + plug spanner','Paddle','Mooring lines + fenders','Fishing licences on phones','Rods, tackle box, pliers, knife, bait board','Bait: pilchards, squid, pipis','Berley','Esky with ice (and a fish ice slurry)','Brag mat / measuring ruler','Water, food, sunscreen, hats, sunnies','Warm layer + rain jacket','First aid kit','Seasick tablets','Toilet paper (for the head!)','Bin bags — take everything home','Camera for the maiden voyage photo'];
+
+const START_CHECK = ['Kill-switch lanyard clipped in','Gear lever fully in neutral (neutral safety switch)','Battery 12.6V+, terminals clean and tight, earth good','Inline fuses (near battery and engine harness, often 20A) — check holders for corrosion','Key switch & connectors behind the dash','Click but no crank? Solenoid, cables or flat battery','Starter spins but doesn\'t engage? Bendix','Primer bulb squeezes firm (perished bulbs are common)','Fuel tank vent open','Fresh fuel reaching the filter / water separator','Spark at the plugs; plugs not fouled','Flooded? Hold throttle open and crank, or wait','Still dead → mechanic (compression, carbs)'];
+
+const MONTHS = [
+ {m:'January',  peak:['KG whiting'], also:['Calamari','Flathead','Pinkie snapper','Garfish'], note:'Early mornings before the sea breeze. Whiting in 4–8m on pipi, squid strip or mussel. Pinkies on soft plastics.'},
+ {m:'February', peak:['KG whiting'], also:['Flathead','Calamari','Trevally','Salmon','Pinkies'], note:'Whiting stay hot. Salmon and trevally busting up on the surface.'},
+ {m:'March',    peak:['Calamari'], also:['KG whiting','Flathead','Gummy shark','Pinkies'], note:'Squid on 2.5–3.5 jigs over weed in 3–8m.'},
+ {m:'April',    peak:['Calamari','Autumn snapper'], also:['Gummy shark','Salmon','Whiting (tapering)'], note:'Autumn snapper in 16–24m off Mornington/Mt Martha.'},
+ {m:'May',      peak:['Gummy shark','Calamari'], also:['Snapper','Elephant fish'], note:'Gummies on squid, pilchard or salmon strip in 10–20m at dusk.'},
+ {m:'June',     peak:['Gummy shark'], also:['Calamari','Winter snapper (Mt Martha)'], note:'Cold, slow, deep. Fewer boats — good time for upgrades.'},
+ {m:'July',     peak:['Gummy shark'], also:['Calamari'], note:'Mostly cold-water gummies and squid. Prime cabin-refit season.'},
+ {m:'August',   peak:['Calamari'], also:['Gummy shark'], note:'Calamari building ahead of spring. Get the boat serviced for snapper season.'},
+ {m:'September',peak:['Calamari'], also:['Gummy shark','First snapper (late)'], note:'Snapper arrive from Bass Strait as the water nears 16°C.'},
+ {m:'October',  peak:['Snapper'], also:['Calamari','KG whiting returning','Pinkies','Flathead'], note:'The run is on — water ~16–17°C. Fast but fickle; fish dawn and tide changes.'},
+ {m:'November', peak:['Snapper (peak)'], also:['Calamari','KG whiting','Flathead'], note:'The month. Big reds at dawn/dusk and tide changes, Mt Martha up to Frankston.'},
+ {m:'December', peak:['KG whiting','Snapper (tailing off)'], also:['Flathead','Calamari'], note:'Snapper run usually finishes about a week before Christmas. Whiting take over.'},
+];
+// season score 0–10 per month (for Gorn Index)
+const SEASON_SCORE = [8,8,7,7,6,4,3,4,6,9,10,8];
+
+const SPOTS = [
+  {id:'carrum', name:'Carrum', lat:-38.08, lon:145.07},
+  {id:'frankston', name:'Frankston', lat:-38.15, lon:145.08},
+  {id:'mornington', name:'Mornington', lat:-38.21, lon:145.02},
+];
+const CATS = ['Purchase','Mechanic & parts','Fuel','Rego & licences','Insurance','Safety gear','Fishing gear','Upgrades','Other'];
+const SEED_TODOS = [
+  {t:'Book marine mechanic — motor diagnosis + recommission + fresh fuel', who:'Travis\'s brother', list:'Now'},
+  {t:'Photograph the HIN (transom) and motor serial plate', who:'Bouncing', list:'Now'},
+  {t:'PPSR check on the HIN / motor serial', who:'', list:'Now'},
+  {t:'Bill of sale + rego transfer form signed with Uncle Uncle', who:'', list:'Now'},
+  {t:'Decide whose name the rego goes in', who:'', list:'Now'},
+  {t:'One-page CoPCO syndicate agreement', who:'', list:'Now'},
+  {t:'Check trailer: bearings, tyres (date code), lights, brakes, compliance plate ATM', who:'', list:'Now'},
+  {t:'Get 3 insurance quotes', who:'', list:'Before maiden voyage'},
+  {t:'Marine licences (at least 2 of us)', who:'', list:'Before maiden voyage'},
+  {t:'Fishing licences for all 4', who:'', list:'Before maiden voyage'},
+  {t:'Audit safety gear — expiry dates on flares and extinguisher', who:'', list:'Before maiden voyage'},
+  {t:'Lifejackets ×4', who:'', list:'Shopping'},
+  {t:'Muffs for flushing the motor', who:'', list:'Shopping'},
+  {t:'Name the boat', who:'', list:'Someday'},
+  {t:'CoPCO merch run', who:'', list:'Someday'},
+];
+const SEED_WISH = [{t:'12V fridge',v:4},{t:'Boat cover',v:3},{t:'Fish finder',v:3},{t:'Cabin cushions redo',v:2},{t:'Bimini',v:1}];
+
+/* ================= STORE ================= */
+const KEY='gorn-v1';
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
+let S=load();
+S.expenses=S.expenses||[]; S.todos=S.todos||SEED_TODOS.map((x,i)=>({...x,id:'s'+i,done:false}));
+S.wish=S.wish||SEED_WISH.map((x,i)=>({...x,id:'w'+i})); S.maiden=S.maiden||{}; S.start=S.start||{};
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+const $=id=>document.getElementById(id);
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const money=n=>{const r=Math.round(n*100)/100;return '$'+r.toLocaleString('en-AU',{minimumFractionDigits:r%1?2:0,maximumFractionDigits:2})};
+
+/* ================= NAV ================= */
+const ICON={
+ home:'<path d="M3 11l9-7 9 7v9a1 1 0 0 1-1 1h-5v-6h-6v6H4a1 1 0 0 1-1-1z"/>',
+ boat:'<path d="M3 15h18l-2.5 4.5h-13z"/><path d="M7 15V10h7l3 5"/>',
+ conditions:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+ money:'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>',
+ more:'<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>'};
+const VIEWS=[['home','Home','🏠'],['boat','The Boat','🛥️'],['conditions','Conditions','🌤️'],['money','Money','💰'],['legal','Get Legal','📋'],['water','On the Water','⚓'],['ready','Get it Ready','🔧'],['seasons','Seasons','🐟'],['todo','To-do','✅'],['upgrades','Upgrades','🛋️']];
+function navBtn(id,label){return `<button data-v="${id}" onclick="${id==='more'?"$('more').classList.add('open')":`go('${id}')`}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICON[id]}</svg>${label}</button>`}
+$('nav').innerHTML=navBtn('home','Home')+navBtn('boat','Boat')+navBtn('conditions','Conditions')+navBtn('money','Money')+navBtn('more','More');
+const menuHTML=list=>list.map(([id,l,e])=>`<button onclick="go('${id}')"><span>${e}</span>${l}</button>`).join('');
+$('moreMenu').innerHTML=menuHTML(VIEWS.slice(4));
+$('homeMenu').innerHTML=menuHTML(VIEWS.slice(1));
+function go(v){
+  document.querySelectorAll('.view').forEach(x=>x.classList.toggle('active',x.id==='v-'+v));
+  const main=['home','boat','conditions','money'];
+  document.querySelectorAll('nav.bottom button').forEach(b=>b.classList.toggle('on',b.dataset.v===v||(b.dataset.v==='more'&&!main.includes(v))));
+  $('more').classList.remove('open'); window.scrollTo({top:0}); history.replaceState(null,'','#'+v);
+  if(v==='conditions'&&!condLoaded) loadConditions();
+}
+
+/* ================= HOME / BOAT ================= */
+$('crew').innerHTML=CREW.map(c=>`<div class="mate"><div class="av" style="background:${c.col}">${c.name[0]}</div><b>${c.name}</b><small>${c.note||'¼ share'}</small></div>`).join('');
+$('stages').innerHTML=STAGES.map((s,i)=>`<div class="${i<STAGE_NOW?'done':i===STAGE_NOW?'now':''}" title="${s}"></div>`).join('');
+$('stagePill').textContent='Stage: '+STAGES[STAGE_NOW];
+$('boatFacts').innerHTML=BOAT_FACTS.map(([k,v])=>`<tr><th style="width:38%">${k}</th><td>${esc(v)}</td></tr>`).join('');
+const tl=a=>a.map(e=>`<div class="ev ${e.future?'future':''}"><div class="when">${e.when}</div>${esc(e.what)}</div>`).join('');
+$('boatTimeline').innerHTML=tl(BOAT_TIMELINE); $('readyLog').innerHTML=tl(READY_LOG);
+$('photoGrid').innerHTML=BOAT_PHOTOS.length?BOAT_PHOTOS.map(p=>`<img src="${p.src}" alt="${esc(p.cap||'')}" loading="lazy" onclick="lb('${p.src}')">`).join(''):'<div class="placeholder" style="grid-column:1/-1">📸 Photos coming soon — the crew are dropping them in.</div>';
+function lb(src){$('lb').querySelector('img').src=src;$('lb').classList.add('open')}
+
+/* ================= CHECKLISTS ================= */
+function checklist(el,items,store){
+  $(el).innerHTML=items.map((t,i)=>`<label class="item ${store[i]?'done':''}" style="margin:0;font-size:15px;color:var(--text)"><input type="checkbox" ${store[i]?'checked':''} onchange="tick('${el}',${i},this.checked)"><div class="main">${esc(t)}</div></label>`).join('')
+   +`<div class="row" style="margin-top:8px"><span class="small muted">${Object.values(store).filter(Boolean).length} / ${items.length} done</span><button class="btn ghost sm" style="flex:0" onclick="resetList('${el}')">Reset</button></div>`;
+}
+function tick(el,i,v){const st=el==='maidenList'?S.maiden:S.start;st[i]=v;save();renderChecks()}
+function resetList(el){if(el==='maidenList')S.maiden={};else S.start={};save();renderChecks()}
+function renderChecks(){checklist('maidenList',MAIDEN,S.maiden);checklist('startList',START_CHECK,S.start)}
+
+/* ================= TOWING ================= */
+function tow(){const a=+$('towAtm').value,c=+$('towCap').value,o=$('towOut');
+  if(!a||!c){o.innerHTML='<span class="muted">Enter both numbers.</span>';return}
+  const r=a/c; let msg;
+  if(r>1) msg=`<b style="color:var(--red)">❌ No.</b> ${a}kg is over the ${c}kg rating.`;
+  else if(r>0.85) msg=`<b style="color:var(--amber)">⚠️ Legal but tight</b> (${Math.round(r*100)}% of capacity). Fine for the short run to Patterson River; don't make a habit of long highway trips.`;
+  else msg=`<b style="color:var(--green)">✅ Comfortable</b> (${Math.round(r*100)}% of capacity).`;
+  if(a>750) msg+=` Trailer needs brakes${a>2000?' <b>and a breakaway system</b>':''}. Target ball download ~${Math.round(a*.1)}kg.`;
+  o.innerHTML=msg}
+$('towAtm').oninput=$('towCap').oninput=tow;
+
+/* ================= SEASONS ================= */
+let selMonth=new Date().getMonth();
+function renderMonths(){
+  $('monthChips').innerHTML=MONTHS.map((m,i)=>`<button class="chip ${i===selMonth?'on':''}" onclick="selMonth=${i};renderMonths()">${m.m.slice(0,3)}${i===new Date().getMonth()?' •':''}</button>`).join('');
+  const m=MONTHS[selMonth];
+  $('monthCard').innerHTML=`<div class="card month-card"><div class="dayhead"><h3>${m.m}</h3><span class="small muted">Season rating ${SEASON_SCORE[selMonth]}/10</span></div><div class="fish">${m.peak.map(f=>`<span class="fishchip peak">🔥 ${f}</span>`).join('')}${m.also.map(f=>`<span class="fishchip">${f}</span>`).join('')}</div><p>${m.note}</p></div>`;
+}
+
+/* ================= MONEY ================= */
+$('exWho').innerHTML=CREW.map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+$('exCat').innerHTML=CATS.map(c=>`<option>${c}</option>`).join('');
+$('exDate').valueAsDate=new Date();
+let split=new Set(CREW.map(c=>c.id));
+function renderSplit(){$('exSplit').innerHTML=CREW.map(c=>`<button class="chip ${split.has(c.id)?'on':''}" onclick="split.has('${c.id}')?split.delete('${c.id}'):split.add('${c.id}');renderSplit()">${c.name}</button>`).join('')}
+function addExpense(){
+  const amt=parseFloat($('exAmt').value), what=$('exWhat').value.trim();
+  if(!what||!(amt>0)||!split.size){alert('Need a description, an amount and at least one person to split with.');return}
+  S.expenses.unshift({id:Date.now().toString(36),what,amt,who:$('exWho').value,cat:$('exCat').value,date:$('exDate').value,split:[...split]});
+  save();$('exWhat').value='';$('exAmt').value='';renderMoney();
+}
+function delExpense(id){if(confirm('Delete this expense?')){S.expenses=S.expenses.filter(e=>e.id!==id);save();renderMoney()}}
+function balances(){const b={};CREW.forEach(c=>b[c.id]={paid:0,share:0});
+  S.expenses.forEach(e=>{b[e.who].paid+=e.amt;e.split.forEach(p=>b[p].share+=e.amt/e.split.length)});return b}
+function settlements(b){const d=CREW.map(c=>({id:c.id,v:Math.round((b[c.id].paid-b[c.id].share)*100)/100}));
+  const cr=d.filter(x=>x.v>0.009).sort((a,b)=>b.v-a.v),db=d.filter(x=>x.v<-0.009).sort((a,b)=>a.v-b.v),out=[];
+  let i=0,j=0;while(i<db.length&&j<cr.length){const x=Math.min(-db[i].v,cr[j].v);out.push([db[i].id,cr[j].id,x]);db[i].v+=x;cr[j].v-=x;if(db[i].v>-0.009)i++;if(cr[j].v<0.009)j++}
+  return out}
+const nm=id=>CREW.find(c=>c.id===id)?.name||id;
+function renderMoney(){
+  const tot=S.expenses.reduce((a,e)=>a+e.amt,0),b=balances();
+  $('moneyTiles').innerHTML=`<div class="tile" style="grid-column:1/-1"><div class="n">${money(tot)}</div><div class="l">Total spent</div></div>`+CREW.slice(0,3).map(c=>`<div class="tile"><div class="n" style="font-size:18px">${money(b[c.id].paid)}</div><div class="l">${c.name} paid</div></div>`).join('')+`<div class="tile"><div class="n" style="font-size:18px">${money(b.bouncing.paid)}</div><div class="l">Bouncing paid</div></div>`;
+  const st=settlements(b);
+  $('settle').innerHTML=S.expenses.length?(st.length?st.map(([f,t,x])=>`<div class="item"><div class="main"><b>${nm(f)}</b> owes <b>${nm(t)}</b></div><div class="amt">${money(x)}</div></div>`).join(''):'<span class="muted">All square. 🍻</span>'):'<span class="muted">Nothing yet — add the first expense below.</span>';
+  $('exList').innerHTML=S.expenses.length?S.expenses.map(e=>`<div class="item"><div class="main"><b>${esc(e.what)}</b><div class="small muted">${esc(e.cat)} · ${nm(e.who)} paid · split ${e.split.length===CREW.length?'4 ways':e.split.map(nm).join(', ')} · ${e.date||''}</div></div><div class="amt">${money(e.amt)}</div><button class="x" onclick="delExpense('${e.id}')">×</button></div>`).join(''):'<p class="muted small">No expenses yet.</p>';
+  $('homeMoney').innerHTML=S.expenses.length?`<div style="font-family:var(--serif);font-size:26px;color:var(--gold)">${money(tot)}</div><div>${st.length?st.slice(0,3).map(([f,t,x])=>`${nm(f)} → ${nm(t)} ${money(x)}`).join('<br>'):'All square 🍻'}</div>`:'No expenses yet.';
+}
+function shareSummary(){const b=balances(),tot=S.expenses.reduce((a,e)=>a+e.amt,0);
+  const txt=`CoPCO kitty — total ${money(tot)}\n`+S.expenses.map(e=>`• ${e.what}: ${money(e.amt)} (${nm(e.who)})`).join('\n')+'\n\nSettle up:\n'+(settlements(b).map(([f,t,x])=>`${nm(f)} → ${nm(t)}: ${money(x)}`).join('\n')||'All square');
+  if(navigator.share)navigator.share({title:'CoPCO kitty',text:txt}).catch(()=>{});else{navigator.clipboard?.writeText(txt);alert('Copied to clipboard')}}
+function exportData(){const blob=new Blob([JSON.stringify(S,null,1)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='gorn-fishing-backup-'+new Date().toISOString().slice(0,10)+'.json';a.click()}
+function importData(inp){const f=inp.files[0];if(!f)return;f.text().then(t=>{try{const d=JSON.parse(t);
+  const ids=new Set(S.expenses.map(e=>e.id));(d.expenses||[]).forEach(e=>{if(!ids.has(e.id))S.expenses.push(e)});
+  const tids=new Set(S.todos.map(e=>e.id));(d.todos||[]).forEach(e=>{if(!tids.has(e.id))S.todos.push(e)});
+  S.expenses.sort((a,b)=>(b.date||'').localeCompare(a.date||''));save();renderAll();alert('Merged.')}catch(e){alert('Not a valid backup file')}})}
+
+/* ================= TODO ================= */
+const WHO_OPTS=['',...CREW.map(c=>c.name),'Travis\'s brother','Everyone'];
+$('tdWho').innerHTML=WHO_OPTS.map(w=>`<option>${w}</option>`).join('');
+let tdF='All';
+function addTodo(){const t=$('tdText').value.trim();if(!t)return;S.todos.unshift({id:Date.now().toString(36),t,who:$('tdWho').value,list:$('tdList').value,done:false});save();$('tdText').value='';renderTodo()}
+function togTodo(id){const x=S.todos.find(t=>t.id===id);x.done=!x.done;save();renderTodo()}
+function delTodo(id){S.todos=S.todos.filter(t=>t.id!==id);save();renderTodo()}
+function renderTodo(){
+  const lists=['All','Now','Before maiden voyage','Shopping','Someday','Done'];
+  $('tdFilter').innerHTML=lists.map(l=>`<button class="chip ${tdF===l?'on':''}" onclick="tdF='${l}';renderTodo()">${l}</button>`).join('');
+  const groups=(tdF==='All'?lists.slice(1,5):tdF==='Done'?[]:[tdF]);
+  let html=groups.map(g=>{const it=S.todos.filter(t=>t.list===g&&!t.done);if(!it.length)return'';return `<div class="card"><h3>${g}</h3>${it.map(todoRow).join('')}</div>`}).join('');
+  if(tdF==='Done'||tdF==='All'){const d=S.todos.filter(t=>t.done);if(d.length)html+=`<div class="card"><h3>Done 🎉</h3>${d.map(todoRow).join('')}</div>`}
+  $('tdOut').innerHTML=html||'<div class="card muted">Nothing here.</div>';
+  $('homeTodo').innerHTML=S.todos.filter(t=>!t.done&&t.list==='Now').slice(0,4).map(t=>`• ${esc(t.t)}${t.who?` <span class="muted">(${esc(t.who)})</span>`:''}`).join('<br>')||'<span class="muted">All clear.</span>';
+}
+const todoRow=t=>`<div class="item ${t.done?'done':''}"><input type="checkbox" ${t.done?'checked':''} onchange="togTodo('${t.id}')"><div class="main">${esc(t.t)}${t.who?`<div class="small muted">${esc(t.who)}</div>`:''}</div><button class="x" onclick="delTodo('${t.id}')">×</button></div>`;
+
+/* ================= WISHLIST ================= */
+function renderWish(){S.wish.sort((a,b)=>b.v-a.v);$('wishOut').innerHTML=S.wish.map(w=>`<div class="item"><div class="main">${esc(w.t)}</div><button class="btn ghost sm" style="flex:0" onclick="vote('${w.id}')">⭐ ${w.v}</button><button class="x" onclick="delWish('${w.id}')">×</button></div>`).join('')}
+function vote(id){S.wish.find(w=>w.id===id).v++;save();renderWish()}
+function delWish(id){S.wish=S.wish.filter(w=>w.id!==id);save();renderWish()}
+function addWish(){const t=$('wishText').value.trim();if(!t)return;S.wish.push({id:Date.now().toString(36),t,v:1});$('wishText').value='';save();renderWish()}
+
+/* ================= CONDITIONS (Gorn Index) ================= */
+let condLoaded=false, spot=SPOTS[0];
+function moonPhase(d){const syn=29.530588853,ref=Date.UTC(2000,0,6,18,14);const p=(((d-ref)/864e5)%syn+syn)%syn/syn;return p}
+function moonInfo(p){const names=['🌑 New','🌒 Waxing crescent','🌓 First quarter','🌔 Waxing gibbous','🌕 Full','🌖 Waning gibbous','🌗 Last quarter','🌘 Waning crescent'];return names[Math.round(p*8)%8]}
+function dirName(d){return ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'][Math.round(d/22.5)%16]}
+function scoreHour(h){
+  // h: {wind,gust,dir,wave,dp3,tideMin,light,moon,season}
+  let s=0,f={};
+  const w=h.wind; f.wind=w<=8?30:w<=12?22:w<=15?12:w<=20?4:0;
+  const g=h.gust; f.gust=g>25?0:Math.max(0,10-Math.max(0,(g-w)-6));
+  const d=h.dir, s_sw=(d>=157&&d<=258); // S–SW onshore/long fetch for eastern shore
+  const offshore=(d>=30&&d<=135)||(d>=270&&d<=360)||d<30; // E & W/NW/N quadrants sheltered-ish on east shore (E is offshore)
+  f.dir=s_sw?(w>10?0:5):offshore?10:6;
+  const wv=h.wave; f.wave=wv==null?6:wv<0.3?10:wv<0.5?6:wv<0.8?2:0;
+  const p=h.dp3; f.pres=p==null?5:(p>-0.7&&p<1.5)?8:p<=-3?3:p<0?5:4;
+  f.tide=h.tideMin==null?6:h.tideMin<=60?12:h.tideMin<=120?8:4;
+  f.light=h.light?5:0;
+  f.moon=(h.moonP<0.06||h.moonP>0.94||Math.abs(h.moonP-0.5)<0.06)?5:(Math.abs(h.moonP-0.25)<0.06||Math.abs(h.moonP-0.75)<0.06)?2:3;
+  f.season=h.season;
+  s=Object.values(f).reduce((a,b)=>a+b,0);
+  const stop=w>20||g>25;
+  return {score:stop?Math.min(s,15):Math.round(s),stop,f};
+}
+const band=s=>s>=80?['Go Gorn! 🎣','#6fbf73']:s>=60?['Good day','#a8d26b']:s>=40?['Marginal','#e7b24a']:['Stay home','#e0533d'];
+async function loadConditions(){
+  condLoaded=true; $('condOut').innerHTML='<div class="card muted">Loading forecast for '+spot.name+'…</div>';
+  $('spotChips').innerHTML=SPOTS.map(s=>`<button class="chip ${s.id===spot.id?'on':''}" onclick="spot=SPOTS.find(x=>x.id==='${s.id}');loadConditions()">${s.name}</button>`).join('');
+  const ck='gorn-cond-'+spot.id;let data;
+  try{const c=JSON.parse(localStorage.getItem(ck)||'null');if(c&&Date.now()-c.t<30*60e3)data=c.d}catch(e){}
+  try{
+    if(!data){
+      const base=`latitude=${spot.lat}&longitude=${spot.lon}&timezone=Australia%2FMelbourne&forecast_days=4&past_days=1`;
+      const [wx,mar]=await Promise.all([
+        fetch(`https://api.open-meteo.com/v1/forecast?${base}&hourly=wind_speed_10m,wind_gusts_10m,wind_direction_10m,pressure_msl,temperature_2m,precipitation_probability&daily=sunrise,sunset&wind_speed_unit=kn`).then(r=>r.json()),
+        fetch(`https://marine-api.open-meteo.com/v1/marine?${base}&hourly=wave_height,sea_surface_temperature,sea_level_height_msl`).then(r=>r.json()).catch(()=>null)]);
+      data={wx,mar};try{localStorage.setItem(ck,JSON.stringify({t:Date.now(),d:data}))}catch(e){}
+    }
+    renderConditions(data);
+  }catch(e){$('condOut').innerHTML='<div class="card">Couldn\'t load the forecast (offline?). Check the <a href="http://www.bom.gov.au/vic/forecasts/portphillip.shtml" target="_blank">BOM Port Phillip forecast</a>.</div>';$('homeConditions').innerHTML='<h3>Gorn Index</h3><p class="muted small">Offline — forecast unavailable.</p>'}
+}
+function buildHours(data){
+  const H=data.wx.hourly, M=data.mar?.hourly, T=H.time;
+  const sun={};data.wx.daily.time.forEach((d,i)=>sun[d]={rise:new Date(data.wx.daily.sunrise[i]),set:new Date(data.wx.daily.sunset[i])});
+  // tide turning points from modelled sea level
+  const sl=M?.sea_level_height_msl||[], turns=[];
+  for(let i=1;i<sl.length-1;i++){if(sl[i]==null)continue;if((sl[i]>sl[i-1]&&sl[i]>=sl[i+1])||(sl[i]<sl[i-1]&&sl[i]<=sl[i+1]))turns.push({t:new Date(M.time[i]),hi:sl[i]>sl[i-1]})}
+  return T.map((t,i)=>{
+    const dt=new Date(t), day=t.slice(0,10), sn=sun[day];
+    const light=sn&&(Math.abs(dt-sn.rise)<=90*60e3||Math.abs(dt-sn.set)<=90*60e3);
+    const tideMin=turns.length?Math.min(...turns.map(x=>Math.abs(dt-x.t)/60e3)):null;
+    const p0=H.pressure_msl[i],p3=H.pressure_msl[i-3];
+    const mp=moonPhase(dt);
+    const h={t:dt,day,hr:dt.getHours(),wind:H.wind_speed_10m[i],gust:H.wind_gusts_10m[i],dir:H.wind_direction_10m[i],wave:M?.wave_height?.[i]??null,sst:M?.sea_surface_temperature?.[i]??null,dp3:p3!=null?p0-p3:null,tideMin,light,moonP:mp,season:SEASON_SCORE[dt.getMonth()],temp:H.temperature_2m[i],rain:H.precipitation_probability?.[i],sun:sn};
+    return {...h,...scoreHour(h),turns};
+  });
+}
+function renderConditions(data){
+  const hrs=buildHours(data), now=new Date(), today=fmtD(now);
+  const byDay={};hrs.forEach(h=>{if(h.t<new Date(now.getTime()-36e5)&&h.day!==today)return;(byDay[h.day]=byDay[h.day]||[]).push(h)});
+  let homeSet=false;
+  const days=Object.keys(byDay).filter(d=>d>=fmtD(now)).slice(0,4);
+  const html=days.map((d,di)=>{
+    const fish=byDay[d].filter(h=>h.hr>=5&&h.hr<=20&&(d!==fmtD(now)||h.t>=new Date(now.getTime()-36e5)));
+    if(fish.length<3)return'';
+    if(!fish.length)return'';
+    // best 3-hour window
+    let best=null;for(let i=0;i+2<fish.length;i++){const a=(fish[i].score+fish[i+1].score+fish[i+2].score)/3;if(!best||a>best.a)best={a,i}}
+    const b=fish[best.i], sc=Math.round(best.a), [verdict,col]=band(sc);
+    const dn=new Date(d+'T12:00').toLocaleDateString('en-AU',{weekday:'long',day:'numeric',month:'long'});
+    const turns=(b.turns||[]).filter(x=>fmtD(x.t)===d).map(x=>`${x.hi?'High':'Low'} ~${x.t.toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit'})}`).join(' · ');
+    const card=`<div class="card"><div class="dayhead"><h3>${d===fmtD(now)?'Today':dn.split(' ')[0]}</h3><span class="small muted">${dn}</span></div>
+      <div class="gauge" style="margin-top:8px"><div class="score" style="border-color:${col};color:${col}">${sc}</div><div><div class="verdict" style="color:${col}">${verdict}</div>
+      <div class="small muted">Best window ${fmtH(fish[best.i].t)}–${fmtH(new Date(fish[best.i+2].t.getTime()+36e5))}</div>
+      <div class="small muted">Wind ${Math.round(b.wind)}kn ${dirName(b.dir)}, gusts ${Math.round(b.gust)}kn${b.wave!=null?` · waves ${b.wave.toFixed(1)}m`:''}</div></div></div>
+      <div class="hours">${fish.map(h=>`<div title="${h.hr}:00 — ${h.score}" style="height:${Math.max(4,h.score)}%;background:${band(h.score)[1]};opacity:${h.stop?.5:1}"></div>`).join('')}</div>
+      <div class="hourlbl"><span>${fmtH(fish[0].t)}</span><span>${fmtH(fish[fish.length-1].t)}</span></div>
+      <div class="factors">
+        <div>Wind<b>${Math.round(b.wind)}kn ${dirName(b.dir)}</b></div>
+        <div>Gusts<b>${Math.round(b.gust)}kn</b></div>
+        <div>Waves<b>${b.wave!=null?b.wave.toFixed(1)+'m':'—'}</b></div>
+        <div>Sunrise / set<b>${b.sun?fmtH(b.sun.rise)+' / '+fmtH(b.sun.set):'—'}</b></div>
+        <div>Moon<b>${moonInfo(b.moonP)}</b></div>
+        <div>Sea temp<b>${b.sst!=null?b.sst.toFixed(1)+'°C':'—'}</b></div>
+      </div>
+      ${turns?`<p class="small muted" style="margin:8px 0 0">Tide turns (modelled, indicative): ${turns}</p>`:''}
+      ${fish.some(h=>h.stop)?'<p class="small" style="color:var(--coral-2);margin:6px 0 0">⚠️ Some hours over 20kn or gusting over 25kn — stay home then.</p>':''}
+    </div>`;
+    if(!homeSet&&(homeSet=true))$('homeConditions').innerHTML=`<div class="dayhead"><h3>Gorn Index — ${d===fmtD(now)?'today':dn.split(' ')[0]}</h3><a href="#" onclick="go('conditions');return false" class="small">Full forecast →</a></div><div class="gauge" style="margin-top:8px"><div class="score" style="border-color:${col};color:${col}">${sc}</div><div><div class="verdict" style="color:${col}">${verdict}</div><div class="small muted">Best ${fmtH(fish[best.i].t)}–${fmtH(new Date(fish[best.i+2].t.getTime()+36e5))} off ${spot.name} · ${Math.round(b.wind)}kn ${dirName(b.dir)}</div></div></div>`;
+    return card;
+  }).join('');
+  $('condOut').innerHTML=html+`<p class="small muted">Updated ${new Date().toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit'})} · refreshes every 30 minutes when opened.</p>`;
+}
+const fmtD=d=>{const z=new Date(d.getTime()-d.getTimezoneOffset()*6e4);return z.toISOString().slice(0,10)};
+const fmtH=d=>d.toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit'}).replace(':00','').replace(' ','');
+
+/* ================= BOOT ================= */
+function renderAll(){renderChecks();renderMonths();renderSplit();renderMoney();renderTodo();renderWish()}
+renderAll(); loadConditions();
+const start=(location.hash||'#home').slice(1); go(VIEWS.some(v=>v[0]===start)?start:'home');
+addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(VIEWS.some(x=>x[0]===v))go(v)});
+if('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
