@@ -200,7 +200,6 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
 </style>
 </head>
 <body>
-<div id="updBanner" style="display:none;position:sticky;top:0;z-index:45;background:var(--gold);color:#0b1e33;text-align:center;font-weight:700;font-size:14px;padding:8px 12px;cursor:pointer" onclick="location.reload()"></div>
 <header class="top"><div class="wrap">
   <img src="assets/copco-logo.svg" alt="CoPCO badge">
   <div><b>Gorn Fishing</b><span>CoPCO · PPB</span></div>
@@ -1028,6 +1027,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
   <div class="row" style="margin-top:16px"><button class="btn" onclick="finishWelcome()">Cast my vote & come aboard</button></div>
   <p style="text-align:center"><a href="#" onclick="closeWelcome();return false" class="small">Just looking — skip</a></p>
 </div></div>
+<button id="updBanner" onclick="doUpdate()" style="display:none;position:fixed;left:16px;right:16px;bottom:calc(76px + env(safe-area-inset-bottom));z-index:55;max-width:560px;margin:0 auto;background:var(--gold);color:#0b1e33;border:0;border-radius:14px;box-shadow:0 10px 30px rgba(0,0,0,.5);font:inherit;font-weight:700;font-size:15px;padding:14px 16px;cursor:pointer"></button>
 <nav class="bottom" id="nav"></nav>
 <div class="sheet" id="more" onclick="if(event.target===this)this.classList.remove('open')"><div class="inner"><div class="dayhead"><h3>More</h3><span class="small muted" id="verMore"></span></div><div class="menu" id="moreMenu"></div></div></div>
 <div class="lightbox" id="lb" onclick="this.classList.remove('open')"><img alt=""></div>
@@ -1664,19 +1664,32 @@ function renderTrips(){
 
 /* ================= APP VERSION ================= */
 // Bump APP_VERSION here AND in version.json together on every release.
-const APP_VERSION='1.7.4', APP_DATE='18-10-2026';
+const APP_VERSION='1.7.5', APP_DATE='18-10-2026';
 $('verLine').innerHTML=`<b>Version ${APP_VERSION}</b> · ${APP_DATE} · <span id="verCheck">checking for updates…</span>`;
 $('verMore').textContent='v'+APP_VERSION;
 async function checkVersion(){
   try{const v=await fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json());
     const newer=v.version!==APP_VERSION;
-    $('verCheck').textContent=newer?`v${v.version} is out — tap the yellow bar to update`:'✅ latest version';
+    $('verCheck').innerHTML=newer?`v${v.version} is out — <a href="#" onclick="doUpdate();return false">update now</a>`:'✅ latest version';
     $('updBanner').style.display=newer?'block':'none';
-    $('updBanner').textContent=`New version ${v.version} available — tap to update`;
+    $('updBanner').textContent=`⬆️ Version ${v.version} is ready — tap to update`;
   }catch(e){$('verCheck').textContent='offline — can\'t check'}
 }
+// Update = fetch fresh copies past every cache (service worker + browser HTTP cache), then reload.
+async function doUpdate(){
+  const b=$('updBanner');b.textContent='Updating…';b.disabled=true;
+  try{
+    const reg=navigator.serviceWorker&&await navigator.serviceWorker.getRegistration();
+    if(reg)await reg.update().catch(()=>{});
+    if(window.caches){const ks=await caches.keys();await Promise.all(ks.map(k=>caches.delete(k)))}
+    await Promise.all(['./','./index.html','version.json','sw.js'].map(u=>fetch(u,{cache:'reload'}).catch(()=>{})));
+  }catch(e){}
+  location.replace(location.pathname+'?u='+Date.now()+location.hash);
+}
+if(location.search.includes('u='))history.replaceState(null,'',location.pathname+location.hash);
 checkVersion();
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkVersion()});
+if(navigator.serviceWorker){let reloaded=false;navigator.serviceWorker.addEventListener('controllerchange',()=>{if(!reloaded&&$('updBanner').disabled){reloaded=true;location.reload()}})}
 
 
 /* ================= CALENDAR ================= */

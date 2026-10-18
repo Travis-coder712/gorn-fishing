@@ -1,5 +1,5 @@
 // Gorn Fishing — offline service worker (network-first so updates reach installed phones)
-const CACHE = 'gorn-v13';
+const CACHE = 'gorn-v14';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon.svg', './assets/copco-logo.svg'];
 
 self.addEventListener('install', e => {
@@ -16,7 +16,9 @@ self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
   if (url.origin !== location.origin) return; // live forecast APIs go straight to the network
   e.respondWith(
-    fetch(e.request).then(res => {
+    // no-cache = revalidate with the server every time (URL, not the Request: navigate-mode Requests can't take init options), so GitHub Pages' 10-minute HTTP cache can't serve a stale app
+    fetch(e.request.url, { cache: 'no-cache' }).then(res => {
+      if (res.redirected && e.request.mode === 'navigate') return Response.redirect(res.url, 302);
       const copy = res.clone();
       caches.open(CACHE).then(c => c.put(e.request, copy)).catch(() => {});
       return res;
