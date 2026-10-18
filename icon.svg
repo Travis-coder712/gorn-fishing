@@ -1,70 +1,16 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="150 150 700 700" width="512" height="512">
-<defs>
-    <clipPath id="inner"><circle cx="500" cy="500" r="330"/></clipPath>
-    <path id="arcTop" d="M128,500 A372,372 0 0 1 872,500"/>
-    <path id="arcBot" d="M70,500 A430,430 0 0 0 930,500"/>
-    <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0" stop-color="#f6e7c8"/>
-      <stop offset="1" stop-color="#f2c98f"/>
-    </linearGradient>
-    <g id="star"><path d="M0,-22 L6.5,-7 L22,-7 L9.5,3 L14,19 L0,9.5 L-14,19 L-9.5,3 L-22,-7 L-6.5,-7 Z"/></g>
-  </defs>
-<rect x="150" y="150" width="700" height="700" fill="#0f2a44"/>
-<circle cx="500" cy="500" r="340" fill="#f4ead5"/>
-<g clip-path="url(#inner)">
-    <rect x="150" y="150" width="700" height="700" fill="url(#sky)"/>
-    <!-- sun + rays -->
-    <g fill="#e0533d" opacity=".9">
-      <circle cx="500" cy="500" r="128"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs><clipPath id="c"><rect width="512" height="512" rx="0"/></clipPath></defs>
+  <rect width="512" height="512" fill="#f1e4c8"/>
+  <g clip-path="url(#c)">
+    <path d="M0,330 L512,300 L512,336 L0,366 Z" fill="#6b3f22"/>
+    <path d="M0,380 L512,350 L512,382 L0,412 Z" fill="#d8742f"/>
+    <path d="M0,424 L512,394 L512,420 L0,450 Z" fill="#e8b04a"/>
+    <g transform="translate(318 262) scale(.36)" fill="#6b3f22">
+      <path d="M0,60 L470,48 Q440,112 366,124 L12,124 Z"/>
+      <path d="M118,62 L146,2 L312,-2 L368,58 Z"/>
+      <rect x="-34" y="40" width="44" height="100" rx="8"/>
     </g>
-    <g stroke="#e0533d" stroke-width="10" stroke-linecap="round" opacity=".55">
-      <line x1="500" y1="330" x2="500" y2="292"/>
-      <line x1="380" y1="380" x2="352" y2="352"/>
-      <line x1="620" y1="380" x2="648" y2="352"/>
-      <line x1="420" y1="350" x2="404" y2="318"/>
-      <line x1="580" y1="350" x2="596" y2="318"/>
-    </g>
-    <!-- gulls -->
-    <g fill="none" stroke="#0f2a44" stroke-width="6" stroke-linecap="round">
-      <path d="M318,330 q14,-14 28,0 q14,-14 28,0"/>
-      <path d="M640,300 q10,-10 20,0 q10,-10 20,0"/>
-    </g>
-
-    <!-- the boat: trailer cabin cruiser, bow to the right -->
-    <g>
-      <!-- fishing rods off the stern -->
-      <g stroke="#0f2a44" stroke-width="5" fill="none" stroke-linecap="round">
-        <path d="M322,505 L250,385"/>
-        <path d="M250,385 Q225,470 214,585" stroke-width="2.5"/>
-        <path d="M340,505 L290,365"/>
-        <path d="M290,365 Q262,450 246,585" stroke-width="2.5"/>
-      </g>
-      <!-- cabin -->
-      <path d="M418,512 L446,452 L612,448 L668,508 Z" fill="#f4ead5" stroke="#0f2a44" stroke-width="8" stroke-linejoin="round"/>
-      <!-- windscreen + windows -->
-      <path d="M598,462 L632,500 L585,500 Z" fill="#2a8c9a" stroke="#0f2a44" stroke-width="5" stroke-linejoin="round"/>
-      <rect x="462" y="470" width="44" height="22" rx="7" fill="#2a8c9a" stroke="#0f2a44" stroke-width="5"/>
-      <rect x="520" y="470" width="44" height="22" rx="7" fill="#2a8c9a" stroke="#0f2a44" stroke-width="5"/>
-      <!-- bow rail -->
-      <path d="M640,506 L640,490 L742,486 L742,500" fill="none" stroke="#0f2a44" stroke-width="5" stroke-linejoin="round"/>
-      <!-- hull -->
-      <path d="M300,508 L772,496 Q742,560 668,572 L312,572 Z" fill="#ffffff" stroke="#0f2a44" stroke-width="8" stroke-linejoin="round"/>
-      <path d="M306,540 L748,532" stroke="#e0533d" stroke-width="12"/>
-      <!-- outboard -->
-      <path d="M268,494 L306,494 L304,530 L292,594 L280,594 L282,530 Z" fill="#0f2a44"/>
-      <rect x="262" y="486" width="48" height="26" rx="8" fill="#0f2a44"/>
-    </g>
-
-    <!-- water -->
-    <path d="M150,566 q30,-14 60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 V850 H150 Z" fill="#2a8c9a"/>
-    <path d="M150,600 q30,-12 60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 t60,0 V850 H150 Z" fill="#1d6f7b"/>
-    <!-- jumping snapper -->
-    <g transform="translate(655 598) rotate(-22) scale(.72)">
-      <path d="M-46,0 Q-10,-30 34,-6 L58,-24 L52,0 L58,24 L34,6 Q-10,30 -46,0 Z" fill="#e0533d" stroke="#0f2a44" stroke-width="5" stroke-linejoin="round"/>
-      <circle cx="-30" cy="-4" r="4" fill="#0f2a44"/>
-    </g>
-    
   </g>
-<path d="M210,650 L790,650 L790,744 L210,744 Z" fill="#e0533d" stroke="#0f2a44" stroke-width="6"/>
-<text x="500" y="728" text-anchor="middle" font-family="Rockwell,'Arial Black',Georgia,serif" font-weight="800" font-size="88" fill="#f4ead5" letter-spacing="6">GORN</text>
+  <text x="250" y="250" text-anchor="middle" font-family="Futura,'Avenir Next',Arial,sans-serif" font-weight="800" font-style="italic" font-size="136" fill="#6b3f22" transform="skewX(-8) translate(30 0)">GORN</text>
+  <text x="256" y="112" text-anchor="middle" font-family="Futura,'Avenir Next',Arial,sans-serif" font-weight="700" font-size="30" letter-spacing="8" fill="#6b3f22">COPCO · 2026</text>
 </svg>

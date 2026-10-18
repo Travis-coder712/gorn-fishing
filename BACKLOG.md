@@ -87,15 +87,17 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 | 43 | Photos of sister Commodores (1980 listing, JV Marine, Pride President threads) | ✅ Boat tab |
 
 ## 4. Open questions for the crew
-- Merv's son — name/nickname for the app?
-- When Northy signs: flip `signed:true` in `CREW`. If he never does, does Merv's son take the full 25%?
+- When Northy signs: flip `signed:true` in `CREW`. If he never does, does Flash take the full 25%?
 - Solicitor for the tontine one-pager? (joint tenancy can be severed by notice/bankruptcy — agreement + wills matter)
-- Is "Merv's brother" (taking the boat to the mechanic) Ace?
-- Purchase price agreed with Uncle Uncle?
 - Whose name goes on the rego?
 - Which mechanic: Outboard Motor Services (Bayswater) vs Streaker (Bayswater, Yamaha dealer) vs Regal (Vermont) vs JV Marine (Braeside — the original dealer)?
-- Tow vehicle? (Carnival is borderline — who has a Ranger/Prado-class car?)
 - Boat name!
+
+## 3f. Seventh round (Merv, 18-10-2026)
+| # | Item | Status |
+|---|---|---|
+| 51 | Brother = **Ace**; Merv's son = **Flash**; price **$12k**; **Ace tows** | ✅ app + shared to-dos updated; $12k flagged as top-of-range → make subject to mechanic's report |
+| 52 | Rebrand app to **Retro '87** (logo, icon, colours) | ✅ v1.8.0 — vote now only decides merch placement |
 
 ## 5. Should look deeper (self-review, 18-10-2026)
 | # | Item | Why it matters | Status |
@@ -106,4 +108,4 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 | 47 | **Trailer brakes & real weight** — does the Dunbier have brakes (required >750kg; breakaway >2t)? ATM plate? | Legal to tow at all | ⬜ needs a photo of the compliance plate / drawbar |
 | 48 | **Where does she live?** Storage at Heathmont vs Seaford, council rules on boats in driveways/streets, paid storage near Patterson River | Ongoing cost + practicality | ⬜ research |
 | 49 | **Gorn Index not validated** — coarse marine model, modelled tides, hand-tuned thresholds | Trust in the go/no-go | 🧊 tune against logged trips |
-| 50 | Studio/Dashboard cards still describe v1.1 | Cosmetic | ⬜ |
+| 50 | Studio/Dashboard cards still describe v1.1 | Cosmetic | ✅ v1.8 |
