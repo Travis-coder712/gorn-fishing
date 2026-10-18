@@ -1,5 +1,5 @@
 // Gorn Fishing — offline service worker (network-first so updates reach installed phones)
-const CACHE = 'gorn-v19';
+const CACHE = 'gorn-v20';
 const ASSETS = ['./', './index.html', './manifest.webmanifest', './icon-192.png', './icon-512.png', './icon.svg', './assets/copco-logo.svg', './assets/copco-logo-retro-tight.svg', './assets/copco-logo-retro.png'];
 
 self.addEventListener('install', e => {

@@ -114,10 +114,10 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 ## 5. Should look deeper (self-review, 18-10-2026)
 | # | Item | Why it matters | Status |
 |---|---|---|---|
-| 44 | **Shared data can lose edits** — KV is eventually consistent; two phones saving within ~a minute can overwrite each other (kitty!). Move `/state` + `/op` to a Durable Object or D1 | Silent data loss in the money tracker | ⬜ recommended next |
+| 44 | **Shared data can lose edits** — KV is eventually consistent | Silent data loss | ✅ moved to a SQLite-backed Durable Object (`CopcoState`); migrated from KV byte-for-byte; stress test 30 parallel writes + 20 parallel votes, zero lost. Photos + daily backups stay in KV |
 | 45 | **Anyone with the URL can edit/vandalise** shared data (public app on Studio) — add a crew PIN checked by the Worker | Data integrity | ⬜ |
 | 46 | **Bag/size limits not verified** (also: species guide bait/depth data partly from model recall) — gummy, calamari, flathead, salmon flagged "check" (VFA site blocked the research fetcher) | Fines | ⬜ verify via browser |
 | 47 | **Trailer brakes & real weight** — does the Dunbier have brakes (required >750kg; breakaway >2t)? ATM plate? | Legal to tow at all | ⬜ needs a photo of the compliance plate / drawbar |
-| 48 | **Where does she live?** Storage at Heathmont vs Seaford, council rules on boats in driveways/streets, paid storage near Patterson River | Ongoing cost + practicality | ⬜ research |
+| 48 | **Where does she live?** | Ongoing cost + practicality | ✅ Bouncing's in Seaford after purchase (~7 km to Patterson River). ⬜ check Frankston council rules if she's ever parked on the street |
 | 49 | **Gorn Index not validated** — coarse marine model, modelled tides, hand-tuned thresholds | Trust in the go/no-go | 🧊 tune against logged trips |
 | 50 | Studio/Dashboard cards still describe v1.1 | Cosmetic | ✅ v1.8 |

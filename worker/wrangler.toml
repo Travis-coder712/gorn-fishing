@@ -7,3 +7,12 @@ compatibility_date = "2026-10-01"
 [[kv_namespaces]]
 binding = "VOTES"
 id = "b872f1b1662e4bc6893502bcc72dd3a5"
+
+# All shared state lives in one SQLite-backed Durable Object (strongly consistent; free plan).
+[[durable_objects.bindings]]
+name = "STATE"
+class_name = "CopcoState"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["CopcoState"]

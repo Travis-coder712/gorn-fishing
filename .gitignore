@@ -3,3 +3,4 @@ inbox/
 .claude/
 .DS_Store
 .wrangler/
+backups/

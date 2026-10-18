@@ -1,7 +1,10 @@
-// CoPCO server — tiny Cloudflare Worker + KV.
+// CoPCO server — Cloudflare Worker + one Durable Object (strongly consistent) + KV (photos, daily backups).
 //   Votes:  GET /votes · POST /vote {member, logo, items}  — one record per member.
-//   Shared: GET /state · POST /op {coll, op, item|id|items} — kitty, to-dos and the upgrade wishlist,
-//           shared by every phone. Ops are applied server-side one at a time so two phones can't clobber each other.
+//   Shared: GET /state · POST /op {coll, op, item|id|items} — kitty, to-dos, wishlist, names, sizes, trips, plans, upkeep.
+//   All shared state lives in a single Durable Object, so every op runs one at a time against the latest data —
+//   two phones saving at once can't overwrite each other (KV alone is eventually consistent and could).
+//   Photos: POST /photo, GET /photo/:id — immutable JPEGs in KV.
+import { DurableObject } from 'cloudflare:workers';
 const MEMBERS = ['merv', 'ace', 'bouncing', 'mervson', 'northy'];
 const COLLS = ['expenses', 'todos', 'wish', 'names', 'sizes', 'trips', 'plans', 'upkeep'];
 const MAX_PHOTO = 1_500_000; // bytes — the app shrinks photos to ~1600px JPEG first
@@ -49,10 +52,114 @@ function sanitise(coll, x) {
   return null;
 }
 
-async function loadState(env) {
-  const st = (await env.VOTES.get('state', 'json')) || { rev: 0 };
-  for (const c of COLLS) if (st[c] === undefined) st[c] = null;
-  return st;
+
+const today = () => new Date().toISOString().slice(0, 10);
+
+// Pure function: apply one op to a list. Returns {list, error, removed}.
+function applyOp(coll, list, b) {
+  if (b.op === 'upsert') {
+    const x = sanitise(coll, b.item || {});
+    if (!x) return { error: 'invalid item' };
+    const i = list.findIndex(y => y.id === x.id);
+    if (i >= 0) list[i] = x; else if (list.length < MAX_ITEMS) list.unshift(x);
+    return { list };
+  }
+  if (b.op === 'delete') {
+    const removed = list.find(y => y.id === clean(b.id));
+    return { list: list.filter(y => y.id !== clean(b.id)), removed };
+  }
+  if (b.op === 'toggle' && coll === 'names') {
+    const n = list.find(y => y.id === clean(b.id));
+    if (n && MEMBERS.includes(b.member)) n.voters = n.voters.includes(b.member) ? n.voters.filter(m => m !== b.member) : [...n.voters, b.member];
+    return { list };
+  }
+  if (b.op === 'rsvp' && coll === 'plans') {
+    const pl = list.find(y => y.id === clean(b.id));
+    if (pl && MEMBERS.includes(b.member) && ['in', 'maybe', 'out'].includes(b.val)) pl.rsvp = { ...pl.rsvp, [b.member]: b.val };
+    return { list };
+  }
+  if (b.op === 'vote' && coll === 'wish') {
+    const w = list.find(y => y.id === clean(b.id));
+    if (w) w.v = Math.min(999, (w.v || 0) + 1);
+    return { list };
+  }
+  return { error: 'bad op' };
+}
+
+// One instance ("copco") holds everything. A Durable Object handles one request at a time, and storage
+// reads/writes don't let another request in mid-way, so read → change → write is atomic.
+export class CopcoState extends DurableObject {
+  constructor(ctx, env) { super(ctx, env); this.env = env; }
+
+  async migrate() {
+    if (await this.ctx.storage.get('migrated')) return;
+    // One-off import of the old KV data (external I/O, so do it inside blockConcurrencyWhile).
+    await this.ctx.blockConcurrencyWhile(async () => {
+      if (await this.ctx.storage.get('migrated')) return;
+      const st = (await this.env.VOTES.get('state', 'json')) || {};
+      const votes = (await this.env.VOTES.get('votes', 'json')) || {};
+      const put = { migrated: new Date().toISOString(), rev: st.rev || 0, updated: st.updated || '', votes };
+      for (const c of COLLS) put['c:' + c] = Array.isArray(st[c]) ? st[c] : null;
+      await this.ctx.storage.put(put);
+    });
+  }
+
+  async state() {
+    const keys = ['rev', 'updated', ...COLLS.map(c => 'c:' + c)];
+    const m = await this.ctx.storage.get(keys);
+    const st = { rev: m.get('rev') || 0, updated: m.get('updated') || '' };
+    for (const c of COLLS) st[c] = m.has('c:' + c) ? m.get('c:' + c) : null;
+    return st;
+  }
+
+  async fetch(req) {
+    await this.migrate();
+    const url = new URL(req.url);
+    if (url.pathname === '/state') return json(await this.state());
+    if (url.pathname === '/votes') return json((await this.ctx.storage.get('votes')) || {});
+
+    if (url.pathname === '/vote') {
+      const b = await req.json().catch(() => null);
+      if (!b || !MEMBERS.includes(b.member)) return json({ error: 'unknown member' }, 400);
+      const items = {};
+      for (const [k, v] of Object.entries(b.items || {}).slice(0, 20)) items[clean(k)] = clean(v);
+      const all = (await this.ctx.storage.get('votes')) || {};
+      all[b.member] = { logo: clean(b.logo), items, at: new Date().toISOString() };
+      await this.ctx.storage.put('votes', all);
+      return json(all);
+    }
+
+    if (url.pathname === '/op') {
+      const b = await req.json().catch(() => null);
+      if (!b || !COLLS.includes(b.coll)) return json({ error: 'bad collection' }, 400);
+      const key = 'c:' + b.coll;
+      const cur = await this.ctx.storage.get(key);
+      let next = cur ?? null, removed;
+      if (b.op === 'seed') {
+        // Only fills an empty collection — the first phone online donates its list.
+        if (cur == null) next = (b.items || []).slice(0, MAX_ITEMS).map(x => sanitise(b.coll, x)).filter(Boolean);
+      } else {
+        const r = applyOp(b.coll, Array.isArray(cur) ? cur : [], b);
+        if (r.error) return json({ error: r.error }, 400);
+        next = r.list; removed = r.removed;
+      }
+      const rev = ((await this.ctx.storage.get('rev')) || 0) + 1, updated = new Date().toISOString();
+      await this.ctx.storage.put({ [key]: next, rev, updated });
+      const st = await this.state();
+      // Side effects after the write (these await the network, which would let other requests interleave).
+      this.ctx.waitUntil(this.after(b.coll, removed, st));
+      return json(st);
+    }
+    return json({ error: 'not found' }, 404);
+  }
+
+  async after(coll, removed, st) {
+    if (coll === 'trips' && removed) for (const p of removed.photos || []) await this.env.VOTES.delete('photo-' + p);
+    const day = 'backup-' + today();
+    if (!(await this.env.VOTES.get(day))) {
+      await this.env.VOTES.put(day, JSON.stringify({ ...st, votes: (await this.ctx.storage.get('votes')) || {} }), { expirationTtl: 60 * 60 * 24 * 60 });
+    }
+  }
 }
 
 export default {
@@ -60,21 +167,11 @@ export default {
     if (req.method === 'OPTIONS') return new Response(null, { headers: cors });
     const url = new URL(req.url);
 
-    if (url.pathname === '/votes' && req.method === 'GET') {
-      return json((await env.VOTES.get('votes', 'json')) || {});
+    if (['/state', '/votes'].includes(url.pathname) && req.method === 'GET'
+      || ['/op', '/vote'].includes(url.pathname) && req.method === 'POST') {
+      const stub = env.STATE.get(env.STATE.idFromName('copco'));
+      return stub.fetch(req);
     }
-    if (url.pathname === '/vote' && req.method === 'POST') {
-      const b = await req.json().catch(() => null);
-      if (!b || !MEMBERS.includes(b.member)) return json({ error: 'unknown member' }, 400);
-      const items = {};
-      for (const [k, v] of Object.entries(b.items || {}).slice(0, 20)) items[clean(k)] = clean(v);
-      const all = (await env.VOTES.get('votes', 'json')) || {};
-      all[b.member] = { logo: clean(b.logo), items, at: new Date().toISOString() };
-      await env.VOTES.put('votes', JSON.stringify(all));
-      return json(all);
-    }
-
-    if (url.pathname === '/state' && req.method === 'GET') return json(await loadState(env));
 
     // Trip photos — JPEGs stored straight in KV (well under KV's 25 MB value limit).
     if (url.pathname === '/photo' && req.method === 'POST') {
@@ -91,48 +188,6 @@ export default {
       if (!img) return new Response('not found', { status: 404, headers: cors });
       return new Response(img, { headers: { ...cors, 'Content-Type': 'image/jpeg', 'Cache-Control': 'public, max-age=31536000, immutable' } });
     }
-
-    if (url.pathname === '/op' && req.method === 'POST') {
-      const b = await req.json().catch(() => null);
-      if (!b || !COLLS.includes(b.coll)) return json({ error: 'bad collection' }, 400);
-      const st = await loadState(env);
-      const list = st[b.coll] || [];
-      if (b.op === 'seed') {
-        // Only fills an empty collection — the first phone online donates its list.
-        if (st[b.coll] === null) st[b.coll] = (b.items || []).slice(0, MAX_ITEMS).map(x => sanitise(b.coll, x)).filter(Boolean);
-      } else if (b.op === 'upsert') {
-        const x = sanitise(b.coll, b.item || {});
-        if (!x) return json({ error: 'invalid item' }, 400);
-        const i = list.findIndex(y => y.id === x.id);
-        if (i >= 0) list[i] = x; else if (list.length < MAX_ITEMS) list.unshift(x);
-        st[b.coll] = list;
-      } else if (b.op === 'delete') {
-        const gone = list.find(y => y.id === clean(b.id));
-        if (b.coll === 'trips' && gone) for (const p of gone.photos || []) await env.VOTES.delete('photo-' + p);
-        st[b.coll] = list.filter(y => y.id !== clean(b.id));
-      } else if (b.op === 'toggle' && b.coll === 'names') {
-        // Approval voting: a member can back as many names as they like, once each.
-        const n = list.find(y => y.id === clean(b.id));
-        if (n && MEMBERS.includes(b.member)) n.voters = n.voters.includes(b.member) ? n.voters.filter(m => m !== b.member) : [...n.voters, b.member];
-        st[b.coll] = list;
-      } else if (b.op === 'rsvp' && b.coll === 'plans') {
-        const pl = list.find(y => y.id === clean(b.id));
-        if (pl && MEMBERS.includes(b.member) && ['in', 'maybe', 'out'].includes(b.val)) pl.rsvp = { ...pl.rsvp, [b.member]: b.val };
-        st[b.coll] = list;
-      } else if (b.op === 'vote' && b.coll === 'wish') {
-        const w = list.find(y => y.id === clean(b.id));
-        if (w) w.v = Math.min(999, (w.v || 0) + 1);
-        st[b.coll] = list;
-      } else return json({ error: 'bad op' }, 400);
-      st.rev = (st.rev || 0) + 1;
-      st.updated = new Date().toISOString();
-      await env.VOTES.put('state', JSON.stringify(st));
-      // Daily snapshot so a bad edit can be rolled back by hand.
-      const day = 'backup-' + st.updated.slice(0, 10);
-      if (!(await env.VOTES.get(day))) await env.VOTES.put(day, JSON.stringify(st), { expirationTtl: 60 * 60 * 24 * 60 });
-      return json(st);
-    }
-
     return json({ ok: true, service: 'copco' });
   },
 };
