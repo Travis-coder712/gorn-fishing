@@ -803,7 +803,30 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
       </table></div>
       <p class="small"><b>Power:</b> a compressor fridge averages 1–3A. Add a second battery (100Ah AGM $300–450, lithium $700–1,200) with a DC-DC charger (~$400) so the fridge never flattens the starting battery. A small solar panel ($150–300) tops it up. Simplest start: a fridge on a portable lithium power pack ($400–900).</p>
     </details>
-    <details open><summary>🥪 The Gorn Galley — fridge + toasties on one lithium battery</summary>
+    <details open><summary>🔥 The Gas Galley — start here (~$150)</summary>
+      <p><b>The cheap way to toasties and fresh-cooked fish:</b> a portable butane stove in the cockpit, a cast-iron skillet and a jaffle iron, plus a good esky. Save the lithium kit for later.</p>
+      <div class="tblwrap"><table>
+        <thead><tr><th>Piece</th><th>What to buy</th><th>Ballpark</th></tr></thead>
+        <tbody>
+          <tr><td><b>Butane stove</b></td><td>Single-burner portable (Gasmate, Companion, Coleman) with a gas-leak cut-off</td><td>$30–60</td></tr>
+          <tr><td><b>Gas</b></td><td>Butane canisters (4-pack)</td><td>$10–15</td></tr>
+          <tr><td><b>Skillet</b></td><td>Cast-iron, ~25cm — fish fillets, calamari, bacon & eggs</td><td>$30–60</td></tr>
+          <tr><td><b>Jaffle iron</b></td><td>Old-school cast-iron double jaffle — the toastie</td><td>$25–40</td></tr>
+          <tr><td><b>Esky</b></td><td>A good 50–60L esky + block ice (~$5–10 a trip). Freeze bottles of water as ice bricks.</td><td>$80–300</td></tr>
+          <tr><td colspan="3"><b>All in: ~$150–450.</b> Upgrade later: a <b>rail-mounted boat BBQ</b> (clamps to the stern rail, cooks over the water) ~$250–600.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small"><b>Gas safety on a boat (important):</b></p>
+      <ul class="tidy small">
+        <li><b>Cook in the cockpit, never in the cabin</b> — LPG/butane is heavier than air and pools in the bilge, and burners make carbon monoxide.</li>
+        <li><b>Don't put an oversized pan or griddle over a butane stove</b> — if it covers the canister compartment the heat can blow the canister. Pan no wider than the stove.</li>
+        <li>Store canisters in the shade, in the cockpit, not in the cabin or bilge. Take empties home.</li>
+        <li>Stove on a flat, non-slip spot, out of the wind, away from fuel lines and the fuel tank vent. Fire extinguisher handy.</li>
+        <li><b>The old stove in the cabin:</b> work out what it runs on (metho, gas?). A 40-year-old fixed gas setup must comply with the gas-on-boats standard (AS/NZS 5601.2) and be checked by a licensed gasfitter — otherwise disconnect it and use the portable one in the cockpit.</li>
+      </ul>
+      <p class="small"><b>Gas vs lithium:</b> gas is ~$150 vs ~$1,500–2,800, cooks fish properly, and never goes flat. Lithium gives you a real fridge, no flames, and you take it home to charge. <b>Plan:</b> gas + esky now; add the power station + fridge once the motor's sorted and the kitty recovers.</p>
+    </details>
+    <details><summary>🥪 The Gorn Galley — fridge + toasties on one lithium battery</summary>
       <p><b>The idea:</b> one portable lithium "power station" (a big battery with 12V and 240V outlets built in) runs a 12V fridge all day and a sandwich press at lunch. No generator, no wiring job. It lives in the cabin, and you take it home to charge, or camping.</p>
       <div class="tblwrap"><table>
         <thead><tr><th>Piece</th><th>What to look for</th><th>Ballpark</th></tr></thead>
@@ -1641,7 +1664,7 @@ function renderTrips(){
 
 /* ================= APP VERSION ================= */
 // Bump APP_VERSION here AND in version.json together on every release.
-const APP_VERSION='1.7.3', APP_DATE='18-10-2026';
+const APP_VERSION='1.7.4', APP_DATE='18-10-2026';
 $('verLine').innerHTML=`<b>Version ${APP_VERSION}</b> · ${APP_DATE} · <span id="verCheck">checking for updates…</span>`;
 $('verMore').textContent='v'+APP_VERSION;
 async function checkVersion(){
