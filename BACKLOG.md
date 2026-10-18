@@ -99,12 +99,18 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 | 51 | Brother = **Ace**; Merv's son = **Flash**; price **$12k**; **Ace tows** | ✅ app + shared to-dos updated; $12k flagged as top-of-range → make subject to mechanic's report |
 | 52 | Rebrand app to **Retro '87** (logo, icon, colours) | ✅ v1.8.0 — vote now only decides merch placement |
 
+## 3g. Eighth round (Merv, 18-10-2026)
+| # | Ask | Status |
+|---|---|---|
+| 53 | Conditions tab: what's running now, bait, depth, habitat (shallows/weed/reef), where | ✅ v1.9.0 "What's running" card (`data/species-guide.json`) |
+| 54 | Pleasure-craft destinations: seals, swim spots, lunch stops, + no-fishing zones & hazards | ✅ v1.9.0 Leaflet map + list with run time & fuel cost (`data/spots.json`; pins checked against OpenStreetMap — Chinaman's Hat & Mud Islands corrected) |
+
 ## 5. Should look deeper (self-review, 18-10-2026)
 | # | Item | Why it matters | Status |
 |---|---|---|---|
 | 44 | **Shared data can lose edits** — KV is eventually consistent; two phones saving within ~a minute can overwrite each other (kitty!). Move `/state` + `/op` to a Durable Object or D1 | Silent data loss in the money tracker | ⬜ recommended next |
 | 45 | **Anyone with the URL can edit/vandalise** shared data (public app on Studio) — add a crew PIN checked by the Worker | Data integrity | ⬜ |
-| 46 | **Bag/size limits not verified** — gummy, calamari, flathead, salmon flagged "check" (VFA site blocked the research fetcher) | Fines | ⬜ verify via browser |
+| 46 | **Bag/size limits not verified** (also: species guide bait/depth data partly from model recall) — gummy, calamari, flathead, salmon flagged "check" (VFA site blocked the research fetcher) | Fines | ⬜ verify via browser |
 | 47 | **Trailer brakes & real weight** — does the Dunbier have brakes (required >750kg; breakaway >2t)? ATM plate? | Legal to tow at all | ⬜ needs a photo of the compliance plate / drawbar |
 | 48 | **Where does she live?** Storage at Heathmont vs Seaford, council rules on boats in driveways/streets, paid storage near Patterson River | Ongoing cost + practicality | ⬜ research |
 | 49 | **Gorn Index not validated** — coarse marine model, modelled tides, hand-tuned thresholds | Trust in the go/no-go | 🧊 tune against logged trips |

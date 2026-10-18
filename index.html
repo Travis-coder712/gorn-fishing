@@ -199,6 +199,16 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
 .thumbs button{position:absolute;top:-6px;right:-6px;background:var(--coral);color:#fff;border:0;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer}
 .fishtag{display:inline-block;background:var(--bg2);border:1px solid var(--line);border-radius:99px;padding:2px 9px;font-size:12.5px;margin:2px 3px 2px 0}
 .fishtag.small{border-color:var(--coral);color:var(--coral-2)}
+
+/* running now + map */
+#spotMap{height:380px;border-radius:14px;border:1px solid var(--line);margin-top:8px;background:#1d2a33}
+@media(max-width:520px){#spotMap{height:320px}}
+.leaflet-popup-content{font:13px/1.4 -apple-system,Segoe UI,Roboto,sans-serif;color:#1b130d}
+.leaflet-popup-content b{font-size:14px}
+.sp-dot{width:16px;height:16px;border-radius:50%;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.6)}
+.runrow summary{align-items:center}
+.runrow .kv{display:grid;grid-template-columns:90px 1fr;gap:4px 10px;font-size:13.5px;margin-top:6px}
+.runrow .kv b{color:var(--muted);font-weight:600}
 </style>
 </head>
 <body>
@@ -690,6 +700,15 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
   <div class="sec"><div class="eyebrow">Live · auto-updating</div><h2>Gorn Index</h2><div class="sub">Is it a good day to go? Wind, gusts, waves, pressure, tide, light, moon and season — scored 0–100 for a small boat on the eastern bay.</div></div>
   <div class="chips" id="spotChips" style="margin-bottom:8px"></div>
   <div id="condOut"><div class="card muted">Loading forecast…</div></div>
+  <div class="card" id="runningCard"><h3>🎣 What's running now</h3><p class="small muted">Loading…</p></div>
+  <div class="card">
+    <div class="dayhead"><h3>🗺️ Where to go</h3><span class="small muted">from Patterson River</span></div>
+    <p class="small muted">Fishing marks, swim & anchor spots, seals and dolphins, lunch stops — plus the no-fishing sanctuaries and hazards. Tap a pin.</p>
+    <div class="chips" id="spotChips2"></div>
+    <div id="spotMap"></div>
+    <div id="spotList" class="small" style="margin-top:10px"></div>
+    <p class="small muted" style="margin-top:8px">Run times assume ~22 knots; fuel ≈ 38 L/hr at cruise (≈ $2.20/L) — a long way south burns real money. Stay well clear of shipping channels and never go near the Rip. Marine mammals: keep your distance (see pins). Map © OpenStreetMap contributors.</p>
+  </div>
   <div class="card small">
     <h3>How it's scored</h3>
     <p class="muted">Wind (30) · gusts (10) · wind direction for the eastern shore (10) · wave height (10) · tide change timing (12) · pressure trend (8) · dawn/dusk (5) · moon (5) · season (10). <b>Hard stop:</b> wind over 20kn or gusts over 25kn = stay home, regardless.</p>
@@ -1209,6 +1228,7 @@ function go(v){
   document.querySelectorAll('nav.bottom button').forEach(b=>b.classList.toggle('on',b.dataset.v===v||(b.dataset.v==='more'&&!main.includes(v))));
   $('more').classList.remove('open'); window.scrollTo({top:0}); history.replaceState(null,'','#'+v);
   if(v==='conditions'&&!condLoaded) loadConditions();
+  if(v==='conditions'){if(!SPECIES_GUIDE)loadGuides();else setTimeout(()=>spotMap&&spotMap.invalidateSize(),60)}
 }
 
 /* ================= HOME / BOAT ================= */
@@ -1666,7 +1686,7 @@ function renderTrips(){
 
 /* ================= APP VERSION ================= */
 // Bump APP_VERSION here AND in version.json together on every release.
-const APP_VERSION='1.8.0', APP_DATE='18-10-2026';
+const APP_VERSION='1.9.0', APP_DATE='18-10-2026';
 $('verLine').innerHTML=`<b>Version ${APP_VERSION}</b> · ${APP_DATE} · <span id="verCheck">checking for updates…</span>`;
 $('verMore').textContent='v'+APP_VERSION;
 async function checkVersion(){
@@ -1755,6 +1775,49 @@ function renderUpkeep(){
   const od=cnt('overdue');$('homeUpkeep').style.display=od?'':'none';
   if(od)$('homeUpkeep').innerHTML=`<div class="dayhead"><h3>🧰 ${od} overdue</h3><a href="#" onclick="go('upkeep');return false" class="small">Upkeep →</a></div><div class="small">${L.filter(x=>x.st[0]==='overdue').slice(0,3).map(x=>'• '+esc(x.u.t)).join('<br>')}</div>`;
 }
+
+
+/* ================= RUNNING NOW + WHERE TO GO ================= */
+let SPECIES_GUIDE=null, SPOTS_DATA=null, spotMap=null, spotLayer=null, spotFilter='fishing';
+const SPOT_TYPES={fishing:['🎣 Fishing','#d8742f'],swim:['🏊 Swim & anchor','#2a8c9a'],wildlife:['🦭 Seals & dolphins','#7b6fd6'],lunch:['🍺 Lunch stops','#e8b04a'],sanctuary:['🚫 No fishing','#c0392b'],hazard:['⚠️ Hazards','#ff3b30'],ramp:['⚓ Ramps','#6fbf73']};
+async function loadGuides(){
+  try{[SPECIES_GUIDE,SPOTS_DATA]=await Promise.all([fetch('data/species-guide.json').then(r=>r.json()),fetch('data/spots.json').then(r=>r.json())])}catch(e){}
+  renderRunning();renderSpots();
+}
+function renderRunning(){
+  if(!SPECIES_GUIDE){$('runningCard').innerHTML='<h3>🎣 What\'s running now</h3><p class="small muted">Guide unavailable offline.</p>';return}
+  const m=new Date().getMonth()+1, mn=new Date().toLocaleDateString('en-AU',{month:'long'});
+  const now=SPECIES_GUIDE.filter(x=>x.months.includes(m)).sort((a,b)=>(b.peak.includes(m))-(a.peak.includes(m)));
+  $('runningCard').innerHTML=`<div class="dayhead"><h3>🎣 What's running — ${mn}</h3><a href="#" onclick="go('seasons');return false" class="small">Season guide →</a></div>
+    <p class="small muted">Tap a fish for bait, depth and where to find it. Bag limits: see the Seasons tab and always check the VFA guide.</p>`+now.map(x=>`<details class="runrow"><summary><span>${x.peak.includes(m)?'🔥 ':''}<b>${esc(x.species)}</b>${x.peak.includes(m)?' <span class="tag est">peak</span>':''}</span></summary>
+      <div class="kv"><b>Bait</b><span>${esc((x.bait||[]).join(', '))}</span><b>Lures</b><span>${esc((x.lures||[]).join(', ')||'—')}</span><b>Rig</b><span>${esc(x.rig||'')}</span><b>Depth</b><span>${esc(x.depth||'')}</span><b>Habitat</b><span>${esc(x.habitat||'')}</span><b>Where</b><span>${esc(x.where||'')}</span><b>Tips</b><span>${esc(x.tips||'')}</span>${MINLEN[x.species]?`<b>Min size</b><span>${MINLEN[x.species]} cm</span>`:''}</div>
+      <button class="btn ghost sm" style="margin-top:8px" onclick="spotFilter='fishing';showSpecies('${esc(x.species)}')">Show spots on the map</button></details>`).join('');
+}
+let spotSpecies='';
+function showSpecies(sp){spotSpecies=sp;renderSpots();$('spotMap').scrollIntoView({behavior:'smooth',block:'center'})}
+function runInfo(nm){if(nm==null)return'';const h=nm/22,fuel=h*38*2;return `${nm} nm · ~${h<1?Math.round(h*60)+' min':h.toFixed(1)+' hr'} each way · ~$${Math.round(fuel*2.2)} fuel return`}
+function ensureLeaflet(){return new Promise(res=>{if(window.L)return res();
+  const c=document.createElement('link');c.rel='stylesheet';c.href='https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';document.head.appendChild(c);
+  const j=document.createElement('script');j.src='https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';j.onload=res;j.onerror=res;document.head.appendChild(j)})}
+async function renderSpots(){
+  if(!SPOTS_DATA)return;
+  $('spotChips2').innerHTML=Object.entries(SPOT_TYPES).map(([k,[l]])=>`<button class="chip ${spotFilter===k?'on':''}" onclick="spotFilter='${k}';spotSpecies='';renderSpots()">${l}</button>`).join('')+(spotSpecies?`<button class="chip on" onclick="spotSpecies='';renderSpots()">${esc(spotSpecies)} ✕</button>`:'');
+  const list=SPOTS_DATA.filter(p=>p.type===spotFilter&&(!spotSpecies||(p.species||[]).includes(spotSpecies))).sort((a,b)=>(a.nm_from_patterson??99)-(b.nm_from_patterson??99));
+  $('spotList').innerHTML=list.map(p=>`<div class="item"><div class="main"><b>${esc(p.name)}</b><div class="muted">${[p.depth,p.bottom].filter(Boolean).map(esc).join(' · ')}${p.species&&p.species.length?' · '+p.species.map(esc).join(', '):''}</div><div>${esc(p.notes||'')}</div><div class="muted">${runInfo(p.nm_from_patterson)}</div></div><button class="btn ghost sm" style="flex:0" onclick="flyTo(${p.lat},${p.lon})">Map</button></div>`).join('')||'<p class="muted">Nothing in this category'+(spotSpecies?' for '+esc(spotSpecies):'')+'.</p>';
+  await ensureLeaflet(); if(!window.L)return;
+  if(!spotMap){spotMap=L.map('spotMap',{scrollWheelZoom:false,fadeAnimation:false}).setView([-38.18,145.0],10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:17,attribution:'© OpenStreetMap'}).addTo(spotMap);}
+  if(spotLayer)spotLayer.remove();
+  spotLayer=L.layerGroup().addTo(spotMap);
+  const col=SPOT_TYPES[spotFilter][1];
+  list.forEach(p=>L.marker([p.lat,p.lon],{icon:L.divIcon({className:'',html:`<div class="sp-dot" style="background:${col}"></div>`,iconSize:[16,16],iconAnchor:[8,8]})})
+    .bindPopup(`<b>${esc(p.name)}</b><br>${[p.depth,p.bottom].filter(Boolean).map(esc).join(' · ')}${p.species&&p.species.length?'<br>🎣 '+p.species.map(esc).join(', '):''}<br>${esc(p.notes||'')}<br><i>${runInfo(p.nm_from_patterson)}</i>`).addTo(spotLayer));
+  const pr=SPOTS_DATA.find(p=>p.type==='ramp'&&/patterson/i.test(p.name));
+  if(pr)L.circleMarker([pr.lat,pr.lon],{radius:7,color:'#fff',fillColor:'#6fbf73',fillOpacity:1,weight:2}).bindPopup('<b>Home ramp — Patterson River</b>').addTo(spotLayer);
+  const fit=()=>{spotMap.invalidateSize();if(list.length)spotMap.fitBounds(L.latLngBounds(list.map(p=>[p.lat,p.lon]).concat(pr?[[pr.lat,pr.lon]]:[])),{padding:[28,28],maxZoom:13})};
+  fit();setTimeout(fit,120);
+}
+function flyTo(lat,lon){if(spotMap){spotMap.setView([lat,lon],13);$('spotMap').scrollIntoView({behavior:'smooth',block:'center'})}}
 
 /* ================= BOOT ================= */
 function renderAll(){renderChecks();renderMonths();renderSplit();renderMoney();renderTodo();renderWish();renderMerch();renderNames();renderOrder();renderTrips();renderPlans();renderUpkeep()}

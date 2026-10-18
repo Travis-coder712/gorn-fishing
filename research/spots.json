@@ -1,0 +1,394 @@
+[
+ {
+  "name": "Patterson River mouth / ramp channel",
+  "type": "ramp",
+  "lat": -38.0745,
+  "lon": 145.1225,
+  "depth": "1-3 m",
+  "bottom": "sand",
+  "notes": "Launch point; training walls, 5-knot speed limit inside river, shoals on bar in onshore (SW/S) wind >15 kn - avoid in wind-against-tide conditions. Coordinates are approximate river mouth.",
+  "nm_from_patterson": 0
+ },
+ {
+  "name": "Carrum weed & sand beds",
+  "type": "fishing",
+  "lat": -38.09,
+  "lon": 145.098,
+  "species": [
+   "King George whiting",
+   "Flathead",
+   "Pinkie snapper",
+   "Calamari"
+  ],
+  "depth": "4-8 m",
+  "bottom": "weed/sand",
+  "notes": "Easy reachable whiting and flathead ground off Carrum; weed patches hold calamari. Stay clear of swimming zone buoys inshore.",
+  "nm_from_patterson": 1.4
+ },
+ {
+  "name": "Aspendale/Edithvale shallows",
+  "type": "fishing",
+  "lat": -38.03,
+  "lon": 145.09,
+  "species": [
+   "King George whiting",
+   "Flathead",
+   "Australian salmon"
+  ],
+  "depth": "3-8 m",
+  "bottom": "sand/weed",
+  "notes": "Flathead and whiting over sand; sandbar edges. Watch for swimmers and weed at low tide.",
+  "nm_from_patterson": 3.3
+ },
+ {
+  "name": "Mordialloc offshore shallows",
+  "type": "fishing",
+  "lat": -38.01,
+  "lon": 145.07,
+  "species": [
+   "Pinkie snapper",
+   "Flathead",
+   "King George whiting",
+   "Snapper"
+  ],
+  "depth": "5-12 m",
+  "bottom": "sand/weed",
+  "notes": "Sand and weed edges; pinkie snapper in summer; snapper in spring. Mordialloc creek mouth has shoals.",
+  "nm_from_patterson": 4.9
+ },
+ {
+  "name": "Frankston reef & Pier area",
+  "type": "fishing",
+  "lat": -38.1455,
+  "lon": 145.1075,
+  "species": [
+   "Snapper",
+   "Silver trevally",
+   "Leatherjacket",
+   "Calamari",
+   "Australian salmon",
+   "Garfish"
+  ],
+  "depth": "4-12 m",
+  "bottom": "reef/sand",
+  "notes": "Famous snapper area; artificial reef ~40 m off pier head attracts snapper, trevally, leatherjackets, salmon and calamari. Stay clear of the pier and anglers.",
+  "nm_from_patterson": 4.6
+ },
+ {
+  "name": "Olivers Hill / Frankston-Mt Eliza deeper ground",
+  "type": "fishing",
+  "lat": -38.16,
+  "lon": 145.082,
+  "species": [
+   "Snapper",
+   "Pinkie snapper",
+   "Gummy shark"
+  ],
+  "depth": "10-22 m",
+  "bottom": "reef/mud",
+  "notes": "Reef and deeper mud/sand patches - prime spring-summer snapper ground.",
+  "nm_from_patterson": 5.8
+ },
+ {
+  "name": "Canadian Bay (Mt Eliza)",
+  "type": "fishing",
+  "lat": -38.1705,
+  "lon": 145.0735,
+  "species": [
+   "Calamari",
+   "King George whiting",
+   "Flathead"
+  ],
+  "depth": "3-8 m",
+  "bottom": "sand/weed",
+  "notes": "Sandy bay with weed; calamari and whiting; good protected swim stop in settled conditions.",
+  "nm_from_patterson": 6.6
+ },
+ {
+  "name": "Mornington snapper grounds (16-24 m)",
+  "type": "fishing",
+  "lat": -38.21,
+  "lon": 145.0,
+  "species": [
+   "Snapper",
+   "Gummy shark",
+   "Pinkie snapper"
+  ],
+  "depth": "16-24 m",
+  "bottom": "reef/mud",
+  "notes": "Well known spring-summer snapper area with reef and drop-offs; also gummy shark at night. Coordinates approximate - verify on chart.",
+  "nm_from_patterson": 10.6
+ },
+ {
+  "name": "Mornington harbour & pier",
+  "type": "fishing",
+  "lat": -38.2125,
+  "lon": 145.025,
+  "species": [
+   "Calamari",
+   "Pinkie snapper",
+   "King George whiting",
+   "Garfish"
+  ],
+  "depth": "2-6 m",
+  "bottom": "weed/sand",
+  "notes": "Calamari, pinkie, whiting, garfish around pier and harbour entrance; public jetty and marina. Watch for ferry/commercial traffic.",
+  "nm_from_patterson": 10.1
+ },
+ {
+  "name": "Mount Martha shallows & Fishermans Beach",
+  "type": "fishing",
+  "lat": -38.268,
+  "lon": 144.975,
+  "species": [
+   "King George whiting",
+   "Calamari",
+   "Snapper",
+   "Garfish"
+  ],
+  "depth": "4-16 m",
+  "bottom": "weed/sand/reef",
+  "notes": "Weed beds; whiting, calamari and garfish; good snapper deeper out. Boat access ok in calm seas.",
+  "nm_from_patterson": 14.4
+ },
+ {
+  "name": "Safety Beach / Dromana weed beds",
+  "type": "fishing",
+  "lat": -38.31,
+  "lon": 144.975,
+  "species": [
+   "King George whiting",
+   "Calamari",
+   "Flathead"
+  ],
+  "depth": "3-8 m",
+  "bottom": "weed/sand",
+  "notes": "Sandy-weed flats for whiting and calamari; shallow ramp areas. Watch boat speed limits near the shore.",
+  "nm_from_patterson": 16.9
+ },
+ {
+  "name": "Rosebud offshore flats",
+  "type": "fishing",
+  "lat": -38.343,
+  "lon": 144.895,
+  "species": [
+   "King George whiting",
+   "Flathead",
+   "Calamari"
+  ],
+  "depth": "3-8 m",
+  "bottom": "weed/sand",
+  "notes": "Large sand/weed flats; whiting, flathead; calamari. Good on a calm day as a long run - fuel check required.",
+  "nm_from_patterson": 20.7
+ },
+ {
+  "name": "Chinaman's Hat seal colony",
+  "type": "wildlife",
+  "lat": -38.2876,
+  "lon": 144.7269,
+  "depth": "n/a",
+  "bottom": "n/a",
+  "notes": "Navigation marker off Portsea that Australian fur seals haul out on. Idle past slowly and keep your distance — Victorian rules set minimum approach distances for seals (check the current distance on wildlife.vic.gov.au); no feeding, no swimming with them. Long run (~25 nm) — calm days only; right next to the South Channel shipping lane.",
+  "nm_from_patterson": 24.2
+ },
+ {
+  "name": "Sorrento/southern bay dolphin area",
+  "type": "wildlife",
+  "lat": -38.315,
+  "lon": 144.73,
+  "depth": "10-20 m",
+  "bottom": "mixed",
+  "notes": "Bottlenose dolphins common around Sorrento-Queenscliff. Boats must stay >=100 m from dolphins; 200 m from whales; do not chase or encircle. Southern bay run only in calm weather. Coordinates approximate - verify on chart.",
+  "nm_from_patterson": 25.1
+ },
+ {
+  "name": "Mud Islands (birds)",
+  "type": "wildlife",
+  "lat": -38.2729,
+  "lon": 144.7683,
+  "depth": "shallow",
+  "bottom": "sand/mud",
+  "notes": "Seabird and wader colonies; part of Port Phillip Heads Marine National Park/Ramsar area. Breeding birds - landing restricted; keep distance. Coordinates approximate.",
+  "nm_from_patterson": 21.9
+ },
+ {
+  "name": "Popes Eye (snorkel/gannets)",
+  "type": "swim",
+  "lat": -38.2766,
+  "lon": 144.6981,
+  "depth": "2-10 m",
+  "bottom": "reef",
+  "notes": "Marine park with gannets; snorkel in calm conditions; no fishing. Very far for a 6.1 m boat in exposed channel; only on very calm days.",
+  "nm_from_patterson": 25.0
+ },
+ {
+  "name": "Ricketts Point snorkel & marine sanctuary",
+  "type": "sanctuary",
+  "lat": -37.994,
+  "lon": 145.0205,
+  "depth": "1-6 m",
+  "bottom": "reef",
+  "notes": "Marine sanctuary: no fishing, no collection. Snorkel trail close to shore on a calm day. Boundaries approximate.",
+  "nm_from_patterson": 7.2
+ },
+ {
+  "name": "Mount Martha beaches swim anchorage",
+  "type": "swim",
+  "lat": -38.274,
+  "lon": 144.987,
+  "depth": "2-4 m",
+  "bottom": "sand",
+  "notes": "Calm shallow sandy bays for a dip; anchor in sand, not weed. Check speed limit & swim zones.",
+  "nm_from_patterson": 14.5
+ },
+ {
+  "name": "Safety Beach swim anchorage",
+  "type": "swim",
+  "lat": -38.305,
+  "lon": 144.98,
+  "depth": "2-4 m",
+  "bottom": "sand",
+  "notes": "Shallow sandy flats; good for a dip; watch kite/windsurf traffic.",
+  "nm_from_patterson": 16.4
+ },
+ {
+  "name": "Rosebud flats swim spot",
+  "type": "swim",
+  "lat": -38.344,
+  "lon": 144.905,
+  "depth": "1-3 m",
+  "bottom": "sand",
+  "notes": "Wide shallow sand flats; calm; ideal in light northerlies.",
+  "nm_from_patterson": 20.5
+ },
+ {
+  "name": "Canadian Bay swim spot",
+  "type": "swim",
+  "lat": -38.169,
+  "lon": 145.0745,
+  "depth": "2-3 m",
+  "bottom": "sand",
+  "notes": "Protected shallow bay; good for lunch break;",
+  "nm_from_patterson": 6.5
+ },
+ {
+  "name": "Mornington Harbour (lunch)",
+  "type": "lunch",
+  "lat": -38.2135,
+  "lon": 145.035,
+  "depth": "",
+  "bottom": "",
+  "notes": "Pier & marina; short walk to Main St cafes/restaurants. Public jetty has time-limited berthing; check Mornington pier rules.",
+  "nm_from_patterson": 9.9
+ },
+ {
+  "name": "Mordialloc Creek (lunch)",
+  "type": "lunch",
+  "lat": -38.0063,
+  "lon": 145.0868,
+  "depth": "",
+  "bottom": "",
+  "notes": "Creek mouth restaurants and fish & chips; mooring at public jetty subject to availability. Entrance can be shallow.",
+  "nm_from_patterson": 4.8
+ },
+ {
+  "name": "Patterson River marina/restaurants (lunch)",
+  "type": "lunch",
+  "lat": -38.0765,
+  "lon": 145.128,
+  "depth": "",
+  "bottom": "",
+  "notes": "River-side restaurants and marina at Carrum; easy home-base lunch stop.",
+  "nm_from_patterson": 0.5
+ },
+ {
+  "name": "Sorrento (lunch)",
+  "type": "lunch",
+  "lat": -38.3365,
+  "lon": 144.7415,
+  "depth": "",
+  "bottom": "",
+  "notes": "Sorrento pier/hotel/cafes; temporary mooring subject to space. Far - needs calm day.",
+  "nm_from_patterson": 25.6
+ },
+ {
+  "name": "Jawbone Marine Sanctuary",
+  "type": "sanctuary",
+  "lat": -37.8729,
+  "lon": 144.8751,
+  "depth": "",
+  "bottom": "",
+  "notes": "No fishing zone in western bay (outside eastern focus). Boundaries approximate.",
+  "nm_from_patterson": 18.0
+ },
+ {
+  "name": "Point Cooke Marine Sanctuary",
+  "type": "sanctuary",
+  "lat": -37.9226,
+  "lon": 144.8053,
+  "depth": "",
+  "bottom": "",
+  "notes": "No fishing zone in the western bay near Point Cooke.",
+  "nm_from_patterson": 18.8
+ },
+ {
+  "name": "Port Phillip Heads Marine National Park (Mud Islands section)",
+  "type": "sanctuary",
+  "lat": -38.268,
+  "lon": 144.762,
+  "depth": "",
+  "bottom": "",
+  "notes": "No fishing zone: Mud Islands area. Boundaries approximate - check Parks Victoria map.",
+  "nm_from_patterson": 22.0
+ },
+ {
+  "name": "Frankston Pier swimming & exclusion buoys",
+  "type": "hazard",
+  "lat": -38.1462,
+  "lon": 145.1065,
+  "depth": "",
+  "bottom": "",
+  "notes": "Pier swimmers and anglers; keep clear. Boating restricted by buoys near shore.",
+  "nm_from_patterson": 4.6
+ },
+ {
+  "name": "Carrum swimming zone / 5-knot zone",
+  "type": "hazard",
+  "lat": -38.072,
+  "lon": 145.112,
+  "depth": "",
+  "bottom": "",
+  "notes": "Beach swim zones and 5 kn speed limits near shore and river mouth. Watch buoys & signs.",
+  "nm_from_patterson": 0.4
+ },
+ {
+  "name": "Patterson River bar (onshore wind)",
+  "type": "hazard",
+  "lat": -38.0755,
+  "lon": 145.111,
+  "depth": "",
+  "bottom": "",
+  "notes": "Breaking waves/steep shoals across the bar in S/SW onshore winds; plan return before wind change. Coordinates approximate - verify on chart.",
+  "nm_from_patterson": 0.4
+ },
+ {
+  "name": "South Channel shipping lane",
+  "type": "hazard",
+  "lat": -38.305,
+  "lon": 144.83,
+  "depth": "",
+  "bottom": "",
+  "notes": "Ships transit; keep clear, do not anchor in channel. Larger ships need space to stop - cross promptly.",
+  "nm_from_patterson": 20.9
+ },
+ {
+  "name": "The Rip / Port Phillip Heads",
+  "type": "hazard",
+  "lat": -38.3,
+  "lon": 144.635,
+  "depth": "",
+  "bottom": "",
+  "notes": "Extremely dangerous tidal race; do not enter with a 6.1 m trailer boat.",
+  "nm_from_patterson": 28.6
+ }
+]

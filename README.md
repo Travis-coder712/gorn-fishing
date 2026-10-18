@@ -14,7 +14,7 @@ The official app of **CoPCO — the Co-operative of Pleasure Craft Owners**: Mer
 | **On the Water** | Towing (incl. Kia Carnival verdict), ramps near Seaford, launching tips, maiden-voyage checklist |
 | **Get it Ready** | Test-day log, Gemini fact-check, no-spark steps, mechanic checklist, mechanics near Heathmont |
 | **Seasons** | Port Phillip Bay month by month, rigs, bag limits |
-| **Conditions** | Live **Gorn Index** 0–100 (wind, gusts, waves, tide, pressure, moon, season) for Carrum/Frankston/Mornington |
+| **Conditions** | Live **Gorn Index** 0–100 for Carrum/Frankston/Mornington · **What's running now** (bait, rig, depth, habitat, where) · **Where to go** map — fishing, swim/anchor, seals & dolphins, lunch stops, no-fishing zones, hazards (`data/*.json`) |
 | **Money** | Expenses split four ways with settle-up |
 | **To-do** | Now / Before maiden voyage / Shopping / Someday |
 | **Upgrades** | Cover, cabin refit, fridge, fishing gear, budget tiers, voting wishlist |
