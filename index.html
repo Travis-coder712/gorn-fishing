@@ -803,6 +803,30 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
       </table></div>
       <p class="small"><b>Power:</b> a compressor fridge averages 1–3A. Add a second battery (100Ah AGM $300–450, lithium $700–1,200) with a DC-DC charger (~$400) so the fridge never flattens the starting battery. A small solar panel ($150–300) tops it up. Simplest start: a fridge on a portable lithium power pack ($400–900).</p>
     </details>
+    <details open><summary>🥪 The Gorn Galley — fridge + toasties on one lithium battery</summary>
+      <p><b>The idea:</b> one portable lithium "power station" (a big battery with 12V and 240V outlets built in) runs a 12V fridge all day and a sandwich press at lunch. No generator, no wiring job. It lives in the cabin, and you take it home to charge, or camping.</p>
+      <div class="tblwrap"><table>
+        <thead><tr><th>Piece</th><th>What to look for</th><th>Ballpark</th></tr></thead>
+        <tbody>
+          <tr><td><b>Power station</b></td><td>~1 kWh, <b>LiFePO4</b> chemistry (safer, lasts ~3,000 cycles), <b>1,800W+</b> inverter. E.g. EcoFlow Delta 3, Anker SOLIX C1000, Bluetti AC180, Jackery Explorer 1000</td><td>$900–1,500</td></tr>
+          <tr><td><b>Fridge</b></td><td>12V <b>compressor</b> fridge, 35–45L, plugged into the 12V socket (not 240V — wastes power). Dometic CFX3, Bushman, or a budget Kings</td><td>$350–1,200</td></tr>
+          <tr><td><b>Toastie maker</b></td><td>A <b>small sandwich press, 700–1,000W</b> — not a big 2,000W one</td><td>$40–80</td></tr>
+          <tr><td><b>Solar (optional)</b></td><td>100–200W folding panel laid on the hardtop</td><td>$150–300</td></tr>
+          <tr><td colspan="3"><b>All in: ~$1,500–2,800.</b> Budget version (Kings fridge + cheaper station): ~$1,000.</td></tr>
+        </tbody>
+      </table></div>
+      <p class="small"><b>Will it last the day?</b> A hot day out uses roughly:</p>
+      <ul class="tidy small">
+        <li>Fridge, 24 hours: ~300–500 Wh</li>
+        <li>4–6 toasties (sandwich press ~15 min): ~150–250 Wh</li>
+        <li>A 1-litre low-watt kettle for a cuppa: ~100 Wh</li>
+        <li><b>Total ~600–850 Wh</b> → a 1 kWh station does a full day with a bit spare. For overnighters or a two-day trip, add the solar panel or step up to ~2 kWh.</li>
+      </ul>
+      <p class="small"><b>Skip:</b> induction cooktops and 2,000W kettles (they flatten a 1 kWh battery fast — a 15-minute fry-up is ~300 Wh), and petrol generators (noisy, fuel, carbon monoxide, no room).</p>
+      <p class="small"><b>Old-school backup:</b> a cast-iron jaffle iron on a butane stove in the <i>cockpit</i> (never in the cabin — fumes and gas risk). $30 and it never goes flat.</p>
+      <p class="small"><b>Boat rules for lithium:</b> keep the power station in a dry cabin locker, strapped down, off the floor where bilge water sloshes; salt spray kills electronics. Charge it at home, not unattended on the boat. LiFePO4 is the safe chemistry — avoid cheap NMC packs.</p>
+      <p class="small muted"><b>Later, the "proper" install:</b> a fixed 100Ah lithium house battery charged from the motor via a DC-DC charger, plus a 1,500W inverter, wired in by a marine auto-electrician — ~$1,500–3,000 installed. Neater, but the portable unit is cheaper, needs no install, and a co-op can share it off the boat.</p>
+    </details>
     <details><summary>🎣 Fishing upgrades</summary>
       <div class="tblwrap"><table>
         <thead><tr><th>Item</th><th>Price</th></tr></thead>
@@ -1617,7 +1641,7 @@ function renderTrips(){
 
 /* ================= APP VERSION ================= */
 // Bump APP_VERSION here AND in version.json together on every release.
-const APP_VERSION='1.7.2', APP_DATE='18-10-2026';
+const APP_VERSION='1.7.3', APP_DATE='18-10-2026';
 $('verLine').innerHTML=`<b>Version ${APP_VERSION}</b> · ${APP_DATE} · <span id="verCheck">checking for updates…</span>`;
 $('verMore').textContent='v'+APP_VERSION;
 async function checkVersion(){
