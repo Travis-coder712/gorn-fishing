@@ -786,6 +786,34 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
   </div>
 
   <div class="card">
+    <h3>🔨 Real Caribbean rebuilds</h3>
+    <p class="small muted">People have done this to boats just like ours. What it really costs to go all the way:</p>
+    <ul class="tidy small">
+      <li><b><a href="https://thecaptain.tv/project-boats/old-school-caribbean-rebuild/" target="_blank" rel="noopener">The Captain — "Old school Caribbean rebuild"</a></b>: two brothers in WA, a Caribbean Invader 520, 3 years. The stringers turned out to be completely rotten. ~$35k all-in with a Suzuki DF140, 38 knots.</li>
+      <li><b><a href="https://tradeaboat.com.au/news-reviews/5259-project-boat-1976-caribbean-invader" target="_blank" rel="noopener">Trade-a-Boat project boat — 1976 Caribbean Invader</a></b>: transom repair + four-stroke repower, <b>$32,450</b> with a full cost breakdown. Required reading before we start.</li>
+      <li><a href="https://www.ausfish.com.au/vforum/forum/main-chat-area/boating-chat/54559-boat-restoration-restored-cruisers" target="_blank" rel="noopener">Ausfish — restored cruisers thread</a>: before-and-after photos of Aussie half-cabins.</li>
+      <li><a href="https://www.bertram31.com/newbb/viewtopic.php?t=15612" target="_blank" rel="noopener">Bertram 20 rebuild</a>: same builder, same construction — good on transoms and stringers.</li>
+    </ul>
+    <p class="small"><b>The lesson:</b> those big numbers are structural repairs plus a new motor. If our transom is sound and the V6 runs, the cabin refresh below costs a few hundred to a couple of thousand dollars.</p>
+  </div>
+
+  <div class="card">
+    <h3>📐 A cabin plan for our Commodore</h3>
+    <p class="small muted">Lock-up cabin, V-berth for two, toilet, little stove, hardtop with sliding windows. Do it in phases, out of the kitty:</p>
+    <ol class="tidy small">
+      <li><b>Strip & assess (a Saturday, ~$50):</b> everything out — cushions, carpet, junk. Hose-test the hardtop and windows for leaks. Check the bunk bases and the floor for soft spots. Photograph everything.</li>
+      <li><b>Clean & seal (~$150–300):</b> mould wash, new window and hardtop seals, a cut-and-polish of the gelcoat.</li>
+      <li><b>Lining (~$100–300 DIY):</b> paint the fibreglass cabin sides white or grey, or glue thin ribbed marine carpet over ply panels.</li>
+      <li><b>Cushions (~$250–650 DIY / $500–1,500 trimmer):</b> new high-density foam with a waterproof liner, covered in navy marine vinyl with coral piping (the CoPCO colours). Make a filler cushion so the V-berth becomes a full bed.</li>
+      <li><b>Toilet:</b> keep it if it's a Porta Potti (empty it at home), or replace it with a Thetford 335 (~$200). No overboard discharge anywhere in Victoria.</li>
+      <li><b>Galley box (~$150):</b> a removable ply box for the stove, kettle and a small basin. Lift it out on fishing days.</li>
+      <li><b>Lights & power (~$100–200):</b> warm-white LED strips, a 12V/USB panel, a cup holder or four.</li>
+      <li><b>The fridge (~$700–1,500):</b> a 40–50L compressor fridge under the passenger seat, plus a second battery with a DC-DC charger.</li>
+      <li><b>Finishing touches:</b> CoPCO burgee on the bow rail, the new name on the hull, a framed photo of Uncle Uncle in the cabin.</li>
+    </ol>
+  </div>
+
+  <div class="card">
     <h3>🗳️ Upgrade wishlist</h3>
     <p class="small muted">Vote with a ⭐ — top-voted gets bought first.</p>
     <div id="wishOut"></div>
@@ -796,7 +824,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
 
 <!-- ========== MERCH & VOTE ========== -->
 <section class="view" id="v-merch">
-  <div class="sec"><div class="eyebrow">CoPCO merch</div><h2>Logo & merch vote</h2><div class="sub">Pick the official CoPCO logo, then pick which logo goes on each bit of kit. One vote per member — change your mind any time.</div></div>
+  <div class="sec"><div class="eyebrow">CoPCO business</div><h2>Votes, names & merch</h2><div class="sub">Pick the official logo, which logo goes on each bit of kit, and what we call the boat. Then order the gear.</div><div class="small syncstat" style="margin-top:6px"></div></div>
   <div class="card">
     <div class="dayhead"><h3>Voting as</h3><span class="small muted" id="voteMode"></span></div>
     <div class="chips" id="voterChips"></div>
@@ -811,10 +839,32 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
     <div id="merchVote"></div>
   </div>
   <div class="card">
+    <h3>3 · Name the boat</h3>
+    <p class="small muted">Back as many names as you like — tap again to take your vote back. Add your own.</p>
+    <div id="nameOut"></div>
+    <div class="row" style="margin-top:10px"><input id="nameText" placeholder="Suggest a name…" maxlength="60"><button class="btn sm" style="flex:0" onclick="addName()">Add</button></div>
+  </div>
+
+  <div class="card">
     <h3>Scoreboard</h3>
     <div id="voteResults" class="small"></div>
     <div class="row" style="margin-top:10px"><button class="btn ghost sm" onclick="shareVote()">Share my votes to the group chat</button><button class="btn ghost sm" onclick="refreshVotes(true)">Refresh</button></div>
   </div>
+  <div class="card">
+    <h3>4 · Merch order</h3>
+    <p class="small muted">Once the vote settles: put in your sizes and how many of each. Everyone sees the running order and the cost per head.</p>
+    <div id="orderForm"></div>
+    <div id="orderOut" class="small" style="margin-top:12px"></div>
+    <div class="row" style="margin-top:10px"><button class="btn ghost sm" onclick="shareOrder()">Share order (for the printer)</button></div>
+    <details style="margin-top:10px"><summary class="small">Prices & where to get it made</summary>
+      <div class="tblwrap"><table class="small">
+        <thead><tr><th>Item</th><th>Ballpark each</th><th>Notes</th></tr></thead>
+        <tbody id="priceRows"></tbody>
+      </table></div>
+      <p class="small muted">All <span class="tag est">est.</span> — small runs cost more per item and most suppliers have minimums (often 12–24 caps, 50–100 stubby holders). Embroidery has a one-off digitising fee (~$50–90 per logo). Try a local embroidery/screen-print shop in the eastern or bayside suburbs (ask for a mixed order: caps + polos embroidered, tees printed), or an online custom-merch site. The crest and retro patch embroider cleanest; the full badge prints best.</p>
+    </details>
+  </div>
+
   <div class="card small">
     <h3>Print files</h3>
     <p class="muted">High-res (3000px) logo files for the printer:</p>
@@ -965,6 +1015,7 @@ const SEED_TODOS = [
   {t:'Name the boat', who:'', list:'Someday'},
   {t:'CoPCO merch run', who:'', list:'Someday'},
 ];
+const SEED_NAMES = ['Uncle Uncle','The Tontine','Last Man Floating','Gorn Again','Reel Commodore','Seaworthy-ish','The Flying Hellfish','Knot Dead Yet','Hull of a Time','Precision Blend'];
 const SEED_WISH = [{t:'12V fridge',v:4},{t:'Boat cover',v:3},{t:'Fish finder',v:3},{t:'Cabin cushions redo',v:2},{t:'Bimini',v:1}];
 
 /* ================= STORE ================= */
@@ -972,7 +1023,7 @@ const KEY='gorn-v1';
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
 let S=load();
 S.expenses=S.expenses||[]; S.todos=S.todos||SEED_TODOS.map((x,i)=>({...x,id:'s'+i,done:false}));
-S.wish=S.wish||SEED_WISH.map((x,i)=>({...x,id:'w'+i})); S.maiden=S.maiden||{}; S.start=S.start||{}; S.pending=S.pending||[];
+S.wish=S.wish||SEED_WISH.map((x,i)=>({...x,id:'w'+i})); S.maiden=S.maiden||{}; S.start=S.start||{}; S.pending=S.pending||[]; S.names=S.names||SEED_NAMES.map((t,i)=>({id:'n'+i,t,by:'',voters:[]})); S.sizes=S.sizes||[];
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 const $=id=>document.getElementById(id);
@@ -986,7 +1037,7 @@ const ICON={
  conditions:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
  money:'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>',
  more:'<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>'};
-const VIEWS=[['home','Home','🏠'],['boat','The Boat','🛥️'],['conditions','Conditions','🌤️'],['money','Money','💰'],['legal','Get Legal','📋'],['water','On the Water','⚓'],['ready','Get it Ready','🔧'],['seasons','Seasons','🐟'],['todo','To-do','✅'],['upgrades','Upgrades','🛋️'],['merch','Merch & Vote','🧢']];
+const VIEWS=[['home','Home','🏠'],['boat','The Boat','🛥️'],['conditions','Conditions','🌤️'],['money','Money','💰'],['legal','Get Legal','📋'],['water','On the Water','⚓'],['ready','Get it Ready','🔧'],['seasons','Seasons','🐟'],['todo','To-do','✅'],['upgrades','Upgrades','🛋️'],['merch','Votes & Merch','🧢']];
 function navBtn(id,label){return `<button data-v="${id}" onclick="${id==='more'?"$('more').classList.add('open')":`go('${id}')`}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICON[id]}</svg>${label}</button>`}
 $('nav').innerHTML=navBtn('home','Home')+navBtn('boat','Boat')+navBtn('conditions','Conditions')+navBtn('money','Money')+navBtn('more','More');
 const menuHTML=list=>list.map(([id,l,e])=>`<button onclick="go('${id}')"><span>${e}</span>${l}</button>`).join('');
@@ -1256,7 +1307,7 @@ function logoCards(el,sel,onpick,showVotes){const t=tally();$(el).innerHTML=LOGO
 function renderMerch(){
   const t=tally(), me=myVote();
   $('voteMode').textContent=VOTE_API?'🟢 live — everyone sees votes':'📱 saved on this phone — share to group chat';
-  $('voterChips').innerHTML=CREW.map(c=>`<button class="chip ${S.me===c.id?'on':''}" onclick="S.me='${c.id}';save();renderMerch()">${c.name}</button>`).join('');
+  $('voterChips').innerHTML=CREW.map(c=>`<button class="chip ${S.me===c.id?'on':''}" onclick="S.me='${c.id}';save();renderMerch();renderNames();renderOrder()">${c.name}</button>`).join('');
   logoCards('logoVote',me.logo,'pickLogo',true);
   $('merchVote').innerHTML=PRODUCTS.map(p=>{const col=S.pcol[p.id]||p.colors[0];return `<div style="margin:14px 0 4px"><b>${p.name}</b>${p.colors.length>1?`<div class="swatches">${p.colors.map(c=>`<span class="sw ${c===col?'on':''}" style="background:${c}" onclick="S.pcol['${p.id}']='${c}';save();renderMerch()"></span>`).join('')}</div>`:'<div style="height:8px"></div>'}<div class="mockrow">${LOGOS.map(l=>{const n=t.items[p.id]?.[l.id]||0;return `<div class="mock ${me.items?.[p.id]===l.id?'on':''}" onclick="castVote({item:'${p.id}',logo2:'${l.id}'})">${n?`<span class="votes">${n}</span>`:''}${mockSVG(p.id,col,l.id)}<div class="cap">${l.name}</div></div>`}).join('')}</div></div>`}).join('');
   const lead=leader(t.logo), voters=Object.keys(allVotes());
@@ -1290,7 +1341,7 @@ function shareOp(coll,op,extra){save();if(!VOTE_API)return;S.pending.push({coll,
 async function post(body){const r=await fetch(VOTE_API+'/op',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(r.status>=500)throw new Error('server');return r.ok?r.json():null}
 function applyState(st){
   if(!st)return;
-  for(const c of ['expenses','todos','wish']){
+  for(const c of ['expenses','todos','wish','names','sizes']){
     if(st[c]===null){S.pending.unshift({coll:c,op:'seed',items:S[c]});continue} // first phone online seeds the shared list
     S[c]=st[c];
   }
@@ -1313,7 +1364,7 @@ async function syncNow(){
   renderShared();
 }
 function renderShared(){
-  renderMoney();renderTodo();renderWish();
+  renderMoney();renderTodo();renderWish();renderNames();renderOrder();
   const n=S.pending.length, ago=syncState.at?Math.round((Date.now()-syncState.at)/60000):null;
   const txt=!VOTE_API?'📱 Saved on this phone only':syncState.ok===false||n?`📴 Offline — ${n} change${n===1?'':'s'} waiting to send`:syncState.ok?`🟢 Shared with the crew · synced ${ago<1?'just now':ago+' min ago'}`:'⏳ Syncing…';
   document.querySelectorAll('.syncstat').forEach(e=>{e.textContent=txt;e.style.color=txt.startsWith('🟢')?'var(--green)':'var(--muted)'});
@@ -1322,8 +1373,59 @@ document.addEventListener('visibilitychange',()=>{if(!document.hidden)syncNow()}
 addEventListener('online',syncNow);
 setInterval(()=>{if(!document.hidden)syncNow()},60000);
 
+
+/* ================= BOAT NAME POLL ================= */
+function renderNames(){
+  if(!$('nameOut'))return;
+  const L=[...S.names].sort((a,b)=>b.voters.length-a.voters.length||a.t.localeCompare(b.t));
+  const top=L[0]&&L[0].voters.length?L[0]:null;
+  $('nameOut').innerHTML=(top?`<p class="small">Leading: <b style="font-family:var(--serif);font-size:18px;color:var(--gold)">${esc(top.t)}</b></p>`:'')+L.map(n=>{const mine=S.me&&n.voters.includes(S.me);
+    return `<div class="item"><div class="main"><b>${esc(n.t)}</b><div class="small muted">${n.voters.length?n.voters.map(nm).join(', '):'no votes yet'}${n.by?` · suggested by ${nm(n.by)}`:''}</div></div><button class="btn ${mine?'':'ghost'} sm" style="flex:0" onclick="toggleName('${n.id}')">${mine?'✓':'＋'} ${n.voters.length}</button>${n.by&&n.by===S.me?`<button class="x" onclick="delName('${n.id}')">×</button>`:''}</div>`}).join('');
+}
+function toggleName(id){if(!S.me){alert('Pick who you are first (top of this page).');return}
+  const n=S.names.find(x=>x.id===id);n.voters=n.voters.includes(S.me)?n.voters.filter(m=>m!==S.me):[...n.voters,S.me];save();renderNames();shareOp('names','toggle',{id,member:S.me})}
+function addName(){const t=$('nameText').value.trim();if(!t)return;if(!S.me){alert('Pick who you are first.');return}
+  const n={id:uid(),t,by:S.me,voters:[S.me]};S.names.push(n);$('nameText').value='';save();renderNames();shareOp('names','upsert',{item:n})}
+function delName(id){S.names=S.names.filter(n=>n.id!==id);save();renderNames();shareOp('names','delete',{id})}
+
+/* ================= MERCH ORDER ================= */
+const MERCH_PRICES=[
+  {k:'cap',name:'Trucker cap (embroidered)',each:28,note:'min ~12'},
+  {k:'tee',name:'T-shirt (printed)',each:25,note:'sized'},
+  {k:'polo',name:'Polo (embroidered)',each:45,note:'sized'},
+  {k:'jacket',name:'Spray jacket (embroidered)',each:120,note:'sized'},
+  {k:'stubby',name:'Stubby holder (printed)',each:6,note:'min ~50 — the boat will need spares'},
+  {k:'towel',name:'Golf towel (embroidered)',each:22,note:''},
+  {k:'balls',name:'Golf balls (printed, per ball)',each:5,note:'sold by the dozen'},
+  {k:'burgee',name:'Boat burgee (one-off, from the kitty)',each:90,note:'split by share'},
+];
+const SIZES=['','XS','S','M','L','XL','2XL','3XL','4XL'];
+const mySizes=()=>S.sizes.find(x=>x.id===S.me)||{id:S.me,tee:'',polo:'',jacket:'',cap:0,stubby:0,towel:0,balls:0};
+function renderOrder(){
+  if(!$('orderForm'))return;
+  $('priceRows').innerHTML=MERCH_PRICES.map(p=>`<tr><td>${p.name}</td><td>$${p.each}</td><td class="muted">${p.note}</td></tr>`).join('');
+  if(!S.me){$('orderForm').innerHTML='<p class="small muted">Pick who you are (top of this page) to put in your order.</p>'}
+  else{const m=mySizes(),sel=k=>`<select onchange="setSize('${k}',this.value)">${SIZES.map(z=>`<option ${m[k]===z?'selected':''} value="${z}">${z||'—'}</option>`).join('')}</select>`,num=k=>`<input type="number" min="0" max="50" value="${m[k]||0}" onchange="setSize('${k}',this.value)">`;
+    $('orderForm').innerHTML=`<div class="small" style="margin-bottom:4px"><b>${nm(S.me)}'s order</b></div><div class="row"><div><label>Tee size</label>${sel('tee')}</div><div><label>Polo size</label>${sel('polo')}</div><div><label>Jacket size</label>${sel('jacket')}</div></div><div class="row"><div><label>Caps</label>${num('cap')}</div><div><label>Stubby holders</label>${num('stubby')}</div><div><label>Golf towels</label>${num('towel')}</div><div><label>Golf balls</label>${num('balls')}</div></div>`}
+  const price=Object.fromEntries(MERCH_PRICES.map(p=>[p.k,p.each]));
+  const rows=CREW.map(c=>{const x=S.sizes.find(y=>y.id===c.id);if(!x)return null;
+    const cost=(x.tee?price.tee:0)+(x.polo?price.polo:0)+(x.jacket?price.jacket:0)+x.cap*price.cap+x.stubby*price.stubby+x.towel*price.towel+x.balls*price.balls;
+    const bits=[x.tee&&`tee ${x.tee}`,x.polo&&`polo ${x.polo}`,x.jacket&&`jacket ${x.jacket}`,x.cap&&`${x.cap} cap${x.cap>1?'s':''}`,x.stubby&&`${x.stubby} stubby`,x.towel&&`${x.towel} towel`,x.balls&&`${x.balls} balls`].filter(Boolean);
+    return {c,cost,bits}}).filter(Boolean);
+  const tot=rows.reduce((a,r)=>a+r.cost,0);
+  $('orderOut').innerHTML=rows.length?rows.map(r=>`<div class="item"><div class="main"><b>${r.c.name}</b><div class="muted">${r.bits.join(' · ')||'nothing yet'}</div></div><div class="amt">${money(r.cost)}</div></div>`).join('')+`<div class="item"><div class="main"><b>Total</b> <span class="muted">(+ burgee $${price.burgee} from the kitty, + digitising fees)</span></div><div class="amt">${money(tot)}</div></div>`
+    +`<p class="muted">Waiting on: ${CREW.filter(c=>!rows.some(r=>r.c.id===c.id)).map(c=>c.name).join(', ')||'nobody 🎉'}</p>`:'<p class="muted">No orders yet.</p>';
+}
+function setSize(k,v){const m={...mySizes()};m[k]=['tee','polo','jacket'].includes(k)?v:Math.max(0,Math.min(50,parseInt(v)||0));
+  S.sizes=S.sizes.filter(x=>x.id!==S.me).concat(m);save();renderOrder();shareOp('sizes','upsert',{item:m})}
+function shareOrder(){const t=tally(),lead=k=>{const w=leader(t.items[k]);return w?LOGOS.find(l=>l.id===w).name:'(logo TBC)'};
+  const lines=[];S.sizes.forEach(x=>{const n=nm(x.id);if(x.tee)lines.push(`T-shirt ${x.tee} — ${n} [${lead('tee')}]`);if(x.polo)lines.push(`Polo ${x.polo} — ${n} [${lead('polo')}]`);if(x.jacket)lines.push(`Spray jacket ${x.jacket} — ${n} [${lead('jacket')}]`)});
+  const sum=k=>S.sizes.reduce((a,x)=>a+(x[k]||0),0);
+  const txt=`CoPCO merch order\n\n${lines.join('\n')}\n\nCaps: ${sum('cap')} [${lead('cap')}]\nStubby holders: ${sum('stubby')} [${lead('stubby')}]\nGolf towels: ${sum('towel')} [${lead('towel')}]\nGolf balls: ${sum('balls')} [${lead('ball')}]\nBoat burgee: 1 [${lead('burgee')}]\n\nLogo files: ${location.origin+location.pathname.replace(/index\.html$/,'')}assets/`;
+  if(navigator.share)navigator.share({title:'CoPCO merch order',text:txt}).catch(()=>{});else{navigator.clipboard?.writeText(txt);alert('Copied')}}
+
 /* ================= BOOT ================= */
-function renderAll(){renderChecks();renderMonths();renderSplit();renderMoney();renderTodo();renderWish();renderMerch()}
+function renderAll(){renderChecks();renderMonths();renderSplit();renderMoney();renderTodo();renderWish();renderMerch();renderNames();renderOrder()}
 refreshVotes();
 syncNow();
 renderAll(); loadConditions();

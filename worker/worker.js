@@ -3,7 +3,7 @@
 //   Shared: GET /state · POST /op {coll, op, item|id|items} — kitty, to-dos and the upgrade wishlist,
 //           shared by every phone. Ops are applied server-side one at a time so two phones can't clobber each other.
 const MEMBERS = ['merv', 'ace', 'bouncing', 'mervson', 'northy'];
-const COLLS = ['expenses', 'todos', 'wish'];
+const COLLS = ['expenses', 'todos', 'wish', 'names', 'sizes'];
 const MAX_ITEMS = 500;
 const cors = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' };
 const json = (d, s = 200) => new Response(JSON.stringify(d), { status: s, headers: { ...cors, 'Content-Type': 'application/json' } });
@@ -21,12 +21,20 @@ function sanitise(coll, x) {
     return { id, what: str(x.what, 120), amt, who: x.who, cat: str(x.cat, 40), date: str(x.date, 10), split, mode: x.mode === 'share' ? 'share' : 'equal', by: MEMBERS.includes(x.by) ? x.by : '' };
   }
   if (coll === 'todos') return { id, t: str(x.t), who: str(x.who, 40), list: str(x.list, 40), done: !!x.done };
+  if (coll === 'names') return { id, t: str(x.t, 60), by: MEMBERS.includes(x.by) ? x.by : '', voters: (Array.isArray(x.voters) ? x.voters : []).filter(m => MEMBERS.includes(m)) };
+  if (coll === 'sizes') {
+    if (!MEMBERS.includes(x.id)) return null;
+    const sz = v => str(v, 6), n = v => Math.max(0, Math.min(50, Math.round(Number(v) || 0)));
+    return { id: x.id, tee: sz(x.tee), polo: sz(x.polo), jacket: sz(x.jacket), cap: n(x.cap), stubby: n(x.stubby), towel: n(x.towel), balls: n(x.balls) };
+  }
   if (coll === 'wish') return { id, t: str(x.t, 120), v: Math.max(0, Math.min(999, Math.round(Number(x.v) || 0))) };
   return null;
 }
 
 async function loadState(env) {
-  return (await env.VOTES.get('state', 'json')) || { expenses: null, todos: null, wish: null, rev: 0 };
+  const st = (await env.VOTES.get('state', 'json')) || { rev: 0 };
+  for (const c of COLLS) if (st[c] === undefined) st[c] = null;
+  return st;
 }
 
 export default {
@@ -66,6 +74,11 @@ export default {
         st[b.coll] = list;
       } else if (b.op === 'delete') {
         st[b.coll] = list.filter(y => y.id !== clean(b.id));
+      } else if (b.op === 'toggle' && b.coll === 'names') {
+        // Approval voting: a member can back as many names as they like, once each.
+        const n = list.find(y => y.id === clean(b.id));
+        if (n && MEMBERS.includes(b.member)) n.voters = n.voters.includes(b.member) ? n.voters.filter(m => m !== b.member) : [...n.voters, b.member];
+        st[b.coll] = list;
       } else if (b.op === 'vote' && b.coll === 'wish') {
         const w = list.find(y => y.id === clean(b.id));
         if (w) w.v = Math.min(999, (w.v || 0) + 1);

@@ -33,7 +33,7 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 | 20 | Money tracker | ✅ | Split 4 ways + settle-up, shared live across phones |
 | 21 | To-do list | ✅ | Now / Before maiden / Shopping / Someday |
 | 22 | Upgrade options; boat cover cost & where | ✅ | Upgrades tab |
-| 23 | Do up the cabin on the cheap — ideas, layout, fridge, examples, how-to, cost | 🟡 | Live; **todo:** add Caribbean-specific refit examples (The Captain Invader rebuild, Trade-a-Boat project) |
+| 23 | Do up the cabin on the cheap — ideas, layout, fridge, examples, how-to, cost | ✅ | Plus real Caribbean rebuilds and a phased Commodore cabin plan |
 
 ## 2. Second round (Merv, 18-10-2026)
 
@@ -50,10 +50,10 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 ## 3. Next up (suggested order)
 1. 🙋 **Merv:** ring Caribbean (03 9763 7233) — Model P209, s/n 2513 → build year, original spec, brochure/photos. Feed answers back here.
 2. ✅ **Shared kitty + to-dos + wishlist** — `GET /state`, `POST /op` on the `copco-votes` Worker; offline queue; daily KV backups (`backup-YYYY-MM-DD`, 60 days).
-3. ⬜ **Caribbean refit examples** in Upgrades (The Captain Invader rebuild ~$35k, Trade-a-Boat 1976 Invader $32,450 breakdown, Ausfish restored-cruiser thread) + a Commodore-specific cabin plan.
-4. ⬜ **Boat name poll** — same voting engine as the logo.
+3. ✅ **Caribbean refit examples** + a phased Commodore cabin plan (Upgrades tab).
+4. ✅ **Boat name poll** — approval voting, shared (`names` collection), 10 seed names, anyone can add.
 5. ⬜ **Mechanic outcome** — when the brother reports back: diagnosis, compression numbers, transom verdict → update value, stage bar (→ Service), kitty.
-6. ⬜ **Merch order helper** — once votes settle: sizes per member, quotes from a local printer/embroiderer, cost per head into the kitty.
+6. 🟡 **Merch order helper** — ✅ sizes & quantities per member (shared `sizes` collection), est. prices, cost per head, shareable order for the printer. ⬜ Real quotes from a local embroiderer once the logo vote settles.
 7. 🧊 Push alerts for good fishing days (scheduled Worker cron → ntfy/email).
 8. 🧊 Trip & catch log with photos (needs Worker + R2 storage).
 
