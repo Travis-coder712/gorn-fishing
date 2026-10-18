@@ -186,6 +186,17 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
 .whoami{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}
 .whoami button{font:inherit;font-size:17px;font-weight:700;padding:16px;border-radius:14px;border:2px solid var(--line);background:var(--panel);color:var(--text);cursor:pointer}
 .whoami button.on{border-color:var(--gold);background:var(--panel-2)}
+
+/* trips */
+.tripcard .photos{grid-template-columns:repeat(auto-fill,minmax(90px,1fr));margin-top:8px}
+.catchrow{display:grid;grid-template-columns:2fr 1fr 1.3fr auto auto;gap:6px;align-items:center;margin:6px 0}
+.catchrow select,.catchrow input{padding:7px 6px;font-size:14px}
+@media(max-width:520px){.catchrow{grid-template-columns:1fr 1fr;}}
+.thumbs{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.thumbs div{position:relative}.thumbs img{width:72px;height:72px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+.thumbs button{position:absolute;top:-6px;right:-6px;background:var(--coral);color:#fff;border:0;border-radius:50%;width:20px;height:20px;font-size:12px;cursor:pointer}
+.fishtag{display:inline-block;background:var(--bg2);border:1px solid var(--line);border-radius:99px;padding:2px 9px;font-size:12.5px;margin:2px 3px 2px 0}
+.fishtag.small{border-color:var(--coral);color:var(--coral-2)}
 </style>
 </head>
 <body>
@@ -231,6 +242,8 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
     <div class="dayhead"><h3>Gorn Index — today</h3><a href="#" onclick="go('conditions');return false" class="small">Full forecast →</a></div>
     <p class="muted small">Loading live conditions for the eastern bay…</p>
   </div>
+
+  <div class="card" id="homeTrip" style="display:none"></div>
 
   <div class="grid2">
     <div class="card"><h3>💰 Kitty</h3><div id="homeMoney" class="small muted">No expenses yet.</div></div>
@@ -822,6 +835,33 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
 </section>
 
 
+
+<!-- ========== TRIPS ========== -->
+<section class="view" id="v-trips">
+  <div class="sec"><div class="eyebrow">The logbook</div><h2>Trips & catches</h2><div class="sub">Every outing, every fish, every photo — and the bragging rights.</div><div class="small syncstat" style="margin-top:6px"></div></div>
+  <div class="tiles" id="tripTiles"></div>
+  <div class="card"><h3>🏆 Leaderboard</h3><div id="tripBoard" class="small"></div></div>
+  <div class="card" id="tripFormCard">
+    <div class="dayhead"><h3 id="tripFormTitle">Log a trip</h3><button class="btn ghost sm" style="flex:0;display:none" id="tripCancel" onclick="resetTrip()">Cancel edit</button></div>
+    <div class="row">
+      <div><label>Date</label><input id="trDate" type="date"></div>
+      <div><label>Ramp</label><select id="trRamp"></select></div>
+      <div><label>Hours out</label><input id="trHours" type="number" step="0.5" min="0" max="24" inputmode="decimal"></div>
+    </div>
+    <label>Where we fished (mark / area)</label><input id="trSpot" placeholder="e.g. 18m off Mornington, Carrum weed beds">
+    <label>Who was aboard</label><div class="chips" id="trWho"></div>
+    <label>Catches</label><div id="trCatches"></div>
+    <button class="btn ghost sm" onclick="addCatch()">＋ Add a fish</button>
+    <label>Photos</label>
+    <input type="file" id="trPhotos" accept="image/*" multiple onchange="pickPhotos(this)">
+    <div class="thumbs" id="trThumbs"></div>
+    <label>Notes</label><textarea id="trNotes" rows="3" placeholder="Conditions, what worked, who fell in…"></textarea>
+    <div class="row" style="margin-top:12px"><button class="btn" id="trSave" onclick="saveTrip()">Save trip</button></div>
+    <p class="small muted" id="trStatus"></p>
+  </div>
+  <div id="tripList"></div>
+</section>
+
 <!-- ========== MERCH & VOTE ========== -->
 <section class="view" id="v-merch">
   <div class="sec"><div class="eyebrow">CoPCO business</div><h2>Votes, names & merch</h2><div class="sub">Pick the official logo, which logo goes on each bit of kit, and what we call the boat. Then order the gear.</div><div class="small syncstat" style="margin-top:6px"></div></div>
@@ -1023,7 +1063,7 @@ const KEY='gorn-v1';
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||{}}catch(e){return {}}}
 let S=load();
 S.expenses=S.expenses||[]; S.todos=S.todos||SEED_TODOS.map((x,i)=>({...x,id:'s'+i,done:false}));
-S.wish=S.wish||SEED_WISH.map((x,i)=>({...x,id:'w'+i})); S.maiden=S.maiden||{}; S.start=S.start||{}; S.pending=S.pending||[]; S.names=S.names||SEED_NAMES.map((t,i)=>({id:'n'+i,t,by:'',voters:[]})); S.sizes=S.sizes||[];
+S.wish=S.wish||SEED_WISH.map((x,i)=>({...x,id:'w'+i})); S.maiden=S.maiden||{}; S.start=S.start||{}; S.pending=S.pending||[]; S.names=S.names||SEED_NAMES.map((t,i)=>({id:'n'+i,t,by:'',voters:[]})); S.sizes=S.sizes||[]; S.trips=S.trips||[];
 const uid=()=>Date.now().toString(36)+Math.random().toString(36).slice(2,6);
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 const $=id=>document.getElementById(id);
@@ -1037,7 +1077,7 @@ const ICON={
  conditions:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
  money:'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>',
  more:'<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>'};
-const VIEWS=[['home','Home','🏠'],['boat','The Boat','🛥️'],['conditions','Conditions','🌤️'],['money','Money','💰'],['legal','Get Legal','📋'],['water','On the Water','⚓'],['ready','Get it Ready','🔧'],['seasons','Seasons','🐟'],['todo','To-do','✅'],['upgrades','Upgrades','🛋️'],['merch','Votes & Merch','🧢']];
+const VIEWS=[['home','Home','🏠'],['boat','The Boat','🛥️'],['conditions','Conditions','🌤️'],['money','Money','💰'],['legal','Get Legal','📋'],['water','On the Water','⚓'],['ready','Get it Ready','🔧'],['seasons','Seasons','🐟'],['todo','To-do','✅'],['upgrades','Upgrades','🛋️'],['merch','Votes & Merch','🧢'],['trips','Trip Log','🎣']];
 function navBtn(id,label){return `<button data-v="${id}" onclick="${id==='more'?"$('more').classList.add('open')":`go('${id}')`}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICON[id]}</svg>${label}</button>`}
 $('nav').innerHTML=navBtn('home','Home')+navBtn('boat','Boat')+navBtn('conditions','Conditions')+navBtn('money','Money')+navBtn('more','More');
 const menuHTML=list=>list.map(([id,l,e])=>`<button onclick="go('${id}')"><span>${e}</span>${l}</button>`).join('');
@@ -1341,7 +1381,7 @@ function shareOp(coll,op,extra){save();if(!VOTE_API)return;S.pending.push({coll,
 async function post(body){const r=await fetch(VOTE_API+'/op',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(body)});if(r.status>=500)throw new Error('server');return r.ok?r.json():null}
 function applyState(st){
   if(!st)return;
-  for(const c of ['expenses','todos','wish','names','sizes']){
+  for(const c of ['expenses','todos','wish','names','sizes','trips']){
     if(st[c]===null){S.pending.unshift({coll:c,op:'seed',items:S[c]});continue} // first phone online seeds the shared list
     S[c]=st[c];
   }
@@ -1364,7 +1404,7 @@ async function syncNow(){
   renderShared();
 }
 function renderShared(){
-  renderMoney();renderTodo();renderWish();renderNames();renderOrder();
+  renderMoney();renderTodo();renderWish();renderNames();renderOrder();renderTrips();
   const n=S.pending.length, ago=syncState.at?Math.round((Date.now()-syncState.at)/60000):null;
   const txt=!VOTE_API?'📱 Saved on this phone only':syncState.ok===false||n?`📴 Offline — ${n} change${n===1?'':'s'} waiting to send`:syncState.ok?`🟢 Shared with the crew · synced ${ago<1?'just now':ago+' min ago'}`:'⏳ Syncing…';
   document.querySelectorAll('.syncstat').forEach(e=>{e.textContent=txt;e.style.color=txt.startsWith('🟢')?'var(--green)':'var(--muted)'});
@@ -1424,8 +1464,86 @@ function shareOrder(){const t=tally(),lead=k=>{const w=leader(t.items[k]);return
   const txt=`CoPCO merch order\n\n${lines.join('\n')}\n\nCaps: ${sum('cap')} [${lead('cap')}]\nStubby holders: ${sum('stubby')} [${lead('stubby')}]\nGolf towels: ${sum('towel')} [${lead('towel')}]\nGolf balls: ${sum('balls')} [${lead('ball')}]\nBoat burgee: 1 [${lead('burgee')}]\n\nLogo files: ${location.origin+location.pathname.replace(/index\.html$/,'')}assets/`;
   if(navigator.share)navigator.share({title:'CoPCO merch order',text:txt}).catch(()=>{});else{navigator.clipboard?.writeText(txt);alert('Copied')}}
 
+
+/* ================= TRIP & CATCH LOG ================= */
+const SPECIES=[['Snapper',28],['Pinkie snapper',28],['King George whiting',27],['Calamari',0],['Flathead',27],['Gummy shark',0],['Australian salmon',21],['Garfish',23],['Silver trevally',25],['Leatherjacket',0],['Pike',0],['Other',0]];
+const MINLEN=Object.fromEntries(SPECIES);
+const RAMPS=['Patterson River (Carrum)','Frankston — Kananook Creek','Frankston — Olivers Hill','Mordialloc','Mornington — Schnapper Point','Other'];
+let trip=null, tripFiles=[];
+const photoURL=id=>VOTE_API+'/photo/'+id;
+function resetTrip(){
+  trip={id:'',date:fmtD(new Date()),ramp:RAMPS[0],spot:'',who:S.me?[S.me]:[],hours:'',notes:'',catches:[],photos:[]};tripFiles=[];
+  $('tripFormTitle').textContent='Log a trip';$('tripCancel').style.display='none';$('trStatus').textContent='';$('trPhotos').value='';fillTripForm();
+}
+function fillTripForm(){
+  $('trDate').value=trip.date;$('trRamp').innerHTML=RAMPS.map(r=>`<option ${r===trip.ramp?'selected':''}>${r}</option>`).join('');
+  $('trHours').value=trip.hours;$('trSpot').value=trip.spot;$('trNotes').value=trip.notes;renderTripWho();renderCatches();renderThumbs();
+}
+function readTripForm(){trip.date=$('trDate').value;trip.ramp=$('trRamp').value;trip.hours=$('trHours').value;trip.spot=$('trSpot').value;trip.notes=$('trNotes').value}
+function renderTripWho(){$('trWho').innerHTML=CREW.map(c=>`<button class="chip ${trip.who.includes(c.id)?'on':''}" onclick="readTripForm();trip.who=trip.who.includes('${c.id}')?trip.who.filter(x=>x!=='${c.id}'):[...trip.who,'${c.id}'];renderTripWho();renderCatches()">${c.name}</button>`).join('')}
+function renderCatches(){
+  const people=trip.who.length?trip.who:CREW.map(c=>c.id);
+  $('trCatches').innerHTML=trip.catches.map((c,i)=>{const min=MINLEN[c.species]||0,small=min&&c.len&&c.len<min;
+    return `<div class="catchrow"><select onchange="trip.catches[${i}].species=this.value;renderCatches()">${SPECIES.map(([n])=>`<option ${n===c.species?'selected':''}>${n}</option>`).join('')}</select>
+    <input type="number" min="0" max="300" placeholder="cm" value="${c.len||''}" onchange="trip.catches[${i}].len=+this.value;renderCatches()" style="${small?'border-color:var(--coral)':''}">
+    <select onchange="trip.catches[${i}].by=this.value">${people.map(id=>`<option value="${id}" ${id===c.by?'selected':''}>${nm(id)}</option>`).join('')}</select>
+    <label class="small" style="margin:0;display:flex;gap:4px;align-items:center;white-space:nowrap"><input type="checkbox" style="width:auto" ${c.kept?'checked':''} onchange="trip.catches[${i}].kept=this.checked"> kept</label>
+    <button class="x" onclick="trip.catches.splice(${i},1);renderCatches()">×</button>
+    ${small?`<div class="small" style="grid-column:1/-1;color:var(--coral-2)">⚠️ Under the ${min}cm minimum for ${c.species} — throw it back.</div>`:''}</div>`}).join('')||'<p class="small muted">No fish yet. (Donut days count too.)</p>';
+}
+function addCatch(){readTripForm();const by=S.me&&trip.who.includes(S.me)?S.me:(trip.who[0]||CREW[0].id);trip.catches.push({species:'Snapper',len:0,by,kept:true});renderCatches()}
+function renderThumbs(){$('trThumbs').innerHTML=trip.photos.map((id,i)=>`<div><img src="${photoURL(id)}" alt=""><button onclick="trip.photos.splice(${i},1);renderThumbs()">×</button></div>`).join('')+tripFiles.map((f,i)=>`<div><img src="${f.url}" alt=""><button onclick="tripFiles.splice(${i},1);renderThumbs()">×</button></div>`).join('')}
+async function shrink(file){
+  const img=await new Promise((res,rej)=>{const i=new Image();i.onload=()=>res(i);i.onerror=rej;i.src=URL.createObjectURL(file)});
+  const k=Math.min(1,1600/Math.max(img.naturalWidth,img.naturalHeight)),c=document.createElement('canvas');
+  c.width=Math.round(img.naturalWidth*k);c.height=Math.round(img.naturalHeight*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+  let q=.82,blob;do{blob=await new Promise(r=>c.toBlob(r,'image/jpeg',q));q-=.12}while(blob.size>1400000&&q>.3);return blob;
+}
+async function pickPhotos(inp){
+  const files=[...inp.files].slice(0,12-trip.photos.length-tripFiles.length);$('trStatus').textContent='Preparing photos…';
+  for(const f of files){try{const b=await shrink(f);tripFiles.push({blob:b,url:URL.createObjectURL(b)})}catch(e){}}
+  inp.value='';$('trStatus').textContent='';renderThumbs();
+}
+async function saveTrip(){
+  readTripForm();
+  if(!trip.date){alert('Pick a date');return}
+  if(!trip.who.length){alert('Who was aboard?');return}
+  if(tripFiles.length&&!navigator.onLine){alert('Photos need signal to upload — save without them or try again at the ramp car park.');return}
+  $('trSave').disabled=true;
+  try{
+    for(let i=0;i<tripFiles.length;i++){$('trStatus').textContent=`Uploading photo ${i+1} of ${tripFiles.length}…`;
+      const r=await fetch(VOTE_API+'/photo',{method:'POST',headers:{'Content-Type':'image/jpeg'},body:tripFiles[i].blob}).then(r=>r.json());if(r.id)trip.photos.push(r.id)}
+  }catch(e){alert('Photo upload failed — check signal and try again.');$('trSave').disabled=false;$('trStatus').textContent='';return}
+  const t={...trip,id:trip.id||uid(),hours:+trip.hours||0,by:trip.by||S.me||'',catches:trip.catches.map(c=>({...c,len:+c.len||0}))};
+  S.trips=[t,...S.trips.filter(x=>x.id!==t.id)].sort((a,b)=>b.date.localeCompare(a.date));save();shareOp('trips','upsert',{item:t});
+  $('trSave').disabled=false;resetTrip();$('trStatus').textContent='Saved ✅';renderTrips();
+}
+function editTrip(id){trip=JSON.parse(JSON.stringify(S.trips.find(t=>t.id===id)));tripFiles=[];$('tripFormTitle').textContent='Edit trip';$('tripCancel').style.display='';fillTripForm();$('tripFormCard').scrollIntoView({behavior:'smooth'})}
+function delTrip(id){if(!confirm('Delete this trip and its photos for everyone?'))return;S.trips=S.trips.filter(t=>t.id!==id);save();renderTrips();shareOp('trips','delete',{id})}
+function renderTrips(){
+  if(!$('tripList'))return;
+  if(!trip)resetTrip();
+  const T=S.trips, fish=T.flatMap(t=>t.catches.map(c=>({...c,date:t.date}))), hrs=T.reduce((a,t)=>a+(+t.hours||0),0);
+  $('tripTiles').innerHTML=[[T.length,'Trips'],[fish.length,'Fish'],[fish.filter(f=>f.kept).length,'Kept'],[Math.round(hrs),'Hours out']].map(([n,l])=>`<div class="tile"><div class="n">${n}</div><div class="l">${l}</div></div>`).join('');
+  const best={};fish.forEach(f=>{if(f.len&&(!best[f.species]||f.len>best[f.species].len))best[f.species]=f});
+  const per={};CREW.forEach(c=>per[c.id]={fish:0,trips:0});fish.forEach(f=>{if(per[f.by])per[f.by].fish++});T.forEach(t=>t.who.forEach(w=>{if(per[w])per[w].trips++}));
+  const rank=CREW.map(c=>({c,...per[c.id]})).sort((a,b)=>b.fish-a.fish||b.trips-a.trips);
+  $('tripBoard').innerHTML=T.length?`<div class="grid2"><div><b>Biggest of each</b>${Object.values(best).sort((a,b)=>b.len-a.len).map(f=>`<div class="item"><div class="main">${esc(f.species)}<div class="muted">${nm(f.by)} · ${f.date}</div></div><div class="amt">${f.len}cm</div></div>`).join('')||'<p class="muted">No measured fish yet.</p>'}</div>
+    <div><b>Top anglers</b>${rank.map((r,i)=>`<div class="item"><div class="main">${['🥇','🥈','🥉'][i]||'·'} ${r.c.name}<div class="muted">${r.trips} trip${r.trips===1?'':'s'}</div></div><div class="amt">${r.fish} 🐟</div></div>`).join('')}</div></div>`:'<p class="muted">The leaderboard starts with the maiden voyage.</p>';
+  $('tripList').innerHTML=T.map(t=>`<div class="card tripcard"><div class="dayhead"><h3>${new Date(t.date+'T12:00').toLocaleDateString('en-AU',{weekday:'short',day:'numeric',month:'short',year:'numeric'})}</h3><span class="small muted">${esc(t.ramp)}${t.hours?` · ${t.hours}h`:''}</span></div>
+    ${t.spot?`<div class="small muted">📍 ${esc(t.spot)}</div>`:''}
+    <div class="small" style="margin-top:4px">👥 ${t.who.map(nm).join(', ')}</div>
+    <div style="margin-top:6px">${t.catches.length?t.catches.map(c=>`<span class="fishtag ${MINLEN[c.species]&&c.len&&c.len<MINLEN[c.species]?'small':''}">${esc(c.species)}${c.len?` ${c.len}cm`:''} · ${nm(c.by)}${c.kept?'':' ↩︎'}</span>`).join(''):'<span class="small muted">🍩 Donut — no fish</span>'}</div>
+    ${t.notes?`<p class="small">${esc(t.notes)}</p>`:''}
+    ${t.photos.length?`<div class="photos">${t.photos.map(id=>`<img src="${photoURL(id)}" loading="lazy" alt="" onclick="lb('${photoURL(id)}')">`).join('')}</div>`:''}
+    <div class="row" style="margin-top:8px"><button class="btn ghost sm" style="flex:0" onclick="editTrip('${t.id}')">Edit</button><button class="btn ghost sm" style="flex:0" onclick="delTrip('${t.id}')">Delete</button></div></div>`).join('');
+  const last=T[0];
+  $('homeTrip').style.display=last?'':'none';
+  if(last)$('homeTrip').innerHTML=`<div class="dayhead"><h3>🎣 Last trip</h3><a href="#" onclick="go('trips');return false" class="small">Logbook →</a></div><p class="small">${last.date} · ${esc(last.ramp)} · ${last.who.map(nm).join(', ')} — <b>${last.catches.length} fish</b>${last.catches.length?` (best: ${(()=>{const b=[...last.catches].sort((a,b)=>b.len-a.len)[0];return esc(b.species)+(b.len?' '+b.len+'cm':'')})()})`:' 🍩'}</p>${last.photos[0]?`<img src="${photoURL(last.photos[0])}" alt="" style="width:100%;max-height:220px;object-fit:cover;border-radius:12px" onclick="lb('${photoURL(last.photos[0])}')">`:''}`;
+}
+
 /* ================= BOOT ================= */
-function renderAll(){renderChecks();renderMonths();renderSplit();renderMoney();renderTodo();renderWish();renderMerch();renderNames();renderOrder()}
+function renderAll(){renderChecks();renderMonths();renderSplit();renderMoney();renderTodo();renderWish();renderMerch();renderNames();renderOrder();renderTrips()}
 refreshVotes();
 syncNow();
 renderAll(); loadConditions();

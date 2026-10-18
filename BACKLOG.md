@@ -54,8 +54,8 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 4. ✅ **Boat name poll** — approval voting, shared (`names` collection), 10 seed names, anyone can add.
 5. ⬜ **Mechanic outcome** — when the brother reports back: diagnosis, compression numbers, transom verdict → update value, stage bar (→ Service), kitty.
 6. 🟡 **Merch order helper** — ✅ sizes & quantities per member (shared `sizes` collection), est. prices, cost per head, shareable order for the printer. ⬜ Real quotes from a local embroiderer once the logo vote settles.
-7. 🧊 Push alerts for good fishing days (scheduled Worker cron → ntfy/email).
-8. 🧊 Trip & catch log with photos (needs Worker + R2 storage).
+7. ❌ Push alerts — not wanted (Merv, 18-10-2026).
+8. ✅ **Trip & catch log** — trips (date, ramp, spot, crew, hours, notes), catches (species, cm, who, kept/released, under-size warning), up to 12 photos per trip (shrunk on-phone to ≤1600px JPEG, stored in KV via `POST /photo`, `GET /photo/:id`), leaderboard (biggest of each species, top anglers), last-trip card on Home. Shared.
 
 ## 3b. Third round (Merv, 18-10-2026)
 | # | Ask | Status |

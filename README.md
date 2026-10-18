@@ -18,6 +18,7 @@ The official app of **CoPCO — the Co-operative of Pleasure Craft Owners**: Mer
 | **Money** | Expenses split four ways with settle-up |
 | **To-do** | Now / Before maiden voyage / Shopping / Someday |
 | **Upgrades** | Cover, cabin refit, fridge, fishing gear, budget tiers, voting wishlist |
+| **Trip Log** | Trips, catches (with min-size warnings), photos, leaderboard — shared |
 | **Votes & Merch** | 4 logos × 8 products (cap, tee, polo, spray jacket, stubby holder, golf towel, golf ball, burgee) — live shared voting; boat-name poll; merch order (sizes, cost per head) |
 
 ## How it's built
@@ -28,7 +29,7 @@ The official app of **CoPCO — the Co-operative of Pleasure Craft Owners**: Mer
 - `research/` — deep-research notes on the boat (`boat.md`) and engine (`engine.md`), with sources.
 - `worker/` — **copco-votes** Cloudflare Worker + KV (`https://copco-votes.travishughes-836.workers.dev`). `GET /votes`, `POST /vote {member, logo, items}` — one record per member; plus the shared kitty/to-dos (below). Deploy: `cd worker && npx wrangler deploy`. Reset votes: `npx wrangler kv key put --binding=VOTES --remote votes '{}'`.
 - `inbox/` — **gitignored** drop zone for raw photos / chat exports.
-- Money, to-dos, the upgrade wishlist, boat-name poll and merch sizes are **shared live** via the Worker (`GET /state`, `POST /op {coll, op}`); changes queue offline and flush in order; daily KV backups. Checklists and the Gorn Index cache stay per phone.
+- Money, to-dos, the upgrade wishlist, boat-name poll, merch sizes and the trip log are **shared live**; trip photos live in KV (`POST /photo`, `GET /photo/:id`) via the Worker (`GET /state`, `POST /op {coll, op}`); changes queue offline and flush in order; daily KV backups. Checklists and the Gorn Index cache stay per phone.
 - Conditions: Open-Meteo forecast + marine APIs (keyless, CORS), cached 30 min. Tide timing is modelled — indicative only.
 
 ## Backlog

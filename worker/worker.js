@@ -3,9 +3,11 @@
 //   Shared: GET /state · POST /op {coll, op, item|id|items} — kitty, to-dos and the upgrade wishlist,
 //           shared by every phone. Ops are applied server-side one at a time so two phones can't clobber each other.
 const MEMBERS = ['merv', 'ace', 'bouncing', 'mervson', 'northy'];
-const COLLS = ['expenses', 'todos', 'wish', 'names', 'sizes'];
+const COLLS = ['expenses', 'todos', 'wish', 'names', 'sizes', 'trips'];
+const MAX_PHOTO = 1_500_000; // bytes — the app shrinks photos to ~1600px JPEG first
 const MAX_ITEMS = 500;
 const cors = { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET,POST,OPTIONS', 'Access-Control-Allow-Headers': 'Content-Type' };
+const SPECIES_MAX = 30;
 const json = (d, s = 200) => new Response(JSON.stringify(d), { status: s, headers: { ...cors, 'Content-Type': 'application/json' } });
 const clean = s => String(s || '').slice(0, 24).replace(/[^a-z0-9-]/gi, '');
 
@@ -26,6 +28,16 @@ function sanitise(coll, x) {
     if (!MEMBERS.includes(x.id)) return null;
     const sz = v => str(v, 6), n = v => Math.max(0, Math.min(50, Math.round(Number(v) || 0)));
     return { id: x.id, tee: sz(x.tee), polo: sz(x.polo), jacket: sz(x.jacket), cap: n(x.cap), stubby: n(x.stubby), towel: n(x.towel), balls: n(x.balls) };
+  }
+  if (coll === 'trips') {
+    const who = (Array.isArray(x.who) ? x.who : []).filter(m => MEMBERS.includes(m));
+    const catches = (Array.isArray(x.catches) ? x.catches : []).slice(0, 100).map(c => ({
+      species: str(c.species, SPECIES_MAX), len: Math.max(0, Math.min(300, Math.round(Number(c.len) || 0))),
+      by: MEMBERS.includes(c.by) ? c.by : '', kept: !!c.kept,
+    }));
+    const photos = (Array.isArray(x.photos) ? x.photos : []).slice(0, 12).map(clean).filter(Boolean);
+    return { id, date: str(x.date, 10), ramp: str(x.ramp, 40), spot: str(x.spot, 80), who, hours: Math.max(0, Math.min(24, Number(x.hours) || 0)),
+      score: Math.max(0, Math.min(100, Math.round(Number(x.score) || 0))), notes: str(x.notes, 1000), catches, photos, by: MEMBERS.includes(x.by) ? x.by : '' };
   }
   if (coll === 'wish') return { id, t: str(x.t, 120), v: Math.max(0, Math.min(999, Math.round(Number(x.v) || 0))) };
   return null;
@@ -58,6 +70,22 @@ export default {
 
     if (url.pathname === '/state' && req.method === 'GET') return json(await loadState(env));
 
+    // Trip photos — JPEGs stored straight in KV (well under KV's 25 MB value limit).
+    if (url.pathname === '/photo' && req.method === 'POST') {
+      const buf = await req.arrayBuffer();
+      const b = new Uint8Array(buf);
+      if (buf.byteLength > MAX_PHOTO || b[0] !== 0xff || b[1] !== 0xd8) return json({ error: 'JPEG under 1.5 MB only' }, 400);
+      const pid = 'p' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+      await env.VOTES.put('photo-' + pid, buf);
+      return json({ id: pid });
+    }
+    const pm = url.pathname.match(/^\/photo\/([a-z0-9-]{1,24})$/i);
+    if (pm && req.method === 'GET') {
+      const img = await env.VOTES.get('photo-' + pm[1], 'arrayBuffer');
+      if (!img) return new Response('not found', { status: 404, headers: cors });
+      return new Response(img, { headers: { ...cors, 'Content-Type': 'image/jpeg', 'Cache-Control': 'public, max-age=31536000, immutable' } });
+    }
+
     if (url.pathname === '/op' && req.method === 'POST') {
       const b = await req.json().catch(() => null);
       if (!b || !COLLS.includes(b.coll)) return json({ error: 'bad collection' }, 400);
@@ -73,6 +101,8 @@ export default {
         if (i >= 0) list[i] = x; else if (list.length < MAX_ITEMS) list.unshift(x);
         st[b.coll] = list;
       } else if (b.op === 'delete') {
+        const gone = list.find(y => y.id === clean(b.id));
+        if (b.coll === 'trips' && gone) for (const p of gone.photos || []) await env.VOTES.delete('photo-' + p);
         st[b.coll] = list.filter(y => y.id !== clean(b.id));
       } else if (b.op === 'toggle' && b.coll === 'names') {
         // Approval voting: a member can back as many names as they like, once each.
