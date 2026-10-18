@@ -364,7 +364,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
         <tr><td><b>Boat rego</b></td><td>One registered owner</td><td><b>Ours has lapsed 11 months — so a fresh registration</b>, not a $21.50 transfer. ~$99–105/yr <span class="tag chk">verify</span></td><td>Phone/in person, not online</td></tr>
         <tr><td><b>Trailer rego transfer</b></td><td>Same owner</td><td>$7.20 transfer, no roadworthy for light trailer</td><td>Same visit</td></tr>
         <tr><td><b>PPSR check</b></td><td>Before money changes hands</td><td>~$3.40 <span class="tag chk">verify</span></td><td>Minutes, online</td></tr>
-        <tr><td><b>Insurance</b></td><td>All owners named</td><td>~$500–1,200/yr <span class="tag est">est.</span></td><td>Same day once quoted</td></tr>
+        <tr><td><b>Insurance</b></td><td>All owners named</td><td>~$300–700/yr laid up; ~$600–1,500/yr on the water <span class="tag est">est.</span> — old boat, may need a survey</td><td>Days (phone quotes)</td></tr>
         <tr><td><b>Safety kit</b></td><td>The boat</td><td>~$800–1,500 if buying it all new</td><td>One BCF trip</td></tr>
         <tr><td><b>Boat ramp fees</b></td><td>—</td><td><b>Free</b> at Victorian public ramps since 2019</td><td>—</td></tr>
       </tbody>
@@ -406,10 +406,24 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
     </details>
     <details><summary>🛡️ Insurance</summary>
       <ul class="tidy">
-        <li>Ballpark <b>$500–1,200/yr</b> for a $10–25k trailer cabin cruiser <span class="tag est">est.</span> — get three quotes: Club Marine, BoatSafe, RACV Marine, NRMA Marine, Nautilus.</li>
-        <li><b>Ask for:</b> agreed value, $5M+ on-water liability, cover while towing, salvage/towing, lay-up discount for winter.</li>
-        <li><b>Co-ownership:</b> declare it. Name every owner (or list as "any licensed operator") so a claim can't be knocked back because Merv's son was driving.</li>
-        <li>Older boats may need a survey or a mechanic's report before cover — the recommission service doubles as that.</li>
+        <li><b>Not compulsory in Victoria</b> — rego includes no insurance. But uninsured, whoever's driving (and the registered owner) is personally liable for injury or damage. <b>Don't launch without liability cover.</b> Don't assume home & contents covers the boat — ask in writing.</li>
+        <li><b>Who to ask</b> (none publish age or hp limits — you have to ring):
+          <ul>
+            <li><a href="https://www.clubmarine.com.au/boat-insurance" target="_blank" rel="noopener">Club Marine</a> (Allianz) — has a <b>lay-up option</b> (~5%/month off when stored in a shed or fenced yard), no-claims up to 25%, minimum premiums apply.</li>
+            <li><a href="https://www.racv.com.au/insurance/boat-insurance.html" target="_blank" rel="noopener">RACV</a> (underwritten by IMA) — covers cruisers; trailer included; agreed value; liability up to $10m. <b>Fibreglass boats over 10 years may need a condition report</b> from the last 5 years.</li>
+            <li><a href="https://www.nautilusinsurance.com.au/" target="_blank" rel="noopener">Nautilus Marine</a> (Melbourne, 1300 780 533) — "subject to underwriting"; some old boats accepted, some declined.</li>
+            <li>Youi (comprehensive / third-party fire & theft / third-party only, $10m liability) and NRMA/CGU — both reportedly tightening on old boats.</li>
+          </ul></li>
+        <li><b>Age is the catch:</b> rule of thumb, insurers get twitchy past 30–35 years and ask for a survey or seaworthiness report. Ours is ~40. Expect to need the mechanic's report and possibly a survey.</li>
+        <li><b>What it'll cost</b> <span class="tag est">est.</span>: roughly <b>$600–1,500/yr</b> comprehensive on the water; <b>$300–700/yr</b> laid up / ashore. No reliable published figures — get quotes.</li>
+        <li><b>Plan:</b>
+          <ol>
+            <li><b>Now, while she's being fixed:</b> ashore / lay-up cover (fire, theft, storm, trailer), motor declared non-running. Fallback: fire & theft only.</li>
+            <li><b>Before the maiden voyage:</b> at minimum third-party with $5–10m liability and an agreed hull value. Full comprehensive is optional on an $8–15k boat.</li>
+          </ol></li>
+        <li><b>Have ready:</b> photos (hull, deck, cabin, motor, trailer, builder's plate), bill of sale or valuation, the mechanic's report, storage address, rego.</li>
+        <li><b>Ask each insurer:</b> age limit? Any issue with a 200hp two-stroke? Ashore-only for a non-runner? How do we name five owners when the rego's in one name? Minimum premium and excess?</li>
+        <li><b>Co-ownership:</b> declare it, and name every owner (or "any licensed operator") so a claim can't be knocked back because Merv's son was driving. Mention the Commodore's Folly.</li>
       </ul>
     </details>
     <details><summary>🦺 Safety gear (Port Phillip Bay = enclosed waters)</summary>
@@ -1100,7 +1114,7 @@ const SEED_NAMES = ['Uncle Uncle','The Tontine','Last Man Floating','Gorn Again'
 const SEED_UPKEEP = [
   {t:'Boat registration — register fresh (old rego cancelled)', cat:'Legal', due:'2025-11-23', every:12, notes:'Lapsed >3 months (expired 23-11-2025) → cancelled. New registration: ID, bill of sale, proof of address — VicRoads 13 11 71.'},
   {t:'Trailer registration — check status', cat:'Legal', due:'', every:12},
-  {t:'Boat insurance — get it in place', cat:'Legal', due:'', every:12, notes:'Before the maiden voyage.'},
+  {t:'Boat insurance — lay-up cover now, liability before launch', cat:'Legal', due:'', every:12, notes:'Ring Club Marine, RACV, Nautilus. Old boat → may need mechanic report / survey.'},
   {t:'Marine licences (at least two of us)', cat:'Legal', due:'', every:0},
   {t:'Engine recommission / annual service', cat:'Engine', due:'2026-10-18', every:12, notes:'Ignition, fuel, compression, carbs, oils.'},
   {t:'Water-pump impeller', cat:'Engine', due:'2026-10-18', every:24, notes:'Age unknown — replace at recommission.'},
@@ -1603,7 +1617,7 @@ function renderTrips(){
 
 /* ================= APP VERSION ================= */
 // Bump APP_VERSION here AND in version.json together on every release.
-const APP_VERSION='1.7.1', APP_DATE='18-10-2026';
+const APP_VERSION='1.7.2', APP_DATE='18-10-2026';
 $('verLine').innerHTML=`<b>Version ${APP_VERSION}</b> · ${APP_DATE} · <span id="verCheck">checking for updates…</span>`;
 $('verMore').textContent='v'+APP_VERSION;
 async function checkVersion(){
