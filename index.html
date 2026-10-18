@@ -391,7 +391,8 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
     <details><summary>🛥️ Boat registration</summary>
       <ul class="tidy">
         <li>Every powered boat on Victorian waters must be registered, renewed annually (~$104.50 for powered vessels over 4m <span class="tag chk">verify</span>).</li>
-        <li><b>⚠️ Ours:</b> the rego expired on 23 Nov 2025. Vic boat rego must be renewed within <b>3 months</b> of expiry or it's cancelled — and after 90 days it can't be done online. So we <b>register her fresh</b> in our nominated owner's name (ID, bill of sale, proof of address) by phoning VicRoads on <b>13 11 71</b> or in person. The old number is probably gone. She can sit on land unregistered, but can't touch the water (not even a test run) until it's done.</li>
+        <li><b>First, find out if Uncle Uncle renewed it in Nov 2025.</b> If he did, it's current to Nov 2026 and we just do the normal $21.50 transfer. There's no public online check for boat rego (the VicRoads checker covers cars and trailers only, and Service Victoria's renewal page rejected AS479 — consistent with it being cancelled <i>or</i> simply not due). Ask Uncle Uncle for a 2025 receipt or to look in his myVicRoads account, or ring VicRoads on 13 11 71 with rego AS479.</li>
+        <li><b>⚠️ If he didn't:</b> the rego expired on 23 Nov 2025. Vic boat rego must be renewed within <b>3 months</b> of expiry or it's cancelled — and after 90 days it can't be done online. So we <b>register her fresh</b> in our nominated owner's name (ID, bill of sale, proof of address) by phoning VicRoads on <b>13 11 71</b> or in person. The old number is probably gone. She can sit on land unregistered, but can't touch the water (not even a test run) until it's done.</li>
         <li><b>Normal transfer</b> (for reference, when rego is current): seller and buyer sign the Vessel Registration Transfer form; lodge within 14 days with the $21.50 fee.</li>
         <li><b>Paperwork:</b> a signed bill of sale (price + date — even if it's mates' rates), current rego number, HIN if available.</li>
         <li><b>PPSR search</b> on the HIN or motor serial at <a href="https://www.ppsr.gov.au" target="_blank" rel="noopener">ppsr.gov.au</a> — checks no finance is owing. Even with family, it's a few dollars well spent.</li>
@@ -1015,7 +1016,7 @@ const BOAT_FACTS = [
   ['Extras','Lone Star Marine anchor winch & bowsprit · Lowrance Elite-5 HDI sounder/GPS · Sea-Dog switch panel · rod holders · boarding ladder'],
   ['Trailer','Dunbier "Supa Roller" galvanised tandem'],
   ['Originally sold by','J.V. Marine (JV Marine World, Braeside — est. 1976 by John & Vicki Stav)'],
-  ['Registration','Last renewed Nov 2024; expired 23 Nov 2025 — lapsed over 3 months, so it\'s cancelled. Needs a fresh registration.'],
+  ['Registration','Papers show paid to 23 Nov 2025. If Uncle Uncle renewed in Nov 2025 it\'s current; if not, it lapsed >3 months and is cancelled → fresh registration. TBC.'],
   ['Came from','Bouncing\'s "Uncle Uncle" — currently parked in Heathmont'],
   ['Price paid','TBC'],
   ['Name','TBC — needs a name!'],
@@ -1077,7 +1078,7 @@ const SEED_TODOS = [
   {t:'Ring Caribbean (03 9763 7233) — Model P209, s/n 2513: build year + brochure?', who:'Merv', list:'Now'},
   {t:'Transom & stringer check (mallet test, flex test) before paying', who:'', list:'Now'},
   {t:'Agree a price with Uncle Uncle (as-is value ~$4–8k)', who:'Bouncing', list:'Now'},
-  {t:'Register the boat fresh — old rego cancelled after 3+ months lapsed (VicRoads 13 11 71)', who:'', list:'Now'},
+  {t:'Ask Uncle Uncle: did he renew the boat rego (AS479) in Nov 2025? If not, register fresh (VicRoads 13 11 71)', who:'Bouncing', list:'Now'},
   {t:'Weighbridge the rig; sort a tow vehicle (Carnival is borderline)', who:'', list:'Before maiden voyage'},
   {t:'Decide: keep Precision Blend oil injection or switch to premix', who:'', list:'Before maiden voyage'},
   {t:'PPSR check on the HIN / motor serial', who:'', list:'Now'},
@@ -1602,7 +1603,7 @@ function renderTrips(){
 
 /* ================= APP VERSION ================= */
 // Bump APP_VERSION here AND in version.json together on every release.
-const APP_VERSION='1.7.0', APP_DATE='18-10-2026';
+const APP_VERSION='1.7.1', APP_DATE='18-10-2026';
 $('verLine').innerHTML=`<b>Version ${APP_VERSION}</b> · ${APP_DATE} · <span id="verCheck">checking for updates…</span>`;
 $('verMore').textContent='v'+APP_VERSION;
 async function checkVersion(){
