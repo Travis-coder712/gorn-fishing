@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <title>CoPCO — Retro '87 (stripes from the Commodore's own livery)</title>
+  <defs>
+    <clipPath id="patch"><rect x="60" y="250" width="880" height="500" rx="70"/></clipPath>
+  </defs>
+  <rect x="60" y="250" width="880" height="500" rx="70" fill="#f1e4c8"/>
+  <g clip-path="url(#patch)">
+    <path d="M60,598 L940,560 L940,598 L60,636 Z" fill="#6b3f22"/>
+    <path d="M60,646 L940,608 L940,640 L60,678 Z" fill="#d8742f"/>
+    <path d="M60,688 L940,650 L940,676 L60,714 Z" fill="#e8b04a"/>
+    <!-- little cabin cruiser riding the stripes -->
+    <g transform="translate(790 530) scale(.27)" fill="#6b3f22">
+      <path d="M0,60 L470,48 Q440,112 366,124 L12,124 Z"/>
+      <path d="M118,62 L146,2 L312,-2 L368,58 Z"/>
+      <rect x="-34" y="40" width="44" height="100" rx="8"/>
+    </g>
+  </g>
+  <rect x="60" y="250" width="880" height="500" rx="70" fill="none" stroke="#6b3f22" stroke-width="16"/>
+  <text x="500" y="330" text-anchor="middle" font-family="Futura,'Avenir Next',Arial,sans-serif" font-weight="700" font-size="28" letter-spacing="3" textLength="780" lengthAdjust="spacing" fill="#6b3f22">CO-OPERATIVE OF PLEASURE CRAFT OWNERS</text>
+  <text x="560" y="510" text-anchor="middle" font-family="Futura,'Avenir Next Condensed',Arial,sans-serif" font-weight="800" font-style="italic" font-size="196" letter-spacing="-4" fill="#6b3f22" transform="skewX(-8)">CoPCO</text>
+  <text x="500" y="826" text-anchor="middle" font-family="Futura,'Avenir Next',Arial,sans-serif" font-weight="700" font-size="40" letter-spacing="8" fill="#6b3f22">PORT PHILLIP BAY · EST. 2026</text>
+</svg>

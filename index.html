@@ -161,6 +161,30 @@ label{font-size:12px;color:var(--muted);display:block;margin:8px 0 3px}
 footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
 .lightbox{position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:70;display:none;align-items:center;justify-content:center;padding:16px}
 .lightbox.open{display:flex}.lightbox img{max-width:100%;max-height:90vh;border-radius:10px}
+
+/* merch + vote */
+.logos{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.logopick{background:var(--bg2);border:2px solid var(--line);border-radius:16px;padding:10px;text-align:center;cursor:pointer;position:relative;color:var(--text);font:inherit}
+.logopick img{width:100%;aspect-ratio:1;object-fit:contain;background:radial-gradient(circle,#f4ead5 0%,#e9dcc0 70%);border-radius:12px}
+.logopick b{display:block;margin-top:6px;font-size:14px}
+.logopick small{color:var(--muted);font-size:11.5px}
+.logopick.on{border-color:var(--gold);box-shadow:0 0 0 3px rgba(231,178,74,.25)}
+.logopick .votes{position:absolute;top:8px;right:8px;background:var(--coral);color:#fff;border-radius:99px;font-size:11px;font-weight:700;padding:2px 8px}
+.mockrow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+@media(max-width:640px){.mockrow{grid-template-columns:repeat(2,1fr)}}
+.mock{background:linear-gradient(180deg,#eef1f4,#dfe4ea);border:2px solid transparent;border-radius:14px;padding:4px;cursor:pointer;position:relative}
+.mock svg{display:block;width:100%;height:auto}
+.mock .cap{font-size:11px;color:#334;text-align:center;padding-bottom:4px;font-weight:600}
+.mock.on{border-color:var(--gold)}
+.mock .votes{position:absolute;top:6px;right:6px;background:var(--coral);color:#fff;border-radius:99px;font-size:10.5px;font-weight:700;padding:1px 7px}
+.swatches{display:flex;gap:6px;margin:6px 0 10px}
+.sw{width:24px;height:24px;border-radius:50%;border:2px solid var(--line);cursor:pointer}
+.sw.on{border-color:var(--gold);box-shadow:0 0 0 2px var(--gold)}
+.welcome{position:fixed;inset:0;z-index:80;background:linear-gradient(180deg,#0f2a44,#0b1e33);overflow-y:auto;display:none;padding:calc(env(safe-area-inset-top) + 20px) 16px 30px}
+.welcome.open{display:block}
+.whoami{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin:14px 0}
+.whoami button{font:inherit;font-size:17px;font-weight:700;padding:16px;border-radius:14px;border:2px solid var(--line);background:var(--panel);color:var(--text);cursor:pointer}
+.whoami button.on{border-color:var(--gold);background:var(--panel-2)}
 </style>
 </head>
 <body>
@@ -180,8 +204,13 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
     <div>
       <div class="eyebrow">The official app of CoPCO</div>
       <h1>Gorn Fishing</h1>
-      <p>Four mates, one second-hand cabin cruiser from Bouncing's Uncle Uncle, and the whole of Port Phillip Bay. Everything we know, owe, need and want — in one place.</p>
+      <p>Four mates, one 1980s Caribbean Commodore from Bouncing's Uncle Uncle, and the whole of Port Phillip Bay. Everything we know, owe, need and want — in one place.</p>
     </div>
+  </div>
+
+  <div class="card" style="border-color:var(--gold)">
+    <div class="dayhead"><h3>🗳️ Vote: the CoPCO logo & merch</h3><a href="#" onclick="go('merch');return false" class="small">Vote →</a></div>
+    <p class="small muted">Four logos, eight bits of kit — caps, tees, polos, spray jackets, stubby holders, golf gear and a boat flag. Pick your favourites.</p>
   </div>
 
   <div class="card">
@@ -193,7 +222,8 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
     <div class="dayhead"><h3>Where we're at</h3><span class="small muted">Stage 2 of 6</span></div>
     <div class="stages" id="stages"></div>
     <div class="stagelbl"><span>Found</span><span>Testing</span><span>Service</span><span>Paperwork</span><span>Maiden</span><span>Gorn</span></div>
-    <p class="small" style="margin-top:12px"><b>Saturday 18th October 2026:</b> first motor test — couldn't quite get it running (fuses and the like). Next: Travis's brother is getting it checked out; a marine mechanic should look at the motor, give the whole boat a once-over and replace the old fuel.</p>
+    <p class="small" style="margin-top:12px"><b>She's a Caribbean 205 Commodore</b> — built in Scoresby by International Marine, with a Yamaha V6 200 two-stroke on a Dunbier tandem.</p>
+    <p class="small"><b>Saturday 18th October 2026:</b> test day in Heathmont. Fuse found and fixed, trim works, engine cranks — but no spark. Next: Travis's brother gets her to a mechanic (ignition, old fuel, compression, transom check).</p>
   </div>
 
   <div class="card" id="homeConditions">
@@ -222,7 +252,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
   <div class="card">
     <h3>What we know so far</h3>
     <table><tbody id="boatFacts"></tbody></table>
-    <p class="small muted" style="margin-top:10px">Make, model, year, length, hull ID (HIN) and motor details will be filled in once the photos are in. The HIN is usually stamped on the starboard (right) side of the transom; the motor's model/serial is on a plate on the engine bracket. Snap both!</p>
+    
   </div>
 
   <div class="card">
@@ -230,13 +260,55 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
     <div class="timeline" id="boatTimeline"></div>
   </div>
 
-  <div class="grid2">
-    <div class="card"><h3>Estimated value</h3><p class="muted">To be researched once we know the make, model, year and motor. We'll compare against current listings (boatsales, Gumtree, Facebook Marketplace) for similar boats, then adjust for the motor's condition — a non-running motor can knock thousands off.</p></div>
-    <div class="card"><h3>New, it looked like…</h3><p class="muted">Once we've identified the model we'll dig up original brochures and photos of it fresh off the showroom floor.</p></div>
+  <div class="card">
+    <h3>💲 What's she worth?</h3>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Scenario</th><th>Value</th></tr></thead>
+      <tbody>
+        <tr><td><b>As she sits</b> — motor not running, hull unknown</td><td><b>$4–8k</b> <span class="tag est">est.</span></td></tr>
+        <tr><td><b>Running well</b> after a service, sound transom</td><td><b>$9–15k</b> private sale <span class="tag est">est.</span></td></tr>
+        <tr><td>Repowered with a new 4-stroke (F150–F200)</td><td>$22–30k resale — but the repower alone costs $26–38k fitted</td></tr>
+        <tr><td colspan="2" class="small muted">Comparables: 1984 Commodore at a dealer $19,990 · 1980 205 Commodore via J.V. Marine $22,999 · inboard Commodore private $7,500 · fully refitted Perth Commodore w/ 150hp ~$32k. None listed right now.</td></tr>
+      </tbody>
+    </table></div>
+    <p class="small"><b>Biggest swing factor:</b> the plywood transom & stringers. A wet transom can turn a $12k boat into a $3k project. <b>Second:</b> whether the V6 has healthy compression once it sparks. <b>Mates' rates</b> on a non-runner: roughly $3–8k depending on what the transom check finds.</p>
+    <p class="small muted">Gemini's earlier "$11–18k turn-key" is fair for a <i>running</i> boat with a sound hull — $18k is dealer money. Too high for her today.</p>
   </div>
+
+  <div class="card">
+    <h3>📜 The builder</h3>
+    <p><b>International Marine</b> of Scoresby is a genuine Victorian boatbuilding dynasty. Founded in 1958 by Arch Spooner, it built Bertrams under licence from 1963 and sold its own trailer boats as <b>Caribbean</b> — the badge on our hull. Barry Spooner ran it from 1971; grandson Richard runs it today, on the same Ferntree Gully Road site. Roughly 50,000–60,000 boats built. Caribbeans have a reputation as tough, conservative, sea-kindly boats that hold their value.</p>
+    <p class="small muted">The factory is reportedly helpful with build details if you quote the serial: <b>(03) 9763 7233</b>, quote "Model P209, serial 2513". That's our best shot at the build year and an original brochure.</p>
+  </div>
+
+  <div class="card">
+    <h3>📸 What she looked like new</h3>
+    <p class="muted">No brochure found online yet — it's on the to-do list (ring Caribbean). Closest references:</p>
+    <ul class="tidy small">
+      <li><a href="https://www.tradeaboat.com.au/news-reviews/6984-caribbean-buyer-s-guide" target="_blank" rel="noopener">Trade-a-Boat — Caribbean buyer's guide</a></li>
+      <li><a href="https://collections.sea.museum/objects/62670/black-and-white-negative-number-32a-depicting-a-caribbean-ca" target="_blank" rel="noopener">Australian National Maritime Museum — 1970s Caribbean photos</a></li>
+      <li><a href="https://www.boatsales.com.au/editorial/details/barry-spooner-the-builder-of-bertram-and-caribbean-boats-dies-128793/" target="_blank" rel="noopener">Barry Spooner — the builder of Bertram and Caribbean</a></li>
+      <li>The same hull was also sold as the <b>Pride President 20.5</b> — worth searching for.</li>
+    </ul>
+  </div>
+
   <div class="grid2">
-    <div class="card"><h3>👍 Good for</h3><ul class="tidy muted"><li>Sheltered bay fishing in Port Phillip</li><li>Overnighting / a cuddy to get out of the weather</li><li>Toilet on board — a big deal on a long snapper session</li><li>Four blokes and a fridge</li></ul><p class="small muted">(Generic for trailer cabin cruisers — refine once identified.)</p></div>
-    <div class="card"><h3>👎 Not so good for</h3><ul class="tidy muted"><li>Crossing the Rip / Bass Strait</li><li>Steep southerly chop on the eastern shore</li><li>Being towed by a small SUV</li><li>Fast fishing runs (cabins are heavy)</li></ul></div>
+    <div class="card"><h3>👍 Good for</h3><ul class="tidy muted"><li>Port Phillip Bay, Western Port, Gippsland Lakes</li><li>A deep-V hull that handles bay chop well</li><li>Cabin + toilet for long snapper sessions</li><li>Four mates, rods, an esky (and soon a fridge)</li><li>Cruise ~22–26 knots, top ~35–40</li></ul></div>
+    <div class="card"><h3>👎 Not so good for</h3><ul class="tidy muted"><li>Fuel bills — the V6 2-stroke drinks ~35–42 L/hr at cruise (≈$150–200 a day out)</li><li>Outside the Heads except on settled days</li><li>Being towed by a Kia Carnival</li><li>Parts hunting — 30-year-old Yamaha ignition parts are getting scarce</li></ul></div>
+  </div>
+
+  <div class="card">
+    <h3>🔍 Before we hand over money — inspect</h3>
+    <ol class="tidy">
+      <li><b>Transom:</b> motor trimmed down, push and pull the leg hard — any flex or cracking around the bolts? Tap inside with a small hammer: a dull thud means wet timber.</li>
+      <li><b>Floor:</b> walk the cockpit, especially near the tank hatch. Spongy = rot.</li>
+      <li><b>Stringers/foam:</b> heavier than expected on a weighbridge = waterlogged foam.</li>
+      <li><b>Old sterndrive cut-out?</b> Look for a patched hole in the transom.</li>
+      <li><b>Hardtop & windows:</b> hose test — leaks at the hardtop join and sliding windows; stains in the cabin.</li>
+      <li><b>Fuel tank:</b> old aluminium underfloor tanks corrode. Sender, lines, water separator, and the age of the fuel.</li>
+      <li><b>Trailer:</b> springs, brakes, bearings, rollers, rust at the drawbar, the ATM plate.</li>
+      <li><b>Motor:</b> once it sparks — compression test (all 6 within ~10%), oil injection pump & warning buzzer, tell-tale stream.</li>
+    </ol>
   </div>
 </section>
 
@@ -342,10 +414,14 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
       <li><b>Licence:</b> a normal car licence is fine within the vehicle's rated capacity.</li>
       <li><b>Vehicles that'll do it comfortably:</b> Ranger, D-Max, BT-50, LandCruiser (3,500kg); Prado/Hilux (~3,000kg). Mid-size SUVs (~1,600–2,000kg) are marginal.</li>
     </ul>
+    <div class="card" style="background:rgba(224,83,61,.12);border-color:var(--coral);margin-top:12px">
+      <b>Our rig:</b> Caribbean Commodore + Yamaha V6 200 + Dunbier tandem ≈ <b>1,700–2,100 kg</b> all up <span class="tag est">est.</span><br>
+      <b>2022 Kia Carnival diesel:</b> 2,000 kg braked, 200 kg ball, front-wheel drive → <b>borderline at best</b>. Over the limit with fuel and gear, and FWD loses grip on a wet ramp. Weigh it at a weighbridge, and line up a Ranger/Prado/LandCruiser-class car for ramp days.
+    </div>
     <div class="card" style="background:var(--bg2);margin-top:12px">
       <b>Can my car tow it?</b>
       <div class="row">
-        <div><label>Boat + trailer ATM (kg)</label><input id="towAtm" type="number" placeholder="e.g. 2000"></div>
+        <div><label>Boat + trailer ATM (kg)</label><input id="towAtm" type="number" placeholder="e.g. 2000" value="2000"></div>
         <div><label>Car's braked tow rating (kg)</label><input id="towCap" type="number" placeholder="e.g. 3500"></div>
       </div>
       <p id="towOut" class="small" style="margin:10px 0 0"></p>
@@ -447,13 +523,50 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
   </div>
 
   <div class="card">
-    <h3>🏪 Marine mechanics near Seaford</h3>
+    <h3>🏪 Mechanics near the boat (Heathmont)</h3>
     <ul class="tidy">
-      <li><b>Edencraft Marine</b> — Hi-tech Place, Seaford. Mercury service centre; outboards, trailers, minor fibreglass. Closest to Bouncing's. <span class="tag chk">verify</span></li>
-      <li><b>Advanced Marine Services</b> — Industry Blvd, Carrum Downs. Servicing, rebuilds, electrical. <span class="tag chk">verify</span></li>
-      <li>Also worth a call: Patterson Lakes, Mornington and Hastings marine workshops.</li>
+      <li><b>Outboard Motor Services</b> — Unit 1, 13 Malvern St, Bayswater · (03) 9738 1311 · Mon–Fri 8:30–5, Sat 9–12. Services all marine engines — best fit for an old carby 2-stroke. <span class="tag v">✓</span></li>
+      <li><b>Streaker Marine</b> — Bayswater. Big family-owned Yamaha dealer since 1993; good for a full boat + motor + trailer once-over. <span class="tag v">✓</span></li>
+      <li><b>Regal Marine</b> — 514 Canterbury Rd, Vermont · (03) 9874 4624. Six-bay service division; ask if they'll take a 1990s 2-stroke. <span class="tag v">✓</span></li>
+      <li><b>JV Marine World</b> — 878 Springvale Rd, Braeside. The dealer that originally sold her (sticker on the cowl). Big workshop; good for repower quotes.</li>
+      <li class="muted">Martins Marine (Boronia) and Casey Marine (mobile), suggested by Gemini, couldn't be verified.</li>
     </ul>
-    <p class="small muted">Ask: do you service this brand (Evinrude/Johnson are discontinued — parts matter)? What's the diagnosis fee? How long's the queue?</p>
+    <p class="small muted">Closer to Seaford later: Edencraft Marine (Seaford, Mercury) · Advanced Marine Services (Carrum Downs) · Fleet Marine (Chelsea Heights, Yamaha). Ask: do you work on Yamaha V6 2-strokes? Diagnosis fee? Queue?</p>
+  </div>
+
+  <div class="card">
+    <h3>🤖 Checking Gemini's homework</h3>
+    <p class="small muted">We checked the advice from test day against other sources.</p>
+    <div class="tblwrap"><table>
+      <thead><tr><th>Gemini said</th><th>Verdict</th></tr></thead>
+      <tbody>
+        <tr><td>Caribbean Commodore by International Marine, Scoresby; Yamaha 200AETO V6 2-stroke; Dunbier tandem</td><td><span class="tag v">✓ right</span></td></tr>
+        <tr><td>Engine made late 1980s–90s</td><td><span class="tag v">✓</span> code 6G6 points to early–mid 1990s</td></tr>
+        <tr><td>Engine weighs ~215 kg</td><td><span class="tag chk">✗</span> more like 180–186 kg</td></tr>
+        <tr><td>Kia Carnival: 2,000 kg braked, 200 kg ball, FWD — not recommended</td><td><span class="tag v">✓ right</span></td></tr>
+        <tr><td>Check fuse / battery switch / earth first</td><td><span class="tag v">✓</span> and it was a fuse!</td></tr>
+        <tr><td>No spark on all cylinders → check the kill switch / key circuit first</td><td><span class="tag est">partly</span> right first check, but stator, pulser coils or the two CDI packs can also do it</td></tr>
+        <tr><td>Kill wire is Black/Yellow — unplug it to test</td><td><span class="tag chk">unsure</span> confirm on the wiring diagram before unplugging anything</td></tr>
+        <tr><td>Spray starter fluid in the carbs</td><td><span class="tag chk">✗</span> avoid on a 2-stroke (strips oil) — use a squirt of premix or fogging oil</td></tr>
+        <tr><td>Compression 100–120 psi, within 10%</td><td><span class="tag est">close</span> ~110–130 psi, within 10–15%</td></tr>
+        <tr><td>Package worth $11–18k</td><td><span class="tag est">high</span> fair once running with a sound hull; $4–8k as she sits</td></tr>
+        <tr><td>Marine shops near Heathmont</td><td><span class="tag est">mostly</span> Regal, Streaker, Outboard Motor Services ✓; Martins & Casey unverified</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="card">
+    <h3>⚡ No spark — next steps for the sparkie</h3>
+    <ol class="tidy small">
+      <li>Battery stays above ~12V while cranking; lanyard clipped; key on; lever in neutral.</li>
+      <li>Isolate the 703 control box: unplug the stop/key leads at the harness (check the wiring diagram first) and re-test for spark.</li>
+      <li>Ohm-test the key switch and lanyard switch.</li>
+      <li>Clean and reseat the main harness plug (corroded pins are common).</li>
+      <li>Peak-voltage test the stator charge coil while cranking (needs a peak-voltage adapter; ~150V+).</li>
+      <li>Test the pulser coils.</li>
+      <li>V6 has <b>two</b> CDI packs (one per bank) — if one bank sparks, suspect the other pack.</li>
+      <li>Still nothing? It's a mechanic job. Budget a full recommission at roughly <b>$1,500–3,500</b>; ignition parts or gearbox seals can push it past $4k.</li>
+    </ol>
   </div>
 
   <div class="card">
@@ -650,9 +763,50 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
   </div>
 </section>
 
+
+<!-- ========== MERCH & VOTE ========== -->
+<section class="view" id="v-merch">
+  <div class="sec"><div class="eyebrow">CoPCO merch</div><h2>Logo & merch vote</h2><div class="sub">Pick the official CoPCO logo, then pick which logo goes on each bit of kit. One vote per member — change your mind any time.</div></div>
+  <div class="card">
+    <div class="dayhead"><h3>Voting as</h3><span class="small muted" id="voteMode"></span></div>
+    <div class="chips" id="voterChips"></div>
+  </div>
+  <div class="card">
+    <h3>1 · The official logo</h3>
+    <div class="logos" id="logoVote"></div>
+  </div>
+  <div class="card">
+    <h3>2 · Which logo on which kit?</h3>
+    <p class="small muted">Tap a mockup to vote for it. Tap the colour dots to try other colours.</p>
+    <div id="merchVote"></div>
+  </div>
+  <div class="card">
+    <h3>Scoreboard</h3>
+    <div id="voteResults" class="small"></div>
+    <div class="row" style="margin-top:10px"><button class="btn ghost sm" onclick="shareVote()">Share my votes to the group chat</button><button class="btn ghost sm" onclick="refreshVotes(true)">Refresh</button></div>
+  </div>
+  <div class="card small">
+    <h3>Print files</h3>
+    <p class="muted">High-res (3000px) logo files for the printer:</p>
+    <ul class="tidy" id="printFiles"></ul>
+    <p class="muted">For embroidery (caps, polos) the printer will usually "digitise" the logo — simpler logos (the crest, the retro patch) embroider cleanest. The full badge works best printed (tees, stubby holders, towels).</p>
+  </div>
+</section>
+
 <footer>Gorn Fishing · CoPCO · Co-operative of Pleasure Craft Owners · Est. 2026<br>Facts tagged <span class="tag v">✓</span> <span class="tag est">est.</span> <span class="tag chk">verify</span> — check official sources before you rely on them.</footer>
 </main>
 
+
+<div class="welcome" id="welcome"><div style="max-width:620px;margin:0 auto">
+  <div style="text-align:center"><img src="assets/copco-logo.png" alt="" style="width:120px"><div class="eyebrow" style="margin-top:8px">Welcome aboard</div><h1 style="font-size:34px">Gorn Fishing</h1>
+  <p class="muted">First order of CoPCO business: choose our logo.</p></div>
+  <h3 style="margin-top:18px">Who are you?</h3>
+  <div class="whoami" id="welcomeWho"></div>
+  <h3>Your favourite logo</h3>
+  <div class="logos" id="welcomeLogos"></div>
+  <div class="row" style="margin-top:16px"><button class="btn" onclick="finishWelcome()">Cast my vote & come aboard</button></div>
+  <p style="text-align:center"><a href="#" onclick="closeWelcome();return false" class="small">Just looking — skip</a></p>
+</div></div>
 <nav class="bottom" id="nav"></nav>
 <div class="sheet" id="more" onclick="if(event.target===this)this.classList.remove('open')"><div class="inner"><h3>More</h3><div class="menu" id="moreMenu"></div></div></div>
 <div class="lightbox" id="lb" onclick="this.classList.remove('open')"><img alt=""></div>
@@ -666,32 +820,67 @@ const CREW = [
   {id:'bouncing', name:'Bouncing', col:'#7b6fd6', note:'home port: Seaford'},
 ];
 // Drop boat photos into /photos and list them here.
-const BOAT_PHOTOS = [];
+const BOAT_PHOTOS = [
+  {src:'photos/hull-side.jpg',cap:'The Commodore on her Dunbier tandem'},
+  {src:'photos/bow-quarter.jpg',cap:'Hardtop, sliding windows, bow rail'},
+  {src:'photos/caribbean-badge.jpg',cap:'The Caribbean anchor badge'},
+  {src:'photos/commodore-decal.jpg',cap:'Commodore script decal + pinstripes'},
+  {src:'photos/builders-plate.jpg',cap:'International Marine, Scoresby — Model P209'},
+  {src:'photos/v6-200-badge.jpg',cap:'Yamaha V6 200'},
+  {src:'photos/outboard-side.jpg',cap:'Yamaha 200AETO'},
+  {src:'photos/outboard-rear.jpg',cap:'Precision Blend oil injection'},
+  {src:'photos/powerhead-plugs.jpg',cap:'Powerhead — plugs look new'},
+  {src:'photos/helm.jpg',cap:'The helm'},
+  {src:'photos/gauges.jpg',cap:'Yamaha tacho + trim gauge'},
+  {src:'photos/switch-panel.jpg',cap:'Sea-Dog switch panel'},
+  {src:'photos/yamaha-703-control.jpg',cap:'Yamaha 703 control box'},
+  {src:'photos/winch-breaker.jpg',cap:'Lone Star anchor winch + 80A breaker'},
+  {src:'photos/lowrance.jpg',cap:'Lowrance Elite-5 HDI (with manual!)'},
+  {src:'photos/dunbier-trailer.jpg',cap:'Dunbier Supa Roller trailer'},
+  {src:'photos/trailer-winch.jpg',cap:'Dunbier trailer winch'},
+  {src:'photos/v6-200-cowl.jpg',cap:'J.V. Marine dealer sticker'},
+];
 const BOAT_FACTS = [
-  ['Make / model','TBC — from photos'],
-  ['Year','TBC'],
-  ['Length','TBC (looks like a 5–7m trailer cabin cruiser)'],
-  ['Motor','TBC — make, hp, 2-stroke/4-stroke, outboard or sterndrive'],
-  ['Cabin','Seating, a toilet and a little stove/skillet'],
-  ['Came from','Bouncing\'s "Uncle Uncle"'],
-  ['Condition','Stationary for some time; motor not yet running'],
+  ['Make / model','Caribbean 205 Commodore ("Commodore 20.5" / 6.1)'],
+  ['Builder','International Marine Pty Ltd, Ferntree Gully Rd, Scoresby VIC — Model P209'],
+  ['Year','Early 1980s hull likely (Commodore was in the range by 1980) — TBC from the factory'],
+  ['Length / beam','6.1 m (20.5 ft) · ~2.4 m beam'],
+  ['Hull','Fibreglass deep-V with plywood-cored transom, stringers & floor (period-typical)'],
+  ['Layout','Lock-up cabin, V-berth for two, toilet, little stove; hardtop with sliding side windows'],
+  ['Motor','Yamaha 200AETO — 90° V6 2-stroke, 2.6 L, carburetted, Precision Blend oil injection, power trim. Likely early–mid 1990s (code 6G6)'],
+  ['Max rated','200 hp · 8 adults (builder\'s plate)'],
+  ['Extras','Lone Star Marine anchor winch & bowsprit · Lowrance Elite-5 HDI sounder/GPS · Sea-Dog switch panel · rod holders · boarding ladder'],
+  ['Trailer','Dunbier "Supa Roller" galvanised tandem'],
+  ['Originally sold by','J.V. Marine (JV Marine World, Braeside — est. 1976 by John & Vicki Stav)'],
+  ['Registration','Victorian rego, cabin cruiser, outboard; last renewed Nov 2024 (expired 23 Nov 2025 — needs renewing)'],
+  ['Came from','Bouncing\'s "Uncle Uncle" — currently parked in Heathmont'],
   ['Price paid','TBC'],
   ['Name','TBC — needs a name!'],
 ];
 const BOAT_TIMELINE = [
-  {when:'Before 2026', what:'Owned by Bouncing\'s Uncle Uncle. Sat unused for some time.'},
-  {when:'2026', what:'CoPCO forms. Merv, Ace, Northy and Bouncing agree to buy the boat.'},
-  {when:'Sat 18 Oct 2026', what:'First test. Tried to run the motor — fuses and the like — couldn\'t quite get it going.'},
-  {when:'Next', what:'Travis\'s brother to get it checked: marine mechanic, motor, overall review, fresh fuel.', future:true},
-  {when:'Then', what:'Paperwork, safety gear, licences.', future:true},
-  {when:'Then', what:'Maiden voyage from Patterson River.', future:true},
+  {when:'1958', what:'Arch Spooner founds International Plastics (later International Marine) in Scoresby, Victoria.'},
+  {when:'1963', what:'Licence to build Bertram boats in Australia — the famous Bertram 20/25/31s.'},
+  {when:'1968–70s', what:'Smaller trailer boats sold under the Caribbean name: Galaxy, Catalina, Invader… Barry Spooner takes over (1971).'},
+  {when:'c.1978–80', what:'Commodore hull reworked (smooth sides, deeper V). Caribbean 205 Commodore in the range by 1980.'},
+  {when:'1980s', what:'Our Commodore built (Model P209, s/n 2513) and sold through J.V. Marine, Braeside.'},
+  {when:'1989', what:'Bertram licence ends — the whole range becomes "Caribbean". Still built in Scoresby today by the Spooner family.'},
+  {when:'Early–mid 1990s', what:'Yamaha V6 200 two-stroke fitted (probably a repower — most Commodores left the factory with MerCruiser sterndrives).'},
+  {when:'Nov 2024', what:'Last rego renewal ($98.80). Then sat for a while.'},
+  {when:'2026', what:'CoPCO forms. Merv, Ace, Northy and Bouncing agree to buy her from Uncle Uncle.'},
+  {when:'Sat 18 Oct 2026', what:'Test day in Heathmont. Engine battery fitted, a blown fuse found & fixed, trim works, engine cranks — but no spark. Off to a mechanic.'},
+  {when:'Next', what:'Mechanic: ignition diagnosis, fuel flush, compression test, transom check.', future:true},
+  {when:'Then', what:'Paperwork, safety gear, licences → maiden voyage from Patterson River.', future:true},
 ];
 const READY_LOG = [
-  {when:'Sat 18 Oct 2026', what:'Motor test day. Worked through fuses and electrics — not running yet. (Full write-up from the day coming once the notes are in.)'},
-  {when:'Next', what:'Book a marine mechanic: motor diagnosis, recommission service, fuel drained and replaced, overall boat review.', future:true},
+  {when:'Sat 18 Oct · morning', what:'Inspected and photographed: Caribbean Commodore, Yamaha 200AETO, Dunbier trailer, rego papers. Winch works off the house battery.'},
+  {when:'Sat 18 Oct', what:'Fitted the engine battery (fully charged, checked with a multimeter). Nothing from the engine — no trim, no crank — even with the battery switch in every position.'},
+  {when:'Sat 18 Oct', what:'With a sparkie on site, traced it to a fuse. Fixed → power trim works and the engine cranks over. 🎉'},
+  {when:'Sat 18 Oct', what:'Cranks but won\'t fire. Muffs on, fuel line hand-pumped, plugs look brand new. Plug test: NO spark on any cylinder → ignition fault (not fuel — yet).'},
+  {when:'Sat 18 Oct', what:'Asked about towing with a 2022 Kia Carnival diesel: borderline at best (see On the Water).'},
+  {when:'Next', what:'Book a mechanic near Heathmont: no-spark diagnosis, drain old fuel, compression test, transom & trailer check.', future:true},
 ];
 const STAGES = ['Found','Testing','Service','Paperwork','Maiden','Gorn'];
-const STAGE_NOW = 1;
+const STAGE_NOW = 1; // 0 Found · 1 Testing · 2 Service · 3 Paperwork · 4 Maiden · 5 Gorn
 
 const MAIDEN = ['Lifejackets ×4 (right sizes)','Flares (in date) or VHF/PLB','Fire extinguisher (in date)','Waterproof torch','Anchor, chain + 30m+ rope','Bucket + bailer','Bung (and a spare bung!)','Fresh fuel + spare fuel can','Charged battery + jumper pack','Phones in a dry bag + charger','Basic toolkit, spare fuses, cable ties, duct tape','Spare spark plugs + plug spanner','Paddle','Mooring lines + fenders','Fishing licences on phones','Rods, tackle box, pliers, knife, bait board','Bait: pilchards, squid, pipis','Berley','Esky with ice (and a fish ice slurry)','Brag mat / measuring ruler','Water, food, sunscreen, hats, sunnies','Warm layer + rain jacket','First aid kit','Seasick tablets','Toilet paper (for the head!)','Bin bags — take everything home','Camera for the maiden voyage photo'];
 
@@ -721,8 +910,13 @@ const SPOTS = [
 ];
 const CATS = ['Purchase','Mechanic & parts','Fuel','Rego & licences','Insurance','Safety gear','Fishing gear','Upgrades','Other'];
 const SEED_TODOS = [
-  {t:'Book marine mechanic — motor diagnosis + recommission + fresh fuel', who:'Travis\'s brother', list:'Now'},
-  {t:'Photograph the HIN (transom) and motor serial plate', who:'Bouncing', list:'Now'},
+  {t:'Book marine mechanic near Heathmont — no-spark diagnosis, drain old fuel, compression test', who:'Travis\'s brother', list:'Now'},
+  {t:'Ring Caribbean (03 9763 7233) — Model P209, s/n 2513: build year + brochure?', who:'', list:'Now'},
+  {t:'Transom & stringer check (mallet test, flex test) before paying', who:'', list:'Now'},
+  {t:'Agree a price with Uncle Uncle (as-is value ~$4–8k)', who:'Bouncing', list:'Now'},
+  {t:'Renew boat rego (expired 23 Nov 2025)', who:'', list:'Now'},
+  {t:'Weighbridge the rig; sort a tow vehicle (Carnival is borderline)', who:'', list:'Before maiden voyage'},
+  {t:'Decide: keep Precision Blend oil injection or switch to premix', who:'', list:'Before maiden voyage'},
   {t:'PPSR check on the HIN / motor serial', who:'', list:'Now'},
   {t:'Bill of sale + rego transfer form signed with Uncle Uncle', who:'', list:'Now'},
   {t:'Decide whose name the rego goes in', who:'', list:'Now'},
@@ -757,7 +951,7 @@ const ICON={
  conditions:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
  money:'<rect x="3" y="6" width="18" height="12" rx="2"/><circle cx="12" cy="12" r="2.5"/>',
  more:'<circle cx="5" cy="12" r="1.5"/><circle cx="12" cy="12" r="1.5"/><circle cx="19" cy="12" r="1.5"/>'};
-const VIEWS=[['home','Home','🏠'],['boat','The Boat','🛥️'],['conditions','Conditions','🌤️'],['money','Money','💰'],['legal','Get Legal','📋'],['water','On the Water','⚓'],['ready','Get it Ready','🔧'],['seasons','Seasons','🐟'],['todo','To-do','✅'],['upgrades','Upgrades','🛋️']];
+const VIEWS=[['home','Home','🏠'],['boat','The Boat','🛥️'],['conditions','Conditions','🌤️'],['money','Money','💰'],['legal','Get Legal','📋'],['water','On the Water','⚓'],['ready','Get it Ready','🔧'],['seasons','Seasons','🐟'],['todo','To-do','✅'],['upgrades','Upgrades','🛋️'],['merch','Merch & Vote','🧢']];
 function navBtn(id,label){return `<button data-v="${id}" onclick="${id==='more'?"$('more').classList.add('open')":`go('${id}')`}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICON[id]}</svg>${label}</button>`}
 $('nav').innerHTML=navBtn('home','Home')+navBtn('boat','Boat')+navBtn('conditions','Conditions')+navBtn('money','Money')+navBtn('more','More');
 const menuHTML=list=>list.map(([id,l,e])=>`<button onclick="go('${id}')"><span>${e}</span>${l}</button>`).join('');
@@ -778,7 +972,7 @@ $('stagePill').textContent='Stage: '+STAGES[STAGE_NOW];
 $('boatFacts').innerHTML=BOAT_FACTS.map(([k,v])=>`<tr><th style="width:38%">${k}</th><td>${esc(v)}</td></tr>`).join('');
 const tl=a=>a.map(e=>`<div class="ev ${e.future?'future':''}"><div class="when">${e.when}</div>${esc(e.what)}</div>`).join('');
 $('boatTimeline').innerHTML=tl(BOAT_TIMELINE); $('readyLog').innerHTML=tl(READY_LOG);
-$('photoGrid').innerHTML=BOAT_PHOTOS.length?BOAT_PHOTOS.map(p=>`<img src="${p.src}" alt="${esc(p.cap||'')}" loading="lazy" onclick="lb('${p.src}')">`).join(''):'<div class="placeholder" style="grid-column:1/-1">📸 Photos coming soon — the crew are dropping them in.</div>';
+$('photoGrid').innerHTML=BOAT_PHOTOS.length?BOAT_PHOTOS.map(p=>`<figure style="margin:0"><img src="${p.src}" alt="${esc(p.cap||'')}" loading="lazy" onclick="lb('${p.src}')"><figcaption class="small muted" style="font-size:11.5px;margin-top:3px">${esc(p.cap||'')}</figcaption></figure>`).join(''):'<div class="placeholder" style="grid-column:1/-1">📸 Photos coming soon — the crew are dropping them in.</div>';
 function lb(src){$('lb').querySelector('img').src=src;$('lb').classList.add('open')}
 
 /* ================= CHECKLISTS ================= */
@@ -965,8 +1159,92 @@ function renderConditions(data){
 const fmtD=d=>{const z=new Date(d.getTime()-d.getTimezoneOffset()*6e4);return z.toISOString().slice(0,10)};
 const fmtH=d=>d.toLocaleTimeString('en-AU',{hour:'numeric',minute:'2-digit'}).replace(':00','').replace(' ','');
 
+
+/* ================= LOGOS, MERCH & VOTING ================= */
+// Set this to the deployed Worker URL (see worker/README) to make votes shared live across phones.
+const VOTE_API = 'https://copco-votes.travishughes-836.workers.dev';
+const LOGOS = [
+  {id:'badge', name:'The Badge', blurb:'Sunrise, the boat, a snapper and four stars', src:'assets/copco-logo.png', print:'assets/copco-logo-print-3000.png'},
+  {id:'retro', name:"Retro '87", blurb:"Stripes lifted from the Commodore's own livery", src:'assets/copco-logo-retro.png', print:'assets/copco-logo-retro-print-3000.png'},
+  {id:'crest', name:'Yacht Club Crest', blurb:'Anchor, crossed rods — very Royal Brighton', src:'assets/copco-logo-crest.png', print:'assets/copco-logo-crest-print-3000.png'},
+  {id:'stamp', name:'Uncle Uncle Approved', blurb:'Seaworthy-ish. Certified.', src:'assets/copco-logo-stamp.png', print:'assets/copco-logo-stamp-print-3000.png'},
+];
+const PRODUCTS = [
+  {id:'cap', name:'Trucker cap', colors:['#0f2a44','#f1e4c8','#3d4a3a','#ffffff']},
+  {id:'tee', name:'T-shirt', colors:['#f4f1ea','#0f2a44','#c9b48f','#5d6b74']},
+  {id:'polo', name:'Polo', colors:['#ffffff','#0f2a44','#a7c4d4','#e0533d']},
+  {id:'jacket', name:'Fishing spray jacket', colors:['#0f2a44','#2f3a40','#e0533d','#f2b134']},
+  {id:'stubby', name:'Stubby holder', colors:['#0f2a44','#f4f1ea','#e0533d','#2a8c9a']},
+  {id:'towel', name:'Golf towel', colors:['#ffffff','#0f2a44','#2f5f3a']},
+  {id:'ball', name:'Golf ball', colors:['#ffffff']},
+  {id:'burgee', name:'Boat burgee (flag)', colors:['#0f2a44','#e0533d','#ffffff']},
+];
+S.votes=S.votes||{}; S.me=S.me||''; S.pcol=S.pcol||{};
+let remoteVotes=null;
+const shade=(hex,amt)=>{const n=parseInt(hex.slice(1),16);let r=(n>>16)+amt,g=(n>>8&255)+amt,b=(n&255)+amt;r=Math.max(0,Math.min(255,r));g=Math.max(0,Math.min(255,g));b=Math.max(0,Math.min(255,b));return '#'+((1<<24)|(r<<16)|(g<<8)|b).toString(16).slice(1)};
+function mockSVG(pid,col,logo){
+  const L=LOGOS.find(l=>l.id===logo).src, d=shade(col,-28), dd=shade(col,-55), hi=shade(col,25);
+  const img=(x,y,w)=>`<image href="${L}" x="${x}" y="${y}" width="${w}" height="${w}" preserveAspectRatio="xMidYMid meet"/>`;
+  const g=`<defs><linearGradient id="g${pid}${logo}" x1="0" x2="1"><stop offset="0" stop-color="${d}"/><stop offset=".45" stop-color="${hi}"/><stop offset="1" stop-color="${d}"/></linearGradient></defs>`;
+  const F=`url(#g${pid}${logo})`;
+  const P={
+    cap:`${g}<path d="M70,250 Q70,104 200,96 Q330,104 330,250 Z" fill="${F}" stroke="${dd}" stroke-width="3"/><path d="M200,96 L200,250 M130,112 Q112,180 120,250 M270,112 Q288,180 280,250" stroke="${dd}" stroke-width="2" fill="none" opacity=".5"/><circle cx="200" cy="98" r="8" fill="${dd}"/><path d="M52,248 Q200,236 348,248 Q352,300 200,322 Q48,300 52,248 Z" fill="${d}" stroke="${dd}" stroke-width="3"/>${img(135,128,130)}`,
+    tee:`${g}<path d="M140,60 Q200,92 260,60 L350,100 L322,172 L286,158 L286,360 L114,360 L114,158 L78,172 L50,100 Z" fill="${F}" stroke="${dd}" stroke-width="3" stroke-linejoin="round"/><path d="M140,60 Q200,108 260,60" fill="none" stroke="${dd}" stroke-width="5"/>${img(132,112,136)}`,
+    polo:`${g}<path d="M140,60 Q200,80 260,60 L350,100 L322,172 L286,158 L286,360 L114,360 L114,158 L78,172 L50,100 Z" fill="${F}" stroke="${dd}" stroke-width="3" stroke-linejoin="round"/><path d="M200,78 L200,150" stroke="${dd}" stroke-width="3"/><circle cx="200" cy="105" r="3.5" fill="${dd}"/><circle cx="200" cy="128" r="3.5" fill="${dd}"/><path d="M140,60 L196,82 L170,112 Z M260,60 L204,82 L230,112 Z" fill="${hi}" stroke="${dd}" stroke-width="3" stroke-linejoin="round"/>${img(226,132,56)}`,
+    jacket:`${g}<path d="M150,40 Q200,10 250,40 L262,82 L138,82 Z" fill="${d}" stroke="${dd}" stroke-width="3"/><path d="M120,72 L280,72 L330,112 L372,330 L332,342 L300,186 L300,372 L100,372 L100,186 L68,342 L28,330 L70,112 Z" fill="${F}" stroke="${dd}" stroke-width="3" stroke-linejoin="round"/><path d="M200,74 L200,372" stroke="${dd}" stroke-width="4" stroke-dasharray="3 3"/><path d="M110,262 L170,262 M230,262 L290,262" stroke="${dd}" stroke-width="3"/><rect x="28" y="320" width="44" height="16" fill="${dd}" transform="rotate(-12 50 328)"/><rect x="328" y="320" width="44" height="16" fill="${dd}" transform="rotate(12 350 328)"/>${img(222,110,62)}`,
+    stubby:`${g}<ellipse cx="200" cy="80" rx="62" ry="14" fill="#c9ced3" stroke="#8a9096" stroke-width="3"/><path d="M138,84 L138,96 L262,96 L262,84" fill="#b5bbc1"/><rect x="128" y="92" width="144" height="236" rx="12" fill="${F}" stroke="${dd}" stroke-width="3"/><ellipse cx="200" cy="328" rx="72" ry="14" fill="${d}" stroke="${dd}" stroke-width="3"/><path d="M128,104 Q200,118 272,104" stroke="${dd}" stroke-width="3" fill="none"/>${img(136,140,128)}`,
+    towel:`<path d="M200,30 Q225,30 225,55 L225,70 L175,70 L175,55 Q175,30 200,30Z" fill="none" stroke="#9aa1a8" stroke-width="7"/>${g}<path d="M110,70 L290,70 L296,370 L104,370 Z" fill="${F}" stroke="${dd}" stroke-width="3"/><circle cx="200" cy="92" r="11" fill="#c9ced3" stroke="#8a9096" stroke-width="3"/><path d="M106,340 L294,340" stroke="${dd}" stroke-width="3" stroke-dasharray="6 4"/>${img(140,190,120)}`,
+    ball:`<defs><radialGradient id="gb${logo}" cx=".38" cy=".35" r=".75"><stop offset="0" stop-color="#ffffff"/><stop offset=".7" stop-color="#e8ebee"/><stop offset="1" stop-color="#b8bec5"/></radialGradient><pattern id="dm${logo}" width="18" height="18" patternUnits="userSpaceOnUse"><circle cx="9" cy="9" r="4" fill="#000" opacity=".06"/></pattern></defs><ellipse cx="200" cy="340" rx="110" ry="16" fill="#000" opacity=".12"/><circle cx="200" cy="200" r="130" fill="url(#gb${logo})"/><circle cx="200" cy="200" r="130" fill="url(#dm${logo})"/>${img(132,132,136)}`,
+    burgee:`<rect x="62" y="40" width="10" height="340" rx="4" fill="#8a6a45"/><circle cx="67" cy="38" r="9" fill="#c9a24a"/>${g}<path d="M72,70 L352,170 L72,270 Z" fill="${F}" stroke="${dd}" stroke-width="3" stroke-linejoin="round"/>${img(84,108,124)}`,
+  };
+  return `<svg viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">${P[pid]}</svg>`;
+}
+const allVotes=()=>remoteVotes||S.votes;
+const myVote=()=>(S.me&&allVotes()[S.me])||{logo:'',items:{}};
+function tally(){const t={logo:{},items:{}};Object.values(allVotes()).forEach(v=>{if(v.logo)t.logo[v.logo]=(t.logo[v.logo]||0)+1;Object.entries(v.items||{}).forEach(([k,x])=>{t.items[k]=t.items[k]||{};t.items[k][x]=(t.items[k][x]||0)+1})});return t}
+function leader(obj){let b=null,n=0;Object.entries(obj||{}).forEach(([k,v])=>{if(v>n){b=k;n=v}});return b}
+async function castVote(patch){
+  if(!S.me){alert('First pick who you are (top of this page).');go('merch');return}
+  const v={...myVote(),items:{...myVote().items},...patch.logo?{logo:patch.logo}:{}};if(patch.item)v.items[patch.item]=patch.logo2;
+  S.votes[S.me]=v;save();
+  if(VOTE_API){try{remoteVotes=await fetch(VOTE_API+'/vote',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({member:S.me,...v})}).then(r=>r.json())}catch(e){}}
+  else if(remoteVotes) remoteVotes[S.me]=v;
+  renderMerch();
+}
+async function refreshVotes(force){if(!VOTE_API)return renderMerch();try{remoteVotes=await fetch(VOTE_API+'/votes',{cache:'no-store'}).then(r=>r.json())}catch(e){}renderMerch()}
+function logoCards(el,sel,onpick,showVotes){const t=tally();$(el).innerHTML=LOGOS.map(l=>`<button class="logopick ${sel===l.id?'on':''}" onclick="${onpick}('${l.id}')">${showVotes&&t.logo[l.id]?`<span class="votes">${t.logo[l.id]} ⭐</span>`:''}<img src="${l.src}" alt="${l.name}"><b>${l.name}</b><small>${l.blurb}</small></button>`).join('')}
+function renderMerch(){
+  const t=tally(), me=myVote();
+  $('voteMode').textContent=VOTE_API?'🟢 live — everyone sees votes':'📱 saved on this phone — share to group chat';
+  $('voterChips').innerHTML=CREW.map(c=>`<button class="chip ${S.me===c.id?'on':''}" onclick="S.me='${c.id}';save();renderMerch()">${c.name}</button>`).join('');
+  logoCards('logoVote',me.logo,'pickLogo',true);
+  $('merchVote').innerHTML=PRODUCTS.map(p=>{const col=S.pcol[p.id]||p.colors[0];return `<div style="margin:14px 0 4px"><b>${p.name}</b>${p.colors.length>1?`<div class="swatches">${p.colors.map(c=>`<span class="sw ${c===col?'on':''}" style="background:${c}" onclick="S.pcol['${p.id}']='${c}';save();renderMerch()"></span>`).join('')}</div>`:'<div style="height:8px"></div>'}<div class="mockrow">${LOGOS.map(l=>{const n=t.items[p.id]?.[l.id]||0;return `<div class="mock ${me.items?.[p.id]===l.id?'on':''}" onclick="castVote({item:'${p.id}',logo2:'${l.id}'})">${n?`<span class="votes">${n}</span>`:''}${mockSVG(p.id,col,l.id)}<div class="cap">${l.name}</div></div>`}).join('')}</div></div>`}).join('');
+  const lead=leader(t.logo), voters=Object.keys(allVotes());
+  $('voteResults').innerHTML=`<p><b>Official logo:</b> ${lead?`${LOGOS.find(l=>l.id===lead).name} leads (${t.logo[lead]} of ${voters.length} votes)`:'no votes yet'}</p>`+
+    `<p class="muted">Voted: ${CREW.map(c=>`${voters.includes(c.id)?'✅':'⏳'} ${c.name}`).join(' · ')}</p>`+
+    PRODUCTS.map(p=>{const w=leader(t.items[p.id]);return `<div class="item"><div class="main">${p.name}</div><div>${w?LOGOS.find(l=>l.id===w).name:'<span class="muted">—</span>'}</div></div>`}).join('');
+  $('printFiles').innerHTML=LOGOS.map(l=>`<li><a href="${l.print}" target="_blank" rel="noopener">${l.name} — 3000px PNG</a></li>`).join('')+'<li><a href="assets/copco-logo-2colour.png" target="_blank" rel="noopener">The Badge — 2-colour (screen print)</a></li>';
+  // header shows the leading logo
+  const hl=lead?LOGOS.find(l=>l.id===lead).src:'assets/copco-logo.svg'; document.querySelector('header.top img').src=hl;
+}
+function pickLogo(id){castVote({logo:id})}
+function shareVote(){const v=myVote();if(!S.me){alert('Pick who you are first');return}
+  const txt=`🗳️ ${nm(S.me)}'s CoPCO votes\nLogo: ${LOGOS.find(l=>l.id===v.logo)?.name||'—'}\n`+PRODUCTS.map(p=>`${p.name}: ${LOGOS.find(l=>l.id===v.items?.[p.id])?.name||'—'}`).join('\n')+`\n\nVote here: ${location.origin+location.pathname}#merch`;
+  if(navigator.share)navigator.share({title:'CoPCO vote',text:txt}).catch(()=>{});else{navigator.clipboard?.writeText(txt);alert('Copied — paste into the group chat')}}
+// first-run welcome: who are you + logo pick
+let wWho=S.me, wLogo='';
+function renderWelcome(){
+  $('welcomeWho').innerHTML=CREW.map(c=>`<button class="${wWho===c.id?'on':''}" onclick="wWho='${c.id}';renderWelcome()">${c.name}</button>`).join('');
+  logoCards('welcomeLogos',wLogo,'wPick',false);
+}
+function wPick(id){wLogo=id;renderWelcome()}
+function finishWelcome(){if(!wWho||!wLogo){alert('Pick who you are and a logo');return}S.me=wWho;S.welcomed=1;save();castVote({logo:wLogo});closeWelcome();go('merch')}
+function closeWelcome(){S.welcomed=1;save();$('welcome').classList.remove('open')}
+if(!S.welcomed){renderWelcome();$('welcome').classList.add('open')}
+
 /* ================= BOOT ================= */
-function renderAll(){renderChecks();renderMonths();renderSplit();renderMoney();renderTodo();renderWish()}
+function renderAll(){renderChecks();renderMonths();renderSplit();renderMoney();renderTodo();renderWish();renderMerch()}
+refreshVotes();
 renderAll(); loadConditions();
 const start=(location.hash||'#home').slice(1); go(VIEWS.some(v=>v[0]===start)?start:'home');
 addEventListener('hashchange',()=>{const v=location.hash.slice(1);if(VIEWS.some(x=>x[0]===v))go(v)});

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" width="1000" height="1000">
+  <title>CoPCO — Yacht Club Crest</title>
+  <defs><g id="st"><path d="M0,-20 L6,-6 L20,-6 L9,3 L13,18 L0,9 L-13,18 L-9,3 L-20,-6 L-6,-6 Z"/></g></defs>
+  <!-- shield -->
+  <path d="M250,190 L750,190 L750,520 Q750,760 500,880 Q250,760 250,520 Z" fill="#0f2a44" stroke="#e7b24a" stroke-width="18"/>
+  <path d="M286,226 L714,226 L714,516 Q714,728 500,836 Q286,728 286,516 Z" fill="none" stroke="#f4ead5" stroke-width="4"/>
+  <!-- crossed rods -->
+  <g stroke="#e7b24a" stroke-width="12" stroke-linecap="round" fill="none">
+    <path d="M330,760 L670,330"/><path d="M670,760 L330,330"/>
+    <path d="M330,330 Q300,420 312,470" stroke-width="4"/><path d="M670,330 Q700,420 688,470" stroke-width="4"/>
+    <circle cx="380" cy="697" r="16" stroke-width="8"/><circle cx="620" cy="697" r="16" stroke-width="8"/>
+  </g>
+  <!-- anchor -->
+  <g fill="none" stroke="#f4ead5" stroke-width="26" stroke-linecap="round">
+    <circle cx="500" cy="340" r="34"/>
+    <path d="M500,374 L500,740"/>
+    <path d="M420,430 L580,430"/>
+    <path d="M372,640 Q400,760 500,768 Q600,760 628,640"/>
+  </g>
+  <path d="M350,612 L392,672 L340,668 Z M650,612 L608,672 L660,668 Z" fill="#f4ead5"/>
+  <!-- stars -->
+  <g fill="#e7b24a"><use href="#st" x="380" y="270"/><use href="#st" x="440" y="262" transform=""/><use href="#st" x="560" y="262"/><use href="#st" x="620" y="270"/></g>
+  <!-- top ribbon -->
+  <path d="M150,120 L850,120 L820,160 L850,200 L150,200 L180,160 Z" fill="#e0533d" stroke="#0f2a44" stroke-width="8"/>
+  <text x="500" y="186" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="76" letter-spacing="14" fill="#f4ead5">CoPCO</text>
+  <!-- bottom ribbon -->
+  <path d="M130,860 L870,860 L840,900 L870,940 L130,940 L160,900 Z" fill="#f4ead5" stroke="#0f2a44" stroke-width="8"/>
+  <text x="500" y="912" text-anchor="middle" font-family="Georgia,'Times New Roman',serif" font-weight="700" font-size="25" letter-spacing="2" fill="#0f2a44">PLEASURE CRAFT OWNERS · MMXXVI</text>
+</svg>
