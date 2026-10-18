@@ -7,7 +7,7 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 
 ---
 
-## 1. Original brief (Travis, 18-10-2026) — every item tracked
+## 1. Original brief (Merv, 18-10-2026) — every item tracked
 
 | # | Ask | Status | Notes |
 |---|-----|--------|-------|
@@ -19,7 +19,7 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 | 6 | Directory for photos + Gemini chat | ✅ | `inbox/` (gitignored). 18 curated photos published to `photos/` (EXIF/GPS stripped; rego papers with owner name/address deliberately NOT published) |
 | 7 | **Boat section** — everything we know, history, assumed value | ✅ | Identity, specs, builder history, value table, good-for/not, inspection checklist, 18 photos |
 | 8 | Explore the boat's history, value, good for / not | ✅ | Caribbean 205 Commodore, International Marine (Scoresby, est. 1958). As-is ~$4–8k; running ~$9–15k |
-| 9 | Examples of what it looked like new | 🟡 | **Travis to ring Caribbean (03 9763 7233)** quoting Model P209 / s/n 2513 — build year + brochure. Fallbacks: Trove, ANMM, Pride President 20.5, Ausfish |
+| 9 | Examples of what it looked like new | 🟡 | **Merv to ring Caribbean (03 9763 7233)** quoting Model P209 / s/n 2513 — build year + brochure. Fallbacks: Trove, ANMM, Pride President 20.5, Ausfish |
 | 10 | Realities of fishing: towing capacity | ✅ | Rig ~1.7–2.1t est.; Kia Carnival borderline; calculator. Real weight needs a weighbridge |
 | 11 | Hints and tricks | ✅ | On the Water tab |
 | 12 | Boat licence, fishing licence, rego, insurance — what, cost, easiest, how long | ✅ | Get Legal tab |
@@ -30,12 +30,12 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 | 17 | Fishing season guide — what when, weather | ✅ | Seasons tab |
 | 18 | Watch conditions / when fishing is good, automated | ✅ | Gorn Index (Open-Meteo, live on open). 🧊 push alerts ("Saturday looks great") — needs a scheduled job |
 | 19 | Scrape a fishing website/service | 🧊 | Decided against scraping (ToS/CORS); link out to VFA/BOM instead |
-| 20 | Money tracker | ✅ | Split 4 ways + settle-up. 🧊 live shared sync (could reuse the vote Worker) |
+| 20 | Money tracker | ✅ | Split 4 ways + settle-up, shared live across phones |
 | 21 | To-do list | ✅ | Now / Before maiden / Shopping / Someday |
 | 22 | Upgrade options; boat cover cost & where | ✅ | Upgrades tab |
 | 23 | Do up the cabin on the cheap — ideas, layout, fridge, examples, how-to, cost | 🟡 | Live; **todo:** add Caribbean-specific refit examples (The Captain Invader rebuild, Trade-a-Boat project) |
 
-## 2. Second round (Travis, 18-10-2026)
+## 2. Second round (Merv, 18-10-2026)
 
 | # | Ask | Status | Notes |
 |---|-----|--------|-------|
@@ -48,8 +48,8 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 | 30 | README + backlog | ✅ | This file + README.md |
 
 ## 3. Next up (suggested order)
-1. 🙋 **Travis:** ring Caribbean (03 9763 7233) — Model P209, s/n 2513 → build year, original spec, brochure/photos. Feed answers back here.
-2. ⬜ **Shared kitty + to-dos** — reuse the `copco-votes` Worker so all four phones see the same expenses and jobs (right now each phone keeps its own).
+1. 🙋 **Merv:** ring Caribbean (03 9763 7233) — Model P209, s/n 2513 → build year, original spec, brochure/photos. Feed answers back here.
+2. ✅ **Shared kitty + to-dos + wishlist** — `GET /state`, `POST /op` on the `copco-votes` Worker; offline queue; daily KV backups (`backup-YYYY-MM-DD`, 60 days).
 3. ⬜ **Caribbean refit examples** in Upgrades (The Captain Invader rebuild ~$35k, Trade-a-Boat 1976 Invader $32,450 breakdown, Ausfish restored-cruiser thread) + a Commodore-specific cabin plan.
 4. ⬜ **Boat name poll** — same voting engine as the logo.
 5. ⬜ **Mechanic outcome** — when the brother reports back: diagnosis, compression numbers, transom verdict → update value, stage bar (→ Service), kitty.
@@ -57,7 +57,15 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 7. 🧊 Push alerts for good fishing days (scheduled Worker cron → ntfy/email).
 8. 🧊 Trip & catch log with photos (needs Worker + R2 storage).
 
+## 3b. Third round (Merv, 18-10-2026)
+| # | Ask | Status |
+|---|---|---|
+| 31 | Start shared kitty/to-dos | ✅ |
+| 32 | Rename: Travis → Merv, Jason → Ace (crew nicknames everywhere) | ✅ (no Jason mentions existed) |
+| 33 | Explain why a 4-stroke is an "upgrade" | ✅ "Keep the two-stroke, or repower?" card on the Boat tab |
+
 ## 4. Open questions for the crew
+- Is "Merv's brother" (taking the boat to the mechanic) Ace?
 - Purchase price agreed with Uncle Uncle?
 - Whose name goes on the rego?
 - Which mechanic: Outboard Motor Services (Bayswater) vs Streaker (Bayswater, Yamaha dealer) vs Regal (Vermont) vs JV Marine (Braeside — the original dealer)?

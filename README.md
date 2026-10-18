@@ -26,9 +26,9 @@ The official app of **CoPCO — the Co-operative of Pleasure Craft Owners**: Mer
 - `assets/` — CoPCO logos (SVG source, PNG, 3000px print PNGs, 2-colour screen-print version).
 - `photos/` — curated boat photos (resized, EXIF/GPS stripped). Rego papers are deliberately not published (owner name/address).
 - `research/` — deep-research notes on the boat (`boat.md`) and engine (`engine.md`), with sources.
-- `worker/` — **copco-votes** Cloudflare Worker + KV (`https://copco-votes.travishughes-836.workers.dev`). `GET /votes`, `POST /vote {member, logo, items}` — one record per member. Deploy: `cd worker && npx wrangler deploy`. Reset votes: `npx wrangler kv key put --binding=VOTES --remote votes '{}'`.
+- `worker/` — **copco-votes** Cloudflare Worker + KV (`https://copco-votes.travishughes-836.workers.dev`). `GET /votes`, `POST /vote {member, logo, items}` — one record per member; plus the shared kitty/to-dos (below). Deploy: `cd worker && npx wrangler deploy`. Reset votes: `npx wrangler kv key put --binding=VOTES --remote votes '{}'`.
 - `inbox/` — **gitignored** drop zone for raw photos / chat exports.
-- Money, to-dos and checklists save per phone (localStorage) with export/import + share. Live sync could reuse the Worker (see BACKLOG).
+- Money, to-dos and the upgrade wishlist are **shared live** via the Worker (`GET /state`, `POST /op {coll, op}`); changes queue offline and flush in order; daily KV backups. Checklists and the Gorn Index cache stay per phone.
 - Conditions: Open-Meteo forecast + marine APIs (keyless, CORS), cached 30 min. Tide timing is modelled — indicative only.
 
 ## Backlog
