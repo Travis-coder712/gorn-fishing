@@ -228,7 +228,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
     <div>
       <div class="eyebrow">The official app of CoPCO</div>
       <h1>Gorn Fishing</h1>
-      <p>Merv, Ace, Bouncing and Flash — plus Northy, still standing on the jetty — one 1980s Caribbean Commodore from Bouncing's Uncle Uncle, and the whole of Port Phillip Bay. Everything we know, owe, need and want — in one place.</p>
+      <p>Merv, Ace and Bouncing — plus Flash and Northy, both still standing on the jetty — one 1980s Caribbean Commodore from Bouncing's Uncle Uncle, and the whole of Port Phillip Bay. Everything we know, owe, need and want — in one place.</p>
     </div>
   </div>
 
@@ -300,7 +300,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
       </tbody>
     </table></div>
     <p class="small"><b>Biggest swing factor:</b> the plywood transom & stringers. A wet transom can turn a $12k boat into a $3k project. <b>Second:</b> whether the V6 has healthy compression once it sparks. <b>Mates' rates</b> on a non-runner: roughly $3–8k depending on what the transom check finds.</p>
-    <p class="small" style="background:rgba(216,116,47,.12);border:1px solid var(--coral);border-radius:12px;padding:10px 12px"><b>Our price: $12,000.</b> That's top-of-range for a <i>running</i> boat with a sound hull — and ~$4–8k above what she's worth as a non-runner today. Fair if the mechanic gets the V6 going with good compression and the transom's solid. <b>Suggest:</b> agree it as "$12k subject to the mechanic's report", with Uncle Uncle covering (or knocking off) the cost of any major fault found — e.g. ignition parts, a wet transom. Per share: $3,000 (25%) · $1,500 (12.5%).</p>
+    <p class="small" style="background:rgba(216,116,47,.12);border:1px solid var(--coral);border-radius:12px;padding:10px 12px"><b>Our price: $12,000.</b> That's top-of-range for a <i>running</i> boat with a sound hull — and ~$4–8k above what she's worth as a non-runner today. Fair if the mechanic gets the V6 going with good compression and the transom's solid. <b>Suggest:</b> agree it as "$12k subject to the mechanic's report", with Uncle Uncle covering (or knocking off) the cost of any major fault found — e.g. ignition parts, a wet transom. Per share: $3,000 (25%) · $1,500 (12.5%) — or $4,000 each for the three committed owners if Flash and Northy stay on the jetty.</p>
     <p class="small muted">Gemini's earlier "$11–18k turn-key" is fair for a <i>running</i> boat with a sound hull — $18k is dealer money. Too high for her today.</p>
   </div>
 
@@ -458,7 +458,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
       <p class="small muted">A <i>tontine</i> was originally a 17th-century investment scheme: everyone paid in, and the payouts were shared among the survivors until the last one took the lot. They're banned as financial products today, but the "last survivor takes all" idea is legal for jointly owned property. In Australia it's called <b>joint tenancy with right of survivorship</b>: when one joint owner dies, their interest passes automatically to the others and doesn't go through their will. (Yes, it's also the plot of the Simpsons' Flying Hellfish episode.)</p>
       <h4 style="margin:12px 0 4px">Draft clauses</h4>
       <ol class="tidy small">
-        <li><b>Ownership.</b> The vessel, trailer and gear are owned by the members as <b>joint tenants</b>. Interests: Merv 25%, Ace 25%, Bouncing 25%, Flash 12.5%, Northy 12.5% (Northy's interest takes effect when he signs — until then the others carry it).</li>
+        <li><b>Ownership.</b> The vessel, trailer and gear are owned by the members as <b>joint tenants</b>. Interests: Merv 25%, Ace 25%, Bouncing 25%, Flash 12.5%, Northy 12.5% (Flash's and Northy's interests take effect when they sign — until then Merv, Ace and Bouncing carry them).</li>
         <li><b>Survivorship.</b> When a member dies, their interest passes to the surviving members in proportion to their shares. The last surviving member becomes sole owner.</li>
         <li><b>No exit.</b> No member may sell, mortgage or give away their interest. Membership ends only by death (or by unanimous vote of the others).</li>
         <li><b>Pay your way.</b> Costs are split by share through the CoPCO kitty. A member who's more than 6 months behind loses their vote on spending until they catch up. (Optional harder version: unpaid for 12 months = interest forfeits to the others.)</li>
@@ -1061,7 +1061,7 @@ const CREW = [
   {id:'merv', name:'Merv', col:'#e0533d', share:.25, signed:true},
   {id:'ace', name:'Ace', col:'#2a8c9a', share:.25, signed:true},
   {id:'bouncing', name:'Bouncing', col:'#7b6fd6', share:.25, signed:true, note:'home port: Seaford'},
-  {id:'mervson', name:'Flash', col:'#4f9d69', share:.125, signed:true, note:"Merv's son · half of the 4th share"},
+  {id:'mervson', name:'Flash', col:'#4f9d69', share:.125, signed:false, note:"Merv's son · NOT COMMITTED — on the jetty too"},
   {id:'northy', name:'Northy', col:'#e7b24a', share:.125, signed:false, note:'HOLDOUT — still on the jetty'},
 ];
 const SHARE=Object.fromEntries(CREW.map(c=>[c.id,c.share]));
@@ -1101,7 +1101,7 @@ const BOAT_FACTS = [
   ['Originally sold by','J.V. Marine (JV Marine World, Braeside — est. 1976 by John & Vicki Stav)'],
   ['Registration','Papers show paid to 23 Nov 2025. If Uncle Uncle renewed in Nov 2025 it\'s current; if not, it lapsed >3 months and is cancelled → fresh registration. TBC.'],
   ['Came from','Bouncing\'s "Uncle Uncle" — currently parked in Heathmont'],
-  ['Price','$12,000 agreed (so far) — Merv/Ace/Bouncing $3,000 each, Flash & Northy $1,500 each'],
+  ['Price','$12,000 agreed (so far) — $3,000 per 25% share, $1,500 per 12.5%. Until Flash & Northy commit: Merv/Ace/Bouncing $4,000 each'],
   ['Name','TBC — needs a name!'],
 ];
 const BOAT_TIMELINE = [
@@ -1686,7 +1686,7 @@ function renderTrips(){
 
 /* ================= APP VERSION ================= */
 // Bump APP_VERSION here AND in version.json together on every release.
-const APP_VERSION='1.9.0', APP_DATE='18-10-2026';
+const APP_VERSION='1.9.1', APP_DATE='18-10-2026';
 $('verLine').innerHTML=`<b>Version ${APP_VERSION}</b> · ${APP_DATE} · <span id="verCheck">checking for updates…</span>`;
 $('verMore').textContent='v'+APP_VERSION;
 async function checkVersion(){

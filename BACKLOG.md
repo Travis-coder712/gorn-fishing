@@ -87,7 +87,7 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 | 43 | Photos of sister Commodores (1980 listing, JV Marine, Pride President threads) | ✅ Boat tab |
 
 ## 4. Open questions for the crew
-- When Northy signs: flip `signed:true` in `CREW`. If he never does, does Flash take the full 25%?
+- When Flash / Northy sign: flip `signed:true` in `CREW`. If neither commits, the 4th quarter is split three ways (or sold?).
 - Solicitor for the tontine one-pager? (joint tenancy can be severed by notice/bankruptcy — agreement + wills matter)
 - Whose name goes on the rego?
 - Which mechanic: Outboard Motor Services (Bayswater) vs Streaker (Bayswater, Yamaha dealer) vs Regal (Vermont) vs JV Marine (Braeside — the original dealer)?
@@ -104,6 +104,8 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 |---|---|---|
 | 53 | Conditions tab: what's running now, bait, depth, habitat (shallows/weed/reef), where | ✅ v1.9.0 "What's running" card (`data/species-guide.json`) |
 | 54 | Pleasure-craft destinations: seals, swim spots, lunch stops, + no-fishing zones & hazards | ✅ v1.9.0 Leaflet map + list with run time & fuel cost (`data/spots.json`; pins checked against OpenStreetMap — Chinaman's Hat & Mud Islands corrected) |
+
+| 55 | Flash → not committed (same as Northy) | ✅ v1.9.1 — kitty default split now Merv/Ace/Bouncing ⅓ each |
 
 ## 5. Should look deeper (self-review, 18-10-2026)
 | # | Item | Why it matters | Status |
