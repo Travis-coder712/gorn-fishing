@@ -911,7 +911,7 @@ const SPOTS = [
 const CATS = ['Purchase','Mechanic & parts','Fuel','Rego & licences','Insurance','Safety gear','Fishing gear','Upgrades','Other'];
 const SEED_TODOS = [
   {t:'Book marine mechanic near Heathmont — no-spark diagnosis, drain old fuel, compression test', who:'Travis\'s brother', list:'Now'},
-  {t:'Ring Caribbean (03 9763 7233) — Model P209, s/n 2513: build year + brochure?', who:'', list:'Now'},
+  {t:'Ring Caribbean (03 9763 7233) — Model P209, s/n 2513: build year + brochure?', who:'Travis', list:'Now'},
   {t:'Transom & stringer check (mallet test, flex test) before paying', who:'', list:'Now'},
   {t:'Agree a price with Uncle Uncle (as-is value ~$4–8k)', who:'Bouncing', list:'Now'},
   {t:'Renew boat rego (expired 23 Nov 2025)', who:'', list:'Now'},
@@ -1041,7 +1041,7 @@ function importData(inp){const f=inp.files[0];if(!f)return;f.text().then(t=>{try
   S.expenses.sort((a,b)=>(b.date||'').localeCompare(a.date||''));save();renderAll();alert('Merged.')}catch(e){alert('Not a valid backup file')}})}
 
 /* ================= TODO ================= */
-const WHO_OPTS=['',...CREW.map(c=>c.name),'Travis\'s brother','Everyone'];
+const WHO_OPTS=['',...CREW.map(c=>c.name),'Travis','Travis\'s brother','Everyone'];
 $('tdWho').innerHTML=WHO_OPTS.map(w=>`<option>${w}</option>`).join('');
 let tdF='All';
 function addTodo(){const t=$('tdText').value.trim();if(!t)return;S.todos.unshift({id:Date.now().toString(36),t,who:$('tdWho').value,list:$('tdList').value,done:false});save();$('tdText').value='';renderTodo()}
