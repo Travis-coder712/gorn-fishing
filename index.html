@@ -200,6 +200,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
 </style>
 </head>
 <body>
+<div id="updBanner" style="display:none;position:sticky;top:0;z-index:45;background:var(--gold);color:#0b1e33;text-align:center;font-weight:700;font-size:14px;padding:8px 12px;cursor:pointer" onclick="location.reload()"></div>
 <header class="top"><div class="wrap">
   <img src="assets/copco-logo.svg" alt="CoPCO badge">
   <div><b>Gorn Fishing</b><span>CoPCO · PPB</span></div>
@@ -419,8 +420,8 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
       </table></div>
       <p class="small muted">An EPIRB isn't mandatory inside the bay but is cheap insurance. Check expiry dates on any flares and extinguishers that come with the boat. Display the ST173 minimum-safety-equipment sticker. <a href="https://safetransport.vic.gov.au/on-the-water/recreational-boating/safety-equipment/" target="_blank" rel="noopener">Safe Transport Victoria — safety equipment</a></p>
     </details>
-    <details open><summary>⚰️ The CoPCO Tontine (our co-op agreement)</summary>
-      <p><b>The deal: last one standing owns the boat.</b> No selling out, no buy-outs. When an owner dies, their share passes to the surviving owners. The final survivor gets the boat (and the fuel bill).</p>
+    <details open><summary>⚰️ The Commodore's Folly (our tontine agreement)</summary>
+      <p><b>The Commodore's Folly</b> is CoPCO's co-ownership agreement — a tontine. <b>The deal: last one standing owns the boat.</b> No selling out, no buy-outs. When an owner dies, their share passes to the surviving owners. The final survivor gets the boat (and the fuel bill).</p>
       <p class="small muted">A <i>tontine</i> was originally a 17th-century investment scheme: everyone paid in, and the payouts were shared among the survivors until the last one took the lot. They're banned as financial products today, but the "last survivor takes all" idea is legal for jointly owned property. In Australia it's called <b>joint tenancy with right of survivorship</b>: when one joint owner dies, their interest passes automatically to the others and doesn't go through their will. (Yes, it's also the plot of the Simpsons' Flying Hellfish episode.)</p>
       <h4 style="margin:12px 0 4px">Draft clauses</h4>
       <ol class="tidy small">
@@ -913,7 +914,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
   </div>
 </section>
 
-<footer>Gorn Fishing · CoPCO · Co-operative of Pleasure Craft Owners · Est. 2026<br>Facts tagged <span class="tag v">✓</span> <span class="tag est">est.</span> <span class="tag chk">verify</span> — check official sources before you rely on them.</footer>
+<footer><div id="verLine" style="margin-bottom:6px"></div>Gorn Fishing · CoPCO · Co-operative of Pleasure Craft Owners · Est. 2026<br>Facts tagged <span class="tag v">✓</span> <span class="tag est">est.</span> <span class="tag chk">verify</span> — check official sources before you rely on them.</footer>
 </main>
 
 
@@ -928,7 +929,7 @@ footer{color:var(--faint);font-size:12px;text-align:center;margin:30px 0 10px}
   <p style="text-align:center"><a href="#" onclick="closeWelcome();return false" class="small">Just looking — skip</a></p>
 </div></div>
 <nav class="bottom" id="nav"></nav>
-<div class="sheet" id="more" onclick="if(event.target===this)this.classList.remove('open')"><div class="inner"><h3>More</h3><div class="menu" id="moreMenu"></div></div></div>
+<div class="sheet" id="more" onclick="if(event.target===this)this.classList.remove('open')"><div class="inner"><div class="dayhead"><h3>More</h3><span class="small muted" id="verMore"></span></div><div class="menu" id="moreMenu"></div></div></div>
 <div class="lightbox" id="lb" onclick="this.classList.remove('open')"><img alt=""></div>
 
 <script>
@@ -1541,6 +1542,23 @@ function renderTrips(){
   $('homeTrip').style.display=last?'':'none';
   if(last)$('homeTrip').innerHTML=`<div class="dayhead"><h3>🎣 Last trip</h3><a href="#" onclick="go('trips');return false" class="small">Logbook →</a></div><p class="small">${last.date} · ${esc(last.ramp)} · ${last.who.map(nm).join(', ')} — <b>${last.catches.length} fish</b>${last.catches.length?` (best: ${(()=>{const b=[...last.catches].sort((a,b)=>b.len-a.len)[0];return esc(b.species)+(b.len?' '+b.len+'cm':'')})()})`:' 🍩'}</p>${last.photos[0]?`<img src="${photoURL(last.photos[0])}" alt="" style="width:100%;max-height:220px;object-fit:cover;border-radius:12px" onclick="lb('${photoURL(last.photos[0])}')">`:''}`;
 }
+
+
+/* ================= APP VERSION ================= */
+// Bump APP_VERSION here AND in version.json together on every release.
+const APP_VERSION='1.6.0', APP_DATE='18-10-2026';
+$('verLine').innerHTML=`<b>Version ${APP_VERSION}</b> · ${APP_DATE} · <span id="verCheck">checking for updates…</span>`;
+$('verMore').textContent='v'+APP_VERSION;
+async function checkVersion(){
+  try{const v=await fetch('version.json?t='+Date.now(),{cache:'no-store'}).then(r=>r.json());
+    const newer=v.version!==APP_VERSION;
+    $('verCheck').textContent=newer?`v${v.version} is out — tap the yellow bar to update`:'✅ latest version';
+    $('updBanner').style.display=newer?'block':'none';
+    $('updBanner').textContent=`New version ${v.version} available — tap to update`;
+  }catch(e){$('verCheck').textContent='offline — can\'t check'}
+}
+checkVersion();
+document.addEventListener('visibilitychange',()=>{if(!document.hidden)checkVersion()});
 
 /* ================= BOOT ================= */
 function renderAll(){renderChecks();renderMonths();renderSplit();renderMoney();renderTodo();renderWish();renderMerch();renderNames();renderOrder();renderTrips()}

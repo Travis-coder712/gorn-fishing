@@ -1,6 +1,6 @@
 # Gorn Fishing 🎣
 
-The official app of **CoPCO — the Co-operative of Pleasure Craft Owners**: Merv, Ace and Bouncing (25% each) and Merv's son (12.5%) — with Northy's 12.5% held open while he stands on the jetty — co-owners under a tontine of a 1980s **Caribbean 205 Commodore** (International Marine, Scoresby) with a Yamaha V6 200 two-stroke, bought from Bouncing's Uncle Uncle.
+The official app of **CoPCO — the Co-operative of Pleasure Craft Owners**: Merv, Ace and Bouncing (25% each) and Merv's son (12.5%) — with Northy's 12.5% held open while he stands on the jetty — co-owners under **The Commodore's Folly** (our tontine) of a 1980s **Caribbean 205 Commodore** (International Marine, Scoresby) with a Yamaha V6 200 two-stroke, bought from Bouncing's Uncle Uncle.
 
 **Live:** https://travis-coder712.github.io/gorn-fishing/ — open on your phone and *Add to Home Screen*.
 
@@ -24,6 +24,7 @@ The official app of **CoPCO — the Co-operative of Pleasure Craft Owners**: Mer
 ## How it's built
 - `index.html` — the whole app (no build step). Content lives in data arrays at the top of the script: `CREW`, `BOAT_PHOTOS`, `BOAT_FACTS`, `BOAT_TIMELINE`, `READY_LOG`, `STAGE_NOW`, `MONTHS`, `LOGOS`, `PRODUCTS`, `SEED_TODOS`.
 - `sw.js` — network-first service worker. **Bump `CACHE` when assets change.**
+- **Versioning:** `APP_VERSION` in index.html **and** `version.json` must be bumped together each release. The footer and More sheet show the version; the app checks `version.json` on open and shows a yellow "New version — tap to update" bar if the phone is behind.
 - `assets/` — CoPCO logos (SVG source, PNG, 3000px print PNGs, 2-colour screen-print version).
 - `photos/` — curated boat photos (resized, EXIF/GPS stripped). Rego papers are deliberately not published (owner name/address).
 - `research/` — deep-research notes on the boat (`boat.md`) and engine (`engine.md`), with sources.

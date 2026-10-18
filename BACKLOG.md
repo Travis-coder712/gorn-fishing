@@ -67,9 +67,16 @@ Legend: ✅ done · 🟡 in progress / partial · ⬜ to do · 🧊 parked / nic
 ## 3c. Fourth round (Merv, 18-10-2026)
 | # | Ask | Status |
 |---|---|---|
-| 34 | Drop the exit/buy-out clause → **tontine** (last one alive owns the boat) | ✅ Draft "CoPCO Tontine" (joint tenancy with right of survivorship) in Get Legal — needs a solicitor's one-pager |
+| 34 | Drop the exit/buy-out clause → **tontine** (last one alive owns the boat) | ✅ Draft tontine — named **"The Commodore's Folly"** (joint tenancy with right of survivorship) in Get Legal — needs a solicitor's one-pager |
 | 35 | Northy not over the line — don't call him a 25% owner | ✅ Shown as HOLDOUT, unsigned, 12.5% held open |
 | 36 | Add Merv's son as a part share; Northy + Merv's son halves of the 4th share | ✅ Merv/Ace/Bouncing 25% each, Merv's son 12.5%, Northy 12.5% (unsigned). Kitty splits by share; Northy left out of default splits until he signs |
+
+## 3d. Fifth round (Merv, 18-10-2026)
+| # | Ask | Status |
+|---|---|---|
+| 37 | Is merch realistic? Quality vs cheap items, costs | ✅ Answered; realistic prices + suppliers in app (`research/` not needed) |
+| 38 | Name the tontine "The Commodore's Folly" | ✅ |
+| 39 | App version so we can tell if we're on the latest | ✅ v1.6.0 — footer + More sheet + update bar via `version.json` |
 
 ## 4. Open questions for the crew
 - Merv's son — name/nickname for the app?
